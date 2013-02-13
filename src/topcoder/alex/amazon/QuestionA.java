@@ -82,7 +82,7 @@ public class QuestionA {
 				if (tower[i] < tower[j] + 1
 						&& totalWeight[j] <= parameterList.get(i).s) {
 					tower[i] = tower[j] + 1;
-					totalWeight[i] = totalWeight[i] + totalWeight[j];
+					totalWeight[i] = parameterList.get(i).m + totalWeight[j];
 					if (tower[i] > max)
 						max = tower[i];
 				}
@@ -91,6 +91,34 @@ public class QuestionA {
 		return max;
 	}
 
+ public static int maxAthletes2(final Integer n, final List<Pair<Integer, Integer>> parameterList) {
+        Collections.sort(parameterList, new Comparator<Pair<Integer, Integer>>() {
+            @Override
+            public int compare(final Pair<Integer, Integer> o1, final Pair<Integer, Integer> o2) {
+                if (o1.m > o2.m)
+                    return 1;
+                if (o1.m < o2.m)
+                    return -1;
+                if (o1.m == o2.m) {
+                    if (o1.s > o2.s)
+                        return 1;
+                    if (o1.s < o2.s)
+                        return -1;
+                }
+                return 0;
+            }
+        });
+        int max = 1;
+        int tw = parameterList.get(0).m;
+        for (int i = 1; i < parameterList.size(); i++) {
+            Pair<Integer, Integer> p = parameterList.get(i);
+            if (p.s >= tw) {
+                max++;
+                tw += p.m;
+            }
+        }
+        return max;
+    }
 	/**
 	 * @param args
 	 */
