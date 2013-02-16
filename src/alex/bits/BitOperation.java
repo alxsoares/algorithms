@@ -108,35 +108,38 @@ public class BitOperation {
 		i = (i << 24) | ((i & 0xff00) << 8) | ((i >>> 8) & 0xff00) | (i >>> 24);
 		return i;
 	}
-	public static int reverseBits(int n){
-		int m =0;
-		for(int i=0; i <32;i++){
-			int temp = 1&(n>>i);
-			m = m|(temp<<(31-i));
+
+	public static int reverseBits(int n) {
+		int m = 0;
+		for (int i = 0; i < 32; i++) {
+			int temp = 1 & (n >> i);
+			m = m | (temp << (31 - i));
 		}
 		return m;
 	}
-	
-	public static int reverseBits2(int n){
-		int r =0;
-		int i=0;
-		while(n!=0){
-			r<<=1;
-			r =r | (1 & (n));
-			n>>=1;
-			i++;
+
+	public static int reverseBits2(int n) {
+		int r = 0;
+		for (int i = 0; i < 32; i++) {
+			r <<= 1;
+			r = r | (1 & n);
+			n >>= 1;
 		}
-		return (r<<(32-i));
+		return r;
 	}
+
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		System.out.printf("%d\n", Integer.reverse(0XF0FFFF0F));
 		System.out.println(isBitPalindrome(0XF0FFFF0F));
-		int i=0X0000FFFF;
-		System.out.printf("%s %s %s\n",Integer.toBinaryString(i), Integer.toBinaryString(reverseBits(i)),Integer.toBinaryString(reverseBits2(i)) );
-		System.out.printf("%d %d %d %d\n", Integer.reverse(i), reverse(i), reverseBits(i), reverseBits2(i));
+		int i = 0X0000FFFF;
+		System.out.printf("%s %s %s\n", Integer.toBinaryString(i),
+				Integer.toBinaryString(reverseBits(i)),
+				Integer.toBinaryString(reverseBits2(i)));
+		System.out.printf("%d %d %d %d\n", Integer.reverse(i), reverse(i),
+				reverseBits(i), reverseBits2(i));
 	}
 
 }
