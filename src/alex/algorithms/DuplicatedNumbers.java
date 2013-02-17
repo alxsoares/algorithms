@@ -27,11 +27,17 @@ public class DuplicatedNumbers {
 				return slow;
 		}
 	}
-
+	public static int findDuplicated(int[] array){
+		int a=0;
+		for(int i=0; i< array.length; i++){
+			a = a ^ array[i] ^ i;
+		}
+		return a;
+	}
 	public static void main(String[] args) {
-		int arr[] = {1,2,3,4,5,6,7,8,1,9,1};
+		int arr[] = {1,2,3,4,5,6,7,8,9,2};
 		System.out.printf("%d\n",findUniqueNumber(arr));
-		System.out.printf("%d\n",findDuplicateNumber(arr));
+		System.out.printf("%d\n",findDuplicated(arr));
 	}
 
 }
