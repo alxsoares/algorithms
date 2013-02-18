@@ -68,7 +68,14 @@ public class BitOperation {
 		// n=0001000.....
 		return ((n & (n - 1)) == 0);
 	}
-
+	public static int countNumberOfOnes(int n){
+		int count =0;
+		while(n > 0){
+			n = n & (n-1);
+			count++;
+		}
+		return count;
+	}
 	public static int updateBits(int n, int m, int i, int j) {
 		int allOnes = ~0;
 		// 1110000000000...
@@ -140,6 +147,7 @@ public class BitOperation {
 				Integer.toBinaryString(reverseBits2(i)));
 		System.out.printf("%d %d %d %d\n", Integer.reverse(i), reverse(i),
 				reverseBits(i), reverseBits2(i));
+		System.out.printf("Num of ones =%d\n",countNumberOfOnes(3));
 	}
 
 }
