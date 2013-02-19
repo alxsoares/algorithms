@@ -1,5 +1,6 @@
 package topcoder.alex.misc;
 
+
 public class TransposeMatrix {
 
 	static int pred(int k, int L, int M) {
@@ -98,5 +99,6 @@ public class TransposeMatrix {
 			}
 			System.out.println();
 		}
+		
 	}
 }

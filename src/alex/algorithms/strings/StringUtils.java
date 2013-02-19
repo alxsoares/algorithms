@@ -60,10 +60,30 @@ public class StringUtils {
 		return sb.toString();
 	}
 
+	public static void removeDuplicates(char[] str) {
+		if (str == null || str.length < 2)
+			return;
+		int tail = 1;// String end without repetition.
+		for (int i = 1; i < str.length; i++) {
+			int j = 0;
+			for (; j < tail; j++) {
+				if (str[j] == str[i])
+					break;// i must advance to find a different character.
+			}
+			if (j == tail) {// tail should be replaced
+				str[tail++] = str[i];
+			}
+		}
+		str[tail] = 0;
+	}
+
 	public static void main(String[] args) {
 		System.out.println(removeChars("aaabbbbAlex", "Alex"));
 		System.out.println(reverseWords("AAAA BBB CCC".toCharArray()));
 		System.out.println(numberToString(01));
+		char[] chars = "AAAAAAAAAAAaBBabbbc".toCharArray();
+		removeDuplicates(chars);
+		System.out.println(new String(chars));
 	}
 
 }
