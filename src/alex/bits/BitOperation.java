@@ -68,7 +68,14 @@ public class BitOperation {
 		// n=0001000.....
 		return ((n & (n - 1)) == 0);
 	}
-
+	public static int countNumberOfOnes(int n){
+		int count =0;
+		while(n > 0){
+			n = n & (n-1);
+			count++;
+		}
+		return count;
+	}
 	public static int updateBits(int n, int m, int i, int j) {
 		int allOnes = ~0;
 		// 1110000000000...
@@ -93,11 +100,54 @@ public class BitOperation {
 		return ((n & 0xaaaaaaaa) >> 1) | ((n & 0x55555555) << 1);
 	}
 
+	public static boolean isBitPalindrome(int n) {
+		int m = reverseBits(n);
+		int r = m ^ n;
+		if (r == 0)
+			return true;
+		return false;
+	}
+
+	public static int reverse(int i) {
+		i = (i & 0x55555555) << 1 | (i >>> 1) & 0x55555555;
+		i = (i & 0x33333333) << 2 | (i >>> 2) & 0x33333333;
+		i = (i & 0x0f0f0f0f) << 4 | (i >>> 4) & 0x0f0f0f0f;
+		i = (i << 24) | ((i & 0xff00) << 8) | ((i >>> 8) & 0xff00) | (i >>> 24);
+		return i;
+	}
+
+	public static int reverseBits(int n) {
+		int m = 0;
+		for (int i = 0; i < 32; i++) {
+			int temp = 1 & (n >> i);
+			m = m | (temp << (31 - i));
+		}
+		return m;
+	}
+
+	public static int reverseBits2(int n) {
+		int r = 0;
+		for (int i = 0; i < 32; i++) {
+			r <<= 1;
+			r = r | (1 & n);
+			n >>= 1;
+		}
+		return r;
+	}
+
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-
+		System.out.printf("%d\n", Integer.reverse(0XF0FFFF0F));
+		System.out.println(isBitPalindrome(0XF0FFFF0F));
+		int i = 0X0000FFFF;
+		System.out.printf("%s %s %s\n", Integer.toBinaryString(i),
+				Integer.toBinaryString(reverseBits(i)),
+				Integer.toBinaryString(reverseBits2(i)));
+		System.out.printf("%d %d %d %d\n", Integer.reverse(i), reverse(i),
+				reverseBits(i), reverseBits2(i));
+		System.out.printf("Num of ones =%d\n",countNumberOfOnes(3));
 	}
 
 }

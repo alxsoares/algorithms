@@ -1,12 +1,18 @@
 package alex.datastructures;
 
 public class MaxHeap {
-	int[] heap = new int[1024];
+	private static  int SIZE = 1024;
+	int[] heap = new int[SIZE];
 	int n = 0;
 	public void enqueue(int el)	{
 		heap[n] = el;
 		upHeap(n);
 		n++;
+		if(n > SIZE){
+			int[] newHeap = new int[2*SIZE];
+			System.arraycopy(heap, 0, newHeap, 0, heap.length);
+			SIZE = 2*SIZE;
+		}
 	}
 
 	public void upHeap(int pos){

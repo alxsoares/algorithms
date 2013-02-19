@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Random;
 
 public class NearestPairLogn {
-    static final int PONTOS = 20;
+    static final int PONTOS = 200;
     static int X[] = new int[PONTOS];
     static int Y[] = new int[PONTOS];
     static int fY[] = new int[PONTOS];
@@ -75,7 +75,6 @@ public class NearestPairLogn {
         int t = 0;
         for (int i = 0; i < n; i++) {
             double dX = X[py[i]] - XC;
-            dX = (dX < 0) ? -dX : dX;
             if (dX * dX <= delta) {
                 fY[t] = py[i];
                 t++;
@@ -225,8 +224,8 @@ public class NearestPairLogn {
         int numPoints = 0;
         Random rand = new Random(System.currentTimeMillis());
         for (int i = 0; i < PONTOS; i++) {
-            X[i] = Math.abs(rand.nextInt()) % 40;
-            Y[i] = Math.abs(rand.nextInt()) % 40;
+            X[i] = rand.nextInt() % 400;
+            Y[i] = rand.nextInt() % 400;
             Ponto p = new Ponto(X[i], Y[i]);
             pontos[i] = p;
             px[i] = i;
