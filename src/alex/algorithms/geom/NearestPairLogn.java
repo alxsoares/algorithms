@@ -164,8 +164,7 @@ public class NearestPairLogn {
     }
 
     public static List<Integer> getList(final int a[]) {
-        return new AbstractList<Integer>() {
-
+        AbstractList<Integer> abstractList = new AbstractList<Integer>() {
             @Override
             public Integer get(final int index) {
                 return a[index];
@@ -176,6 +175,7 @@ public class NearestPairLogn {
                 return a.length;
             }
         };
+        return new ArrayList<Integer>(abstractList);
     }
 
     public static int[] getArray(final List<Integer> l) {
@@ -236,7 +236,7 @@ public class NearestPairLogn {
         for (int i = 0; i < X.length; i++) {
             System.out.printf("%d %d\n", X[i], Y[i]);
         }
-        List<Integer> lx = new ArrayList<Integer>(getList(px));
+        List<Integer> lx = getList(px);
         Collections.sort(lx, new Comparator<Integer>() {
 
             @Override
@@ -245,7 +245,7 @@ public class NearestPairLogn {
             }
         });
 
-        List<Integer> ly = new ArrayList<Integer>(getList(py));
+        List<Integer> ly = getList(py);
         Collections.sort(ly, new Comparator<Integer>() {
 
             @Override
