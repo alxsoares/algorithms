@@ -60,4 +60,40 @@ public class TreeNode {
 		}
 		return e;
 	}
+
+	public TreeNode commonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+		if (p == q && (root.left == q || root.right == q))
+			return root;
+		int numLeft = covers(root.left, p, q);
+		if (numLeft == 2) {
+			if (root.left == q || root.left == p)
+				return root.left;
+			return commonAncestor(root.left, p, q);
+		} else if (numLeft == 1) {
+			if (root == q || root == p)
+				return root;
+		}
+		int numRight = covers(root.right, p, q);
+		if (numRight == 2) {
+			if (root.right == q || root.right == p)
+				return root.right;
+		} else if (numRight == 1) {
+			if (root == q || root == p)
+				return root;
+		}
+		if (numRight == 1 && numLeft == 1)
+			return root;
+		return null;
+	}
+
+	private int covers(TreeNode root, TreeNode p, TreeNode q) {
+		int ret = 0;
+		if (root == null)
+			return ret;
+		if (root == p || root == q)
+			ret++;
+		ret += covers(root.left, p, q);
+		ret += covers(root.right, p, q);
+		return ret;
+	}
 }
