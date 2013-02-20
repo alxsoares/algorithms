@@ -1,5 +1,7 @@
 package topcoder.alex;
 
+import java.util.Arrays;
+
 /**
  * 
  * Problem Statement      John and Brus are studying string theory at the
@@ -13,14 +15,111 @@ package topcoder.alex;
  *     
  * 
  * Constraints - n will be between 1 and 1,000,000,000, inclusive. - k will be
- * between 1 and 26, inclusive.
- * 
+ * between 1 and 26, inclusive. FIXME: Está errado.
  */
 public class TheLongPalindrome {
-    final int maxN = 30;
-    long matrix[][] = new long[maxN][maxN];
+	private static final long P = 1234567891;
+	final int maxN = 30;
+	long matrix[][] = new long[maxN][maxN];
+	long[] f = new long[maxN];
+	long[][] c = new long[maxN][maxN];
 
-    public int count(final int n, final int k) {
-        return 0;
-    }
+	public int count(final int n, final int k) {
+		long[][] A = new long[maxN][maxN];
+		for (int i = 0; i < A.length; i++) {
+			Arrays.fill(A[0], 0);
+		}
+		f[0] = 1;
+		for (int i = 1; i < f.length; i++) {
+			f[i] = (f[i - 1] * i) % P;
+
+		}
+		for (int i = 0; i < c.length; i++) {
+			c[i][0] = 1;
+			for (int j = 1; j < i; j++) {
+				c[i][j] = (c[i - 1][j - 1] + c[i - 1][j]) % P;
+			}
+		}
+		
+		for (int i = 0; i <= k; i++) {
+			A[i][i] = i;
+			if (i > 0) {
+				A[i - 1][i] = 1;
+			}
+		}
+		long[][] B = sum(getGeom(A, (n + 1) / 2 + 1), getGeom(A, n / 2 + 1));
+		long res = 0;
+		for (int i = 1; i <= k; i++) {
+			long s = B[0][i];
+			long coef = (c[26][i] + f[i]) % P;
+			res += coef * s % P;
+			res = res % P;
+		}
+		return (int) (res % P);
+	}
+
+	private long[][] sum(long[][] A, long[][] B) {
+		long[][] res = new long[maxN][maxN];
+		for (int i = 0; i < A.length; i++) {
+			for (int j = 0; j < A.length; j++) {
+				res[i][j] = A[i][j] + B[i][j];
+				res[i][j] %= P;
+			}
+		}
+		return res;
+	}
+
+	private long[][] pow(long[][] A, int n) {
+		if (n == 0) {
+			long[][] res = new long[maxN][maxN];
+			for (int i = 0; i < maxN; i++) {
+				for (int j = 0; j < maxN; j++) {
+					if (i == j)
+						res[i][j] = 1;
+					else
+						res[i][j] = 0;
+				}
+			}
+			return res;
+		}
+		long[][] B = pow(A, n / 2);
+		B = multiply(B, B);
+		if (n % 2 == 0) {
+			return B;
+		} else {
+			return multiply(A, B);
+		}
+
+	}
+
+	private long[][] multiply(long[][] b, long[][] b2) {
+		long[][] res = new long[maxN][maxN];
+		for (int i = 0; i < maxN; i++) {
+			for (int j = 0; j < maxN; j++) {
+				res[i][j] = 0;
+				for (int k = 0; k < maxN; k++) {
+					res[i][j] += b[i][k] * b2[k][j];
+					res[i][j] %= P;
+				}
+			}
+
+		}
+		return res;
+	}
+
+	private long[][] getGeom(long[][] A, int n) {
+		if (n == 1)
+			return pow(A, 0);
+		long[][] B = pow(A, n / 2);
+		if (n % 2 == 0) {
+			return sum(B, multiply(pow(A, n / 2), B));
+		} else {
+			return sum(sum(B, pow(A, n - 1)),multiply(pow(A, n / 2), B));
+		}
+	}
+
+	public static void main(String[] args) {
+		TheLongPalindrome tp = new TheLongPalindrome();
+		System.out.println(tp.count(2, 10));
+	}
 }

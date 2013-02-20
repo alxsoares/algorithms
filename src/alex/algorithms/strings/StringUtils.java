@@ -19,6 +19,25 @@ public class StringUtils {
 		return new String(s, 0, dst);
 	}
 
+	boolean next_permutation(final char[] p) {
+		for (int a = p.length - 2; a >= 0; a--)
+			if (p[a] < p[a + 1])
+				for (int b = p.length - 1;; b--)
+					if (p[b] > p[a]) {
+						char t = p[a];
+						p[a] = p[b];
+						p[b] = t;
+						a++;
+						for (b = p.length - 1; a < b; a++, b--) {
+							t = p[a];
+							p[a] = p[b];
+							p[b] = t;
+						}
+						return true;
+					}
+		return false;
+	}
+
 	public static String reverseWords(char[] f) {
 		char[] buffer = new char[f.length];
 		int tokenReadPos = f.length - 1;
