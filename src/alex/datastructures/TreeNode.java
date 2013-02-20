@@ -7,6 +7,7 @@ public class TreeNode {
 	public int value;
 	public TreeNode left;
 	public TreeNode right;
+	public TreeNode parent;
 
 	public ArrayList<LinkedList<TreeNode>> findLevelLinkList(TreeNode root) {
 		ArrayList<LinkedList<TreeNode>> result = new ArrayList<LinkedList<TreeNode>>();
@@ -32,5 +33,31 @@ public class TreeNode {
 			}
 		}
 		return result;
+	}
+
+	public static TreeNode inorderSucc(TreeNode e) {
+		if (e != null) {
+
+			if (e.parent == null || e.right != null) {
+				return leftMostSucc(e.right);
+			} else {
+				while (e.parent != null) {
+					if (e == e.parent.left) {
+						return e.parent;
+					}
+					e = e.parent;
+				}
+			}
+		}
+		return null;
+	}
+
+	private static TreeNode leftMostSucc(TreeNode e) {
+		if (e == null)
+			return null;
+		while (e.left != null) {
+			e = e.left;
+		}
+		return e;
 	}
 }
