@@ -27,7 +27,7 @@ public class TreeNode {
 				}
 			}
 			if (list.size() > 0) {
-				result.add(level++, list);
+				result.add(++level, list);
 			} else {
 				break;
 			}
@@ -95,5 +95,59 @@ public class TreeNode {
 		ret += covers(root.left, p, q);
 		ret += covers(root.right, p, q);
 		return ret;
+	}
+
+	public ArrayList<LinkedList<TreeNode>> linkedByLevel(TreeNode root) {
+		ArrayList<LinkedList<TreeNode>> r = new ArrayList<LinkedList<TreeNode>>();
+		LinkedList<TreeNode> l = new LinkedList<TreeNode>();
+		int level = 0;
+		l.add(root);
+		r.add(level, l);
+		while (true) {
+			LinkedList<TreeNode> list = new LinkedList<TreeNode>();
+			for (int i = 0; i < r.get(level).size(); i++) {
+				TreeNode node = r.get(level).get(i);
+				if (node.left != null) {
+					list.add(node.left);
+				}
+				if (node.right != null) {
+					list.add(node.right);
+				}
+			}
+			if (!list.isEmpty()) {
+				r.add(++level, list);
+			} else {
+				break;
+			}
+		}
+		return r;
+	}
+
+	public boolean constainsTree(TreeNode t1, TreeNode t2) {
+		if (t2 == null)
+			return true;
+		else
+			return subTree(t1, t2);
+	}
+
+	public boolean subTree(TreeNode r1, TreeNode r2) {
+		if (r1 == null) {
+			return false;
+		}
+		if (r1.value == r2.value) {
+			if (matches(r1, r2))
+				return true;
+		}
+		return subTree(r1.left, r2) || subTree(r1.right, r2);
+	}
+
+	public boolean matches(TreeNode r1, TreeNode r2) {
+		if (r1 == null && r2 == null)
+			return true;
+		if (r1 == null || r2 == null)
+			return false;
+		if (r1.value != r2.value)
+			return false;
+		return matches(r1.left, r2.left) && matches(r1.right, r2.right);
 	}
 }
