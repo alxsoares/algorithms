@@ -66,11 +66,12 @@ public class CarrotJumping {
 
     public static void main(final String[] args) {
         CarrotJumping j = new CarrotJumping();
-        System.out.printf("%d\n", j.theJump(125000000));
-        System.out.printf("%d\n", j.theJump(281250001));
-        System.out.printf("%d\n", j.theJump(18426114));
-        System.out.printf("%d\n", j.theJump(4530664));
-        System.out.printf("%d\n", j.theJump(705616876));
-        System.out.printf("%d\n", j.theJump(852808441));
+        // System.out.printf("%d\n", j.theJump(125000000));
+        // System.out.printf("%d\n", j.theJump(281250001));
+        // System.out.printf("%d\n", j.theJump(18426114));
+        // System.out.printf("%d\n", j.theJump(4530664));
+        // System.out.printf("%d\n", j.theJump(705616876));
+        // System.out.printf("%d\n", j.theJump(852808441));
+        System.out.printf("%d\n", j.theJump(140625000));
     }
 }
