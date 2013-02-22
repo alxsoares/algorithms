@@ -46,4 +46,13 @@ public class InPlaceMergeSort {
         }
         // Whatever remains in [rt..last] is in place
     }
+
+    public static void main(final String[] args) {
+        Integer arr[] = { 100, 99, 76, 2, 23, 121, 54545 };
+        inPlaceSort(arr);
+        for (int i = 0; i < arr.length; i++) {
+            System.out.printf("%d ", arr[i]);
+        }
+        System.out.println();
+    }
 }
