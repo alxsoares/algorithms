@@ -2,8 +2,6 @@ package topcoder.alex.misc;
 
 import java.util.Arrays;
 
-import alex.algorithms.geom.Ponto;
-
 public class MininumDifference {
 	private static MinMax minMax(Pointer[] pointers) {
 		MinMax mm = new MinMax();

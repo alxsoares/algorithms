@@ -28,58 +28,7 @@ public class ClosestPairOfPoints {
         return Math.sqrt(minDist);
     }
 
-    // private ParDePontos closestPoints(PointSet xOrder, PointSet yOrder,
-    // int left, int right) {
-    // System.out.println("Right is: " + right + "Left is:" + left);
-    // Point[] closestPair = new Point[2];
-    // if (yOrder.list.size() <= 3) {
-    // System.out.print("USED BRUTE FORCE");
-    // // then do brute force by comparing them
-    // return closestPointBF();
-    // }
-    // // set is larger than 3, using divide and conquer
-    // else {
-    // System.out.println("IN ELSE!");
-    // int imaginaryLine = yOrder.list.size() / 2;// separating X logically
-    // // PointPair closestSoFar;//closest pair found so far
-    // double distanceBetweenClosest = Integer.MAX_VALUE;
-    // // physically splitting up y
-    // PointSet yLeft = new PointSet();
-    // PointSet yRight = new PointSet();
-    // for (int i = 0; i < imaginaryLine; i++)
-    // yLeft.add(yOrder.get(i));
-    // for (int j = imaginaryLine; j < yOrder.list.size(); j++)
-    // yRight.add(yOrder.get(j));
-    // // make two recursive calls
-    // PointPairSet leftRecursive = closestPoints(xOrder, yLeft, 0,
-    // imaginaryLine);// left side examined
-    // PointPairSet rightRecursive = closestPoints(xOrder, yRight,
-    // imaginaryLine, right);// right side examined
-    // double closestLeft = Integer.MAX_VALUE;
-    // double closestRight = Integer.MAX_VALUE;
-    // for (int k = 0; k < leftRecursive.numElements(); k++) {
-    // if (leftRecursive.get(k).distance() < closestLeft)
-    // closestLeft = leftRecursive.get(k).distance();
-    // }
-    // for (int k = 0; k < rightRecursive.numElements(); k++) {
-    // if (rightRecursive.get(k).distance() < closestRight)
-    // closestRight = rightRecursive.get(k).distance();
-    // }
-    // for (int i = 0; i < yOrder.list.size(); i++) {
-    // // if outside range delete
-    // if (yOrder.list.get(i).getX() < left
-    // || yOrder.list.get(i).getX() > right) {
-    // // discard all points from ylist that are not in the strip
-    // System.out.print("Removed from y:" + yOrder.list.get(i));
-    // yOrder.remove(yOrder.list.get(i));
-    // }
-    // }
-    // // These points are now examined in linear time to determine the
-    // // closest pair
-    // return closestPointBF();
-    // }
-    // }
-    public List<Integer> getList(final int a[]) {
+       public List<Integer> getList(final int a[]) {
         return new AbstractList<Integer>() {
 
             @Override
