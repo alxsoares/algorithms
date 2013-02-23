@@ -54,9 +54,12 @@ public class Dijkstra {
 	public static void main(String[] args) {
 		Random rand = new Random(System.currentTimeMillis());
 		ArrayList<ArrayList<Integer>> G = new ArrayList<ArrayList<Integer>>();
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 100; i++) {
 				G.add( new ArrayList<Integer>());
-			for (int j = 0; j < 10; j++) {
+			for (int j = 0; j < 100; j++) {
+				if(i==0 && j ==99){
+					G.get(i).add(j,1);
+				}else
 				if(i==j){
 					G.get(i).add(j,0);
 				}
@@ -64,7 +67,7 @@ public class Dijkstra {
 					G.get(i).add(j, G.get(j).get(i));
 				}
 				else{
-					G.get(i).add(j,Math.abs(rand.nextInt())%50);
+					G.get(i).add(j,(Math.abs(rand.nextInt())%50)+10);
 				}
 			}
 		}
