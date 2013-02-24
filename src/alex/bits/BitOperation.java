@@ -134,7 +134,9 @@ public class BitOperation {
 		}
 		return r;
 	}
-
+	public static int negate(int a){
+		return (~a)+1;
+	}
 	/**
 	 * @param args
 	 */
@@ -148,6 +150,9 @@ public class BitOperation {
 		System.out.printf("%d %d %d %d\n", Integer.reverse(i), reverse(i),
 				reverseBits(i), reverseBits2(i));
 		System.out.printf("Num of ones =%d\n",countNumberOfOnes(3));
+		
+		System.out.println(negate(12));
+		System.out.println(negate(-1));
 	}
 
 }
