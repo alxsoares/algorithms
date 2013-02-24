@@ -114,7 +114,17 @@ public class Math {
 		}
 		return count;
 	}
-
+	public static int max(int a, int b){
+		int c = (a-b);
+		int k = (c>>31)&1;
+		return a - k*(c);
+	}
+	public static int sum(int a, int b){
+		if(b==0) return a;
+		int sum = a^b;
+		int carry = (a&b)<<1;
+		return sum(sum, carry);
+	}
 	public static void main(final String[] args) {
 		// IntegerDivision(200, 7);
 		// System.out.println(sqrt(36.0));
@@ -123,5 +133,7 @@ public class Math {
 		primes(20000);
 		System.out.println(trailingZeroes(200));
 		System.out.println(numZeros(200));
+		System.out.println(max(-300,-400));
+		System.out.println(sum(0x00ff,0x00ff));
 	}
 }
