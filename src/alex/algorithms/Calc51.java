@@ -1,16 +1,65 @@
 package alex.algorithms;
 
+import java.util.Arrays;
+
 public class Calc51 {
+	// int[] arr = { 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 4, 4, 4,
+	// 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4 };
+	// System.out.println(calc51(arr));
+	// int[] arr2 = { 1, 1, 2, 2, 2, 3, 3, 3, 3, 1, 1, 1, 1, 1, 1 };
+	// System.out.println(calc51(arr2));
+
 	public static void main(String[] args) {
-		int[] arr = { 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 4, 4, 4,
-				4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4 };
-		System.out.println(calc51(arr));
-		int[] arr2 = { 1, 1, 2, 2, 2, 3, 3, 3, 3, 1, 1, 1, 1, 1, 1 };
-		System.out.println(calc51(arr2));
 		int[] arr3 = { 8, 1, 8, 1, 8, 3, 8, 3, 8, 3, 8, 2, 8, 2, 8, 2, 8, 1, 8,
 				1, 8, 3, 8, 1, 8, 1, 8, 2, 8, 1, 8, 1, 8, 1, 8, 1, 1, 8, 2, 8,
-				2, 8 };
-		System.out.println(calc51(arr3));
+				2, 8};
+//		Arrays.sort(arr3);
+		partition(arr3, 0, arr3.length-1);
+		partition(arr3, 0, (arr3.length-1)/2);
+		partition(arr3, (arr3.length-1)/2+1,arr3.length-1);
+		System.out.println(mostCommon(arr3));
+		for (int i = 0; i < arr3.length; i++) {
+			System.out.printf("%d ", arr3[i]);
+		}
+		System.out.println();
+	}
+	
+	public static void partition(int dados[],int start, int end){
+		int middle = (start + end) / 2;
+		int first = start;
+		int lower = start + 1;
+		int upper = end;
+		swap(dados, first, middle);
+		int pivot = dados[first];
+		while (lower < upper) {
+			while (dados[lower] < pivot && lower < end)
+				lower++;
+			while (dados[upper] > pivot && upper > start)
+				upper--;
+			// change need to be done.
+			if (lower < upper) {
+				swap(dados, lower++, upper--);
+			} else {
+				lower++;// avoid infinite loop
+			}
+		}
+		// puts pivot in the right position
+		swap(dados, first, upper);	
+		
+		
+	}
+	public static int mostCommon(int array[]) {
+		int best = 0;
+		int count = 0;
+		for (int i = 0; i < array.length; i++) {
+			if (count == 0) {
+				best = array[i];
+				count = 1;
+			} else {
+				count += (array[i] == best ? 1 : -1);
+			}
+		}
+		return best;
 	}
 
 	static void swap(int arr[], int a, int b) {
@@ -63,6 +112,8 @@ public class Calc51 {
 			return num[segundo];
 
 		return -1;
-	}
+	}/**
+	 * @param args
+	 */
 
 }

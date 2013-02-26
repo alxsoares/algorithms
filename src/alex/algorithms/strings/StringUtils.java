@@ -95,10 +95,10 @@ public class StringUtils {
 		}
 		str[tail] = 0;
 	}
-
+	
 	public static void main(String[] args) {
 		System.out.println(removeChars("aaabbbbAlex", "Alex"));
-		System.out.println(reverseWords("AAAA BBB CCC".toCharArray()));
+		System.out.println(reverseWords("AAAA BBB CCC   ".toCharArray()));
 		System.out.println(numberToString(01));
 		char[] chars = "AAAAAAAAAAAaBBabbbc".toCharArray();
 		removeDuplicates(chars);

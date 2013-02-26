@@ -34,7 +34,30 @@ public class QuickSort {
 			quickSort(dados, upper + 1, end);
 		}
 	}
-
+	public static void quicksortOptimized2(int[] data, int left, int right) {
+		int pivot = data[(left+right)/2];
+		int i = left;
+		int j = right;
+		while(i<=j){
+			while(data[i]<pivot && i<=j){
+				i++;
+			}
+			while(data[j]>pivot && i<=j){
+				j--;
+			}
+			if(i<=j){
+				swap(data, i, j);
+				i++;
+				j--;
+			}
+			if(j>left){
+				quicksortOptimized2(data, left, j);
+			}
+			if(i< right){
+				quicksortOptimized2(data, i, right);
+			}
+		}
+	}
 	public static void quicksortOptimized(int[] data, int left, int right) {
 		int pivotValue = data[(left + right) / 2];
 		int i = left;
@@ -63,8 +86,8 @@ public class QuickSort {
 	}
 
 	public static void main(String[] args) {
-		int arr[] = { 70, 1, 2, 3, 4, 5, 6, 80, 8, 9, 1, -1, -10 , -1000};
-		quicksortOptimized(arr, 0, arr.length - 1);
+		int arr[] = { 70, 1, 2, 3, 4, 5, 6, 80, 8, 9, 1, -1, -10 , -1000,-1001};
+		quicksortOptimized2(arr, 0, arr.length - 1);
 		String comma = "";
 		for (int i = 0; i < arr.length; i++) {
 			int j = arr[i];
