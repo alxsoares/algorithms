@@ -15,9 +15,9 @@ public class CountTwos {
 			p2 += power;
 		else if (q == 2)
 			p2 += r + 1;
-		
-		int np2 = q*count2R(power-1)+ count2R(r);
-		
+
+		int np2 = q * count2R(power - 1) + count2R(r);
+
 		return np2 + p2;
 
 	}
