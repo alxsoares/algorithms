@@ -72,7 +72,11 @@ public class MaxHeap {
 		return false;
 
 	}
-
+	public  void heapify(){
+		for(int i=0; i <n/2;i++){
+			downHeap(i);
+		}
+	}
 	/**
 	 * @param args
 	 */
@@ -82,6 +86,7 @@ public class MaxHeap {
 		for (int i = 0; i < arr.length; i++) {
 			heap.enqueue(arr[i]);
 		}
+		heap.heapify();
 		String comma ="";
 		while(!heap.isEmpty()){
 			System.out.print(comma+heap.dequeue());
