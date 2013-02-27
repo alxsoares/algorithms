@@ -32,8 +32,7 @@ public class ReverseList {
 			slow = slow.next;
 			fast = fast.next.next;
 		}
-		tail = reverseList(slow.next); // slow will always have next
-		// printList(tail);
+		tail = reverseList(slow.next); 
 		slow.next = null;
 		newHead = curr = tail;
 		while (head != null && tail != null) {

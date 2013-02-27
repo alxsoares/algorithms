@@ -114,6 +114,42 @@ public class TreeAlgorithms {
 		}
 	}
 
+	public static Node<Integer> bstToDoubleLinky(Node<Integer> root) {
+		if (root == null)
+			return null;
+		Node<Integer> head = bstToDoubleLinky(root.getLeft());
+		Node<Integer> tail = bstToDoubleLinky(root.getRight());
+		if(tail!= null){
+			while(tail.getLeft()!= null){
+				tail = tail.getLeft();
+			}
+		}
+		if(head!= null){
+			while(head.getRight()!= null){
+				head= head.getRight();
+			}
+		}
+		if(head!=null){
+			head.setRight(root);
+			root.setLeft(head);
+			root.setRight(tail);
+			if(tail!= null){
+				tail.setLeft(root);
+			}			
+		}else{
+			root.setLeft(null);
+			root.setRight(tail);
+			if(tail!= null){
+				tail.setLeft(root);
+			}
+			head = root;
+		}
+		while(head.getLeft()!= null){
+			head = head.getLeft();
+		}
+		return head;
+	}
+
 	/**
 	 * @param args
 	 */
@@ -124,7 +160,7 @@ public class TreeAlgorithms {
 		Node<Integer> root = createRandomTree(height);
 		System.out.printf("Height of tree=%d = %d\n", height(root), height);
 		root = null;
-		for (int i = 0; i < 20; i++) {
+		for (int i = 0; i < 200; i++) {
 			root = insertNodeBST(root, Math.abs(rand.nextInt()) % 200);
 		}
 		int i = Math.abs(rand.nextInt()) % 200;
@@ -139,6 +175,12 @@ public class TreeAlgorithms {
 		printInOrder(root);
 		System.out.println();
 		lowestCommonAntecessor(root, i, j);
+		System.out.println();
+		Node<Integer> head = bstToDoubleLinky(root);
+		while(head!= null){
+			System.out.printf("%d ", head.getValue());
+			head = head.getRight();
+		}
 	}
 
 }

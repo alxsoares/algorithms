@@ -34,19 +34,15 @@ public class BinarySearch {
 		if (array[center] == target)
 			return center;
 		if (array[begin] <= array[center]) {
-			if (target > array[center]) {
+			if (target > array[center] || target < array[begin]) {
 				begin = center + 1;
-			} else if (target > array[begin]) {
-				end = center - 1;
 			} else {
-				begin = center + 1;
+				end = center - 1;
 			}
-		} else if (target < array[center]) {
+		} else if (target < array[center] || target > array[end]) {
 			end = center - 1;
-		} else if (target < array[end]) {
-			begin = center + 1;
 		} else {
-			end = center - 1;
+			begin = center + 1;
 		}
 		return binarySearchShiftedArray(array, target, begin, end);
 	}

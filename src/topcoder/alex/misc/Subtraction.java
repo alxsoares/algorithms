@@ -21,7 +21,7 @@ public class Subtraction {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		System.out.println(sub(4, 4));
+		System.out.println(sub(4, 5));
 	}
 
 }
