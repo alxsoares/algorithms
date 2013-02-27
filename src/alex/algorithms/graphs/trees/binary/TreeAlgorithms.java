@@ -149,6 +149,37 @@ public class TreeAlgorithms {
 		}
 		return head;
 	}
+	
+	public static void printVerticalSumOfTree(Node<Integer> tree,int axisVal,int[] sums)
+	{
+	        if(tree == null)
+	                return;
+	        sums[axisVal] += tree.getValue();
+	        printVerticalSumOfTree(tree.getLeft(),axisVal-1,sums);
+	        printVerticalSumOfTree(tree.getRight(),axisVal+1,sums);
+	}
+	 
+	public static void printHorizontalSumOfTree(Node<Integer> tree,int axisVal,int[] sums)
+	{
+	    if(tree == null)
+	                return;
+	        sums[axisVal] += tree.getValue();
+	        printHorizontalSumOfTree(tree.getLeft(),axisVal+1,sums);
+	        printHorizontalSumOfTree(tree.getRight(),axisVal+1,sums);
+	}
+	
+	public static int getLeftWidth(Node<Integer> root){
+		if(root==null) return 0;
+		int right =0;
+		int left =0;
+		if(root.getRight()!= null){
+			right = getLeftWidth(root.getRight())-1;
+		}
+		if(root.getLeft()!= null){
+			right = getLeftWidth(root.getLeft())+1;
+		}
+		return Math.max(right, left);
+	}
 
 	/**
 	 * @param args
@@ -181,6 +212,20 @@ public class TreeAlgorithms {
 			System.out.printf("%d ", head.getValue());
 			head = head.getRight();
 		}
+		
+		root = null;
+		for ( i = 0; i < 200; i++) {
+			root = insertNodeBST(root, Math.abs(rand.nextInt()) % 200);
+		}
+		printInOrder(root);
+		System.out.println();
+		System.out.println(getLeftWidth(root));
+		int sum[] = new int[100];
+		printVerticalSumOfTree(root, 10, sum);
+		for (int k = 0; k < sum.length; k++) {
+			System.out.printf("%d ", sum[k]);
+		}
+		System.out.println();
 	}
 
 }
