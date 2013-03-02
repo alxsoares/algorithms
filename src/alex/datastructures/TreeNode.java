@@ -5,9 +5,17 @@ import java.util.LinkedList;
 
 public class TreeNode {
 	public int value;
+	public int liss = -1;
 	public TreeNode left;
 	public TreeNode right;
 	public TreeNode parent;
+
+	public TreeNode() {
+	};
+
+	public TreeNode(int i) {
+
+	}
 
 	public ArrayList<LinkedList<TreeNode>> findLevelLinkList(TreeNode root) {
 		ArrayList<LinkedList<TreeNode>> result = new ArrayList<LinkedList<TreeNode>>();
