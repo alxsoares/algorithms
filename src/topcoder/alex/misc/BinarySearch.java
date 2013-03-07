@@ -121,8 +121,8 @@ public class BinarySearch {
 		Arrays.sort(array);
 		int index = iterBinarySearch(array, 14);
 		System.out.printf("%d %d\n", index, array[index]);
-		int arr[] = { 15, 16, 19, 20, 25, 1, 3, 4, 5, 7, 10, 14 };
-		index = binarySearchShiftedArray(arr, 25, 0, arr.length - 1);
+		int arr[] = { 15, 16, 19, 20, 25,26,27,28, 1, 3, 4, 5, 7, 10, 14 };
+		index = binarySearchShiftedArray(arr, 27, 0, arr.length - 1);
 		System.out.printf("%d %d\n", index, arr[index]);
 
 		System.out.println();

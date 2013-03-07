@@ -52,4 +52,32 @@ class Node {
 		}
 		return n1;
 	}
+
+	public Integer nthToEnd(Node node, int n) {
+		int begin = 0;
+		Node b = node;
+		while (b != null && begin < n) {
+			begin++;
+			b = b.next;
+		}
+		while (b != null) {
+			node = node.next;
+			b = b.next;
+		}
+		if (node != null) {
+			return node.data;
+		}
+		return null;
+	}
+
+	public static void main(String[] args) {
+		int a[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+		Node head = new Node(a[0]);
+		Node n = head;
+		for (int i = 1; i < a.length; i++) {
+			n.next = new Node(a[i]);
+			n = n.next;
+		}
+		System.out.printf("%d \n", head.nthToEnd(head, 4));
+	}
 }
