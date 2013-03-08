@@ -6,6 +6,8 @@ import java.util.Queue;
 import java.util.Random;
 import java.util.Stack;
 
+import alex.datastructures.TreeNode;
+
 public class TreeAlgorithms {
 	static final Random rand = new Random(System.currentTimeMillis());
 
@@ -119,113 +121,214 @@ public class TreeAlgorithms {
 			return null;
 		Node<Integer> head = bstToDoubleLinky(root.getLeft());
 		Node<Integer> tail = bstToDoubleLinky(root.getRight());
-		if(tail!= null){
-			while(tail.getLeft()!= null){
+		if (tail != null) {
+			while (tail.getLeft() != null) {
 				tail = tail.getLeft();
 			}
 		}
-		if(head!= null){
-			while(head.getRight()!= null){
-				head= head.getRight();
+		if (head != null) {
+			while (head.getRight() != null) {
+				head = head.getRight();
 			}
 		}
-		if(head!=null){
+		if (head != null) {
 			head.setRight(root);
 			root.setLeft(head);
 			root.setRight(tail);
-			if(tail!= null){
+			if (tail != null) {
 				tail.setLeft(root);
-			}			
-		}else{
+			}
+		} else {
 			root.setLeft(null);
 			root.setRight(tail);
-			if(tail!= null){
+			if (tail != null) {
 				tail.setLeft(root);
 			}
 			head = root;
 		}
-		while(head.getLeft()!= null){
+		while (head.getLeft() != null) {
 			head = head.getLeft();
 		}
 		return head;
 	}
-	
-	public static void printVerticalSumOfTree(Node<Integer> tree,int axisVal,int[] sums)
-	{
-	        if(tree == null)
-	                return;
-	        sums[axisVal] += tree.getValue();
-	        printVerticalSumOfTree(tree.getLeft(),axisVal-1,sums);
-	        printVerticalSumOfTree(tree.getRight(),axisVal+1,sums);
+
+	public static void printVerticalSumOfTree(Node<Integer> tree, int axisVal,
+			int[] sums) {
+		if (tree == null)
+			return;
+		sums[axisVal] += tree.getValue();
+		printVerticalSumOfTree(tree.getLeft(), axisVal - 1, sums);
+		printVerticalSumOfTree(tree.getRight(), axisVal + 1, sums);
 	}
-	 
-	public static void printHorizontalSumOfTree(Node<Integer> tree,int axisVal,int[] sums)
-	{
-	    if(tree == null)
-	                return;
-	        sums[axisVal] += tree.getValue();
-	        printHorizontalSumOfTree(tree.getLeft(),axisVal+1,sums);
-	        printHorizontalSumOfTree(tree.getRight(),axisVal+1,sums);
+
+	public static void printHorizontalSumOfTree(Node<Integer> tree,
+			int axisVal, int[] sums) {
+		if (tree == null)
+			return;
+		sums[axisVal] += tree.getValue();
+		printHorizontalSumOfTree(tree.getLeft(), axisVal + 1, sums);
+		printHorizontalSumOfTree(tree.getRight(), axisVal + 1, sums);
 	}
-	
-	public static int getLeftWidth(Node<Integer> root){
-		if(root==null) return 0;
-		int right =0;
-		int left =0;
-		if(root.getRight()!= null){
-			right = getLeftWidth(root.getRight())-1;
+
+	public static int getLeftWidth(Node<Integer> root) {
+		if (root == null)
+			return 0;
+		int right = 0;
+		int left = 0;
+		if (root.getRight() != null) {
+			right = getLeftWidth(root.getRight()) - 1;
 		}
-		if(root.getLeft()!= null){
-			right = getLeftWidth(root.getLeft())+1;
+		if (root.getLeft() != null) {
+			right = getLeftWidth(root.getLeft()) + 1;
 		}
 		return Math.max(right, left);
+	}
+
+	public static int countElements(Node<Integer> root) {
+		if (root == null)
+			return 0;
+		return 1 + countElements(root.getLeft())
+				+ countElements(root.getRight());
+	}
+
+	
+	public static void find(Node<Integer> node, int num) {
+		Stack<Node<Integer>> stack = new Stack<Node<Integer>>();
+
+		Node<Integer> current = node;
+		int tmp = num;
+
+		while (stack.size() > 0 || current != null) {
+			if (current != null) {
+				stack.add(current);
+				current = current.getLeft();
+			} else {
+				current = stack.pop();
+				tmp--;
+
+				if (tmp == 0) {
+					System.out.println(current.getValue());
+					return;
+				}
+
+				current = current.getRight();
+			}
+		}
+	}
+
+	public static int findKth(Node<Integer> root, int num) {
+		Stack<Node<Integer>> stack = new Stack<>();
+		Node<Integer> current = root;
+		while (current != null || !stack.isEmpty()) {
+			if (current != null) {
+				stack.push(current);
+				current = current.getLeft();
+			} else {
+				current = stack.pop();
+				num--;
+				if (num == 0) {
+					return current.getValue();
+				}
+				current = current.getRight();
+			}
+		}
+		return -1;
+	}
+
+	public static int findKth2(Node<Integer> root, int num) {
+		Stack<Node<Integer>> stack = new Stack<>();
+		Node<Integer> current = root;
+		while(true){
+			if(current!= null){
+				stack.push(current);
+				current = current.getLeft();
+			}else{
+				if(stack.isEmpty()){
+					break;
+				}else{
+					current = stack.pop();
+					num--;
+					if(num==0){
+						return current.getValue();
+					}
+					current = current.getRight();
+				}
+			}
+		}
+		
+		return -1;
+	}
+
+	// Inorder
+	public static void findKthSmaller(Node<Integer> root, int[] k) {
+		if (k[0] < 0 || root == null)
+			return;
+		findKthSmaller(root.getLeft(), k);
+		k[0]--;
+		if (k[0] == 0) {
+			System.out.printf("%d\n", root.getValue());
+			return;
+		} else {
+			findKthSmaller(root.getRight(), k);
+		}
+
 	}
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		int height = Math.abs(rand.nextInt()) % 20;
-		if (height < 10)
-			height += 10;
-		Node<Integer> root = createRandomTree(height);
-		System.out.printf("Height of tree=%d = %d\n", height(root), height);
-		root = null;
-		for (int i = 0; i < 200; i++) {
-			root = insertNodeBST(root, Math.abs(rand.nextInt()) % 200);
+		// int height = Math.abs(rand.nextInt()) % 20;
+		// if (height < 10)
+		// height += 10;
+		// Node<Integer> root = createRandomTree(height);
+		// System.out.printf("Height of tree=%d = %d\n", height(root), height);
+		// root = null;
+		// for (int i = 0; i < 200; i++) {
+		// root = insertNodeBST(root, Math.abs(rand.nextInt()) % 200);
+		// }
+		// int i = Math.abs(rand.nextInt()) % 200;
+		// int j = Math.abs(rand.nextInt()) % 200;
+		// insertNodeBST(root, i);
+		// insertNodeBST(root, j);
+		// System.out.printf("Height of tree=%d = %d\n", height(root), height);
+		// printPreOrder(root);
+		// System.out.println();
+		// printPreOrderIterative(root);
+		// System.out.println();
+		// printInOrder(root);
+		// System.out.println();
+		// lowestCommonAntecessor(root, i, j);
+		// System.out.println();
+		// Node<Integer> head = bstToDoubleLinky(root);
+		// while(head!= null){
+		// System.out.printf("%d ", head.getValue());
+		// head = head.getRight();
+		// }
+		//
+		// root = null;
+		// for ( i = 0; i < 200; i++) {
+		// root = insertNodeBST(root, Math.abs(rand.nextInt()) % 200);
+		// }
+		// printInOrder(root);
+		// System.out.println();
+		// System.out.println(getLeftWidth(root));
+		// int sum[] = new int[100];
+		// printVerticalSumOfTree(root, 10, sum);
+		// for (int k = 0; k < sum.length; k++) {
+		// System.out.printf("%d ", sum[k]);
+		// }
+		// System.out.println();
+
+		Node<Integer> root = null;
+		for (int i = 0; i < 2000; i++) {
+			root = insertNodeBST(root, Math.abs(rand.nextInt()) % 2000);
 		}
-		int i = Math.abs(rand.nextInt()) % 200;
-		int j = Math.abs(rand.nextInt()) % 200;
-		insertNodeBST(root, i);
-		insertNodeBST(root, j);
-		System.out.printf("Height of tree=%d = %d\n", height(root), height);
-		printPreOrder(root);
-		System.out.println();
-		printPreOrderIterative(root);
-		System.out.println();
+		findKthSmaller(root, new int[] { 199 });
+		find(root, 199);
+		System.out.println(findKth(root, 199));
+		System.out.println(findKth2(root, 199));
 		printInOrder(root);
-		System.out.println();
-		lowestCommonAntecessor(root, i, j);
-		System.out.println();
-		Node<Integer> head = bstToDoubleLinky(root);
-		while(head!= null){
-			System.out.printf("%d ", head.getValue());
-			head = head.getRight();
-		}
-		
-		root = null;
-		for ( i = 0; i < 200; i++) {
-			root = insertNodeBST(root, Math.abs(rand.nextInt()) % 200);
-		}
-		printInOrder(root);
-		System.out.println();
-		System.out.println(getLeftWidth(root));
-		int sum[] = new int[100];
-		printVerticalSumOfTree(root, 10, sum);
-		for (int k = 0; k < sum.length; k++) {
-			System.out.printf("%d ", sum[k]);
-		}
-		System.out.println();
 	}
 
 }
