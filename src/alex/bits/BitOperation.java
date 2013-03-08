@@ -153,6 +153,10 @@ public class BitOperation {
 		
 		System.out.println(negate(12));
 		System.out.println(negate(-1));
+		
+		int xor = 14;
+		int rightMost = xor & ~(xor -1);
+		System.out.println(Integer.toBinaryString((rightMost)));
 	}
 
 }

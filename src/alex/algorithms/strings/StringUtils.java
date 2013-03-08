@@ -1,5 +1,7 @@
 package alex.algorithms.strings;
 
+import com.sun.xml.internal.ws.api.pipe.NextAction;
+
 public class StringUtils {
 
 	public static String removeChars(String str, String remove) {
@@ -19,7 +21,8 @@ public class StringUtils {
 		return new String(s, 0, dst);
 	}
 
-	boolean next_permutation(final char[] p) {
+	public static boolean next_permutation(final char[] p) {
+		System.out.println(new String(p));
 		for (int a = p.length - 2; a >= 0; a--)
 			if (p[a] < p[a + 1])
 				for (int b = p.length - 1;; b--)
@@ -103,6 +106,10 @@ public class StringUtils {
 		char[] chars = "AAAAAAAAAAAaBBabbbc".toCharArray();
 		removeDuplicates(chars);
 		System.out.println(new String(chars));
+		System.out.println("Permutacaoes");
+		char[] a = "abcd".toCharArray();
+		while(next_permutation(a));
+		
 	}
 
 }

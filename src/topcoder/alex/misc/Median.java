@@ -1,5 +1,6 @@
 package topcoder.alex.misc;
 
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Random;
@@ -54,9 +55,16 @@ public class Median {
 	public static void main(String[] args) {
 		Random rand = new Random(System.currentTimeMillis());
 		Median m = new Median();
+		int numbers[] = new int[100];
 		for(int i=0;i < 100; i++){
-			m.addNewNumber(rand.nextInt(100));
+			numbers[i] = rand.nextInt(100);
+			m.addNewNumber(numbers[i]);
 		}
+		Arrays.sort(numbers);
+		for (int i = 0; i < numbers.length; i++) {
+			System.out.printf("%d ", numbers[i]);
+		}
+		System.out.println();
 		System.out.println(m.getMedian());
 	}
 

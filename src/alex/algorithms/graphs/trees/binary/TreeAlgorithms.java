@@ -1,5 +1,7 @@
 package alex.algorithms.graphs.trees.binary;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -191,7 +193,65 @@ public class TreeAlgorithms {
 				+ countElements(root.getRight());
 	}
 
-	
+	public static ArrayList<LinkedList<Node<Integer>>> getTreeLevels(
+			Node<Integer> root) {
+		ArrayList<LinkedList<Node<Integer>>> r = new ArrayList<>();
+		LinkedList<Node<Integer>> l = new LinkedList<Node<Integer>>();
+		l.add(root);
+		int level = 0;
+		r.add(level, l);
+		while (true) {
+			LinkedList<Node<Integer>> nextLevel = new LinkedList<Node<Integer>>();
+			for (int i = 0; i < r.get(level).size(); i++) {
+				Node<Integer> nodeLevel = r.get(level).get(i);
+				if (nodeLevel.getLeft() != null) {
+					nextLevel.add(nodeLevel.getLeft());
+				}
+				if (nodeLevel.getRight() != null) {
+					nextLevel.add(nodeLevel.getRight());
+				}
+
+			}
+			if (nextLevel.isEmpty()) {
+				break;
+			} else {
+				level++;
+				r.add(level, nextLevel);
+			}
+		}
+		return r;
+	}
+
+	public static void printTreeLevels(Node<Integer> root, int lvl) {
+		LinkedList<Node<Integer>> l = new LinkedList<Node<Integer>>();
+		l.add(root);
+		int level = 0;
+		while (level != lvl) {
+			LinkedList<Node<Integer>> nextLevel = new LinkedList<Node<Integer>>();
+			for (int i = 0; i < l.size(); i++) {
+				Node<Integer> nodeLevel = l.get(i);
+				if (nodeLevel.getLeft() != null) {
+					nextLevel.add(nodeLevel.getLeft());
+				}
+				if (nodeLevel.getRight() != null) {
+					nextLevel.add(nodeLevel.getRight());
+				}
+
+			}
+			if (nextLevel.isEmpty()) {
+				break;
+			} else {
+				l = nextLevel;
+				level++;
+				System.out.println(level);
+			}
+		}
+		for (Node<Integer> node : l) {
+			System.out.printf("%d ", node.getValue());
+		}
+		System.out.println();
+	}
+
 	public static void find(Node<Integer> node, int num) {
 		Stack<Node<Integer>> stack = new Stack<Node<Integer>>();
 
@@ -238,24 +298,24 @@ public class TreeAlgorithms {
 	public static int findKth2(Node<Integer> root, int num) {
 		Stack<Node<Integer>> stack = new Stack<>();
 		Node<Integer> current = root;
-		while(true){
-			if(current!= null){
+		while (true) {
+			if (current != null) {
 				stack.push(current);
 				current = current.getLeft();
-			}else{
-				if(stack.isEmpty()){
+			} else {
+				if (stack.isEmpty()) {
 					break;
-				}else{
+				} else {
 					current = stack.pop();
 					num--;
-					if(num==0){
+					if (num == 0) {
 						return current.getValue();
 					}
 					current = current.getRight();
 				}
 			}
 		}
-		
+
 		return -1;
 	}
 
@@ -272,6 +332,63 @@ public class TreeAlgorithms {
 			findKthSmaller(root.getRight(), k);
 		}
 
+	}
+
+	public static Node<Integer> leastCommonAntecessor(Node<Integer> root,
+			int n1, int n2) {
+		if (root == null)
+			return null;
+
+		int max = Math.max(n1, n2);
+		int min = Math.min(n1, n2);
+
+		if (root.getValue() >= min && root.getValue() <= max) {
+			return root;
+		} else if (root.getValue() < min && root.getValue() < max) {
+			return leastCommonAntecessor(root.getRight(), n1, n2);
+		} else if (root.getValue() > min && root.getValue() > max) {
+			return leastCommonAntecessor(root.getLeft(), n1, n2);
+		}
+		return null;
+	}
+	public static void zigzagTraversal(Node<Integer> root){
+		LinkedList<Node<Integer>> level = new LinkedList<>();
+		boolean leftToRight = true;
+		level.add(root);
+		while(true){
+			LinkedList<Node<Integer>> nextLevel = new LinkedList<>();
+			for (Node<Integer> node : level) {
+				if(node.getLeft()!= null){
+					nextLevel.add(node.getLeft());
+				}
+				if(node.getRight()!= null){
+					nextLevel.add(node.getRight());
+				}
+			}
+			if(!leftToRight){
+				Collections.reverse(level);
+			}
+			for (Node<Integer> node : level) {
+				System.out.printf("%d ", node.getValue());
+			}
+			System.out.println();
+			leftToRight = !leftToRight;
+			if(nextLevel.isEmpty()){
+				return;
+			}
+			else{
+				level= nextLevel;
+			}
+		}
+	}
+	public static void mirrorTree(Node<Integer> root) {
+		if (root == null)
+			return;
+		mirrorTree(root.getLeft());
+		mirrorTree(root.getRight());
+		Node<Integer> temp = root.getRight();
+		root.setRight(root.getLeft());
+		root.setLeft(temp);
 	}
 
 	/**
@@ -321,14 +438,26 @@ public class TreeAlgorithms {
 		// System.out.println();
 
 		Node<Integer> root = null;
-		for (int i = 0; i < 2000; i++) {
+		for (int i = 0; i < 20; i++) {
 			root = insertNodeBST(root, Math.abs(rand.nextInt()) % 2000);
 		}
-		findKthSmaller(root, new int[] { 199 });
-		find(root, 199);
-		System.out.println(findKth(root, 199));
-		System.out.println(findKth2(root, 199));
-		printInOrder(root);
+		// findKthSmaller(root, new int[] { 199 });
+		// find(root, 199);
+		// System.out.println(findKth(root, 199));
+		// System.out.println(findKth2(root, 199));
+		printTreeLevels(root, 3);
+		System.out.println();
+		ArrayList<LinkedList<Node<Integer>>> levels = getTreeLevels(root);
+		for (LinkedList<Node<Integer>> linkedList : levels) {
+			for (Node<Integer> node : linkedList) {
+				System.out.printf("%d ", node.getValue());
+			}
+			System.out.println();
+		}
+		zigzagTraversal(root);
+		// printInOrder(root);
+
+
 	}
 
 }
