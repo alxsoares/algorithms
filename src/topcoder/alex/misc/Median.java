@@ -51,6 +51,25 @@ public class Median {
 			return minHeap.peek();
 		}
 	}
+	public static int getMedianRec(int ar1[], int ar2[], int left, int right,
+			int n) {
+		if (left > right) {
+			return getMedianRec(ar2, ar1, 0, n - 1, n);
+		}
+		int i = (left + right) / 2;
+		int j = n - i - 1;
+		if (ar1[i] > ar2[j] && (j == n - 1 || ar2[j + 1] >= ar1[i])) {
+			if (ar2[j] > ar1[i - 1] || i == 0) {
+				return (ar1[i] + ar2[j]) / 2;
+			} else {
+				return (ar1[i] + ar1[i - 1]) / 2;
+			}
+		} else if (ar1[i] > ar2[j] && (j != n - 1 && ar1[i] > ar2[j + 1])) {
+			return getMedianRec(ar1, ar2, left, i - 1, n);
+		} else {
+			return getMedianRec(ar1, ar2, i + 1, right, n);
+		}
+	}
 
 	public static void main(String[] args) {
 		Random rand = new Random(System.currentTimeMillis());

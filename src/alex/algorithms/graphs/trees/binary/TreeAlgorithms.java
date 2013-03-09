@@ -94,6 +94,25 @@ public class TreeAlgorithms {
 		}
 	}
 
+	
+	public static Node<Integer> leastCommonAntecessor(Node<Integer> root,
+			int n1, int n2) {
+		if (root == null)
+			return null;
+
+		int max = Math.max(n1, n2);
+		int min = Math.min(n1, n2);
+
+		if (root.getValue() >= min && root.getValue() <= max) {
+			return root;
+		} else if (root.getValue() < min && root.getValue() < max) {
+			return leastCommonAntecessor(root.getRight(), n1, n2);
+		} else if (root.getValue() > min && root.getValue() > max) {
+			return leastCommonAntecessor(root.getLeft(), n1, n2);
+		}
+		return null;
+	}
+	
 	public static Node<Integer> rightRotation(Node<Integer> oldRoot) {
 		Node<Integer> root = oldRoot.getLeft();
 		oldRoot.setLeft(root.getRight());
@@ -318,7 +337,25 @@ public class TreeAlgorithms {
 
 		return -1;
 	}
+	public static void iterativeInOrder(Node<Integer> root, int num) {
+		Stack<Node<Integer>> stack = new Stack<>();
+		Node<Integer> current = root;
+		while (true) {
+			if (current != null) {
+				stack.push(current);
+				current = current.getLeft();
+			} else {
+				if (stack.isEmpty()) {
+					break;
+				} else {
+					current = stack.pop();
+					System.out.printf("%d\n", current.getValue());
+					current = current.getRight();
+				}
+			}
+		}
 
+	}
 	// Inorder
 	public static void findKthSmaller(Node<Integer> root, int[] k) {
 		if (k[0] < 0 || root == null)
@@ -334,23 +371,7 @@ public class TreeAlgorithms {
 
 	}
 
-	public static Node<Integer> leastCommonAntecessor(Node<Integer> root,
-			int n1, int n2) {
-		if (root == null)
-			return null;
 
-		int max = Math.max(n1, n2);
-		int min = Math.min(n1, n2);
-
-		if (root.getValue() >= min && root.getValue() <= max) {
-			return root;
-		} else if (root.getValue() < min && root.getValue() < max) {
-			return leastCommonAntecessor(root.getRight(), n1, n2);
-		} else if (root.getValue() > min && root.getValue() > max) {
-			return leastCommonAntecessor(root.getLeft(), n1, n2);
-		}
-		return null;
-	}
 	public static void zigzagTraversal(Node<Integer> root){
 		LinkedList<Node<Integer>> level = new LinkedList<>();
 		boolean leftToRight = true;

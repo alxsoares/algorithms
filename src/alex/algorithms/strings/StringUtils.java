@@ -99,6 +99,22 @@ public class StringUtils {
 		str[tail] = 0;
 	}
 	
+	public static void removeDuplicates2(char[] str) {
+		if (str == null || str.length < 2)
+			return;
+		char [] h = new char[256];
+		char [] r = new char[str.length];
+		int index =0;
+		for(int i=0; i<str.length;i++){
+			char c = str[i];
+			if(h[c]==0){
+				h[c]++;
+				r[index++] = c;
+			}
+		}
+		r[index]=0;
+	}
+	
 	public static void main(String[] args) {
 		System.out.println(removeChars("aaabbbbAlex", "Alex"));
 		System.out.println(reverseWords("AAAA BBB CCC   ".toCharArray()));
