@@ -1,4 +1,4 @@
-package alex.algorithms;
+package alex.algorithms.dynamicprogramming;
 
 public class MaxSumSubMatrix {
 	public static int N=3;
