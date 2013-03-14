@@ -389,11 +389,11 @@ public class TreeAlgorithms {
 			if (!leftToRight) {
 				Collections.reverse(level);
 			}
+			leftToRight = !leftToRight;
 			for (Node<Integer> node : level) {
 				System.out.printf("%d ", node.getValue());
 			}
 			System.out.println();
-			leftToRight = !leftToRight;
 			if (nextLevel.isEmpty()) {
 				return;
 			} else {
