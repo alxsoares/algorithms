@@ -45,7 +45,7 @@ public class OptimalBinarySearchTree {
 	    for (int L=2; L<=n; L++)
 	    {
 	        // i is row number in cost[][]
-	        for (int i=0; i<=n-L+1; i++)
+	        for (int i=0; i<n-L+1; i++)
 	        {
 	            // Get column number j from row number i and chain length L
 	            int j = i+L-1;
@@ -87,7 +87,7 @@ public class OptimalBinarySearchTree {
 		int freq[] = { 34, 8, 50 };
 		OptimalBinarySearchTree obst = new OptimalBinarySearchTree();
 		System.out.printf("Cost of Optimal BST is %d ",
-				obst.optimalSearchTree(keys, freq, freq.length));
+				obst.optimalSearchTreeDP(keys, freq, freq.length));
 	}
 
 }
