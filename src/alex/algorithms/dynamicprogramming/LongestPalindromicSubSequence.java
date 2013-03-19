@@ -20,7 +20,7 @@ public class LongestPalindromicSubSequence {
 				} else if (s[i] == s[j]) {
 					L[i][j] = L[i + 1][j - 1] + 2;
 				} else {
-					//L[i+1][j] was already calculated on the step before.
+					//L[i+1][j] was already calculated on the step before.((i+1 + len-1) -1==j)
 					L[i][j] = Math.max(L[i][j - 1], L[i + 1][j]);
 				}
 			}

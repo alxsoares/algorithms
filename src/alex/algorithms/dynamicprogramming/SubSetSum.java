@@ -36,25 +36,27 @@ public class SubSetSum {
 		for (int i = 1; i <= sum; i++) {
 			subset[i][0] = false;
 		}
+		// @formatter:off
 		for (int i = 1; i <= sum; i++) {
 			for (int j = 1; j <= n; j++) {
-				subset[i][j] = subset[i][j-1];
-				if(set[j-1]<=i){
-					subset[i][j] = subset[i-set[j-1]][j-1]|| subset[i][j];
+				subset[i][j] = subset[i][j - 1];
+				if (set[j - 1] <= i) {
+					subset[i][j] = subset[i - set[j - 1]][j - 1] || subset[i][j];
 				}
 			}
 		}
+		// @formatter:on
 		return subset[sum][n];
 	}
 
 	public static void main(String[] args) {
-		int set[] = {3, 34, 4, 12, 5, 2};
-		  int sum = 9;
-		  int n = set.length;
-		  if (isSubsetSum(set, n, sum))
-		     System.out.printf("Found a subset with given sum");
-		  else
-			  System.out.printf("No subset with given sum");
+		int set[] = { 3, 34, 4, 12, 5, 2 };
+		int sum = 9;
+		int n = set.length;
+		if (isSubsetSum(set, n, sum))
+			System.out.printf("Found a subset with given sum");
+		else
+			System.out.printf("No subset with given sum");
 	}
 
 }

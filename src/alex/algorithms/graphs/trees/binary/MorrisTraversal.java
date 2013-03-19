@@ -1,8 +1,8 @@
 package alex.algorithms.graphs.trees.binary;
 
 public class MorrisTraversal {
-	
-	public static void morrisTraversal(Node<Integer> root) {
+
+	public static void inOrder(Node<Integer> root) {
 		Node<Integer> current, pre;
 		if (root == null)
 			return;
@@ -26,7 +26,7 @@ public class MorrisTraversal {
 			}
 		}
 	}
-	
+
 	public static void main(String[] args) {
 
 	}
