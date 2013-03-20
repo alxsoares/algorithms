@@ -125,6 +125,16 @@ public class Math {
 		int carry = (a&b)<<1;
 		return sum(sum, carry);
 	}
+	//e^x = 1 + x/1! + x^2/2! + x^3/3! + ...... 
+	//e^x = 1 + (x/1) (1 + (x/2) (1 + (x/3) (........) ) ) 
+	public static float exp(int n, float x){
+		float sum =1.0f;
+		for(int i=n-1; i>0;i--){
+			sum=1 + x*sum/i;
+		}
+		return sum;
+	}
+	
 	public static void main(final String[] args) {
 		// IntegerDivision(200, 7);
 		// System.out.println(sqrt(36.0));
@@ -135,5 +145,6 @@ public class Math {
 		System.out.println(numZeros(200));
 		System.out.println(max(-300,-400));
 		System.out.println(sum(0x00ff,0x00ff));
+		System.out.printf("%f",exp(1000, 1));
 	}
 }
