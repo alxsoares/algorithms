@@ -18,8 +18,8 @@ public class PrimMST {
         parent[0] = -1;
 
         for (int count = 0; count < V - 1; count++) {
-            int u = minKey(key, mstSet);
 
+            int u = minKey(key, mstSet);
             mstSet[u] = true;
 
             for (int v = 0; v < V; v++)
