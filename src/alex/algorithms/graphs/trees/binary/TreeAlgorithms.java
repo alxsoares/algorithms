@@ -94,6 +94,24 @@ public class TreeAlgorithms {
 		}
 	}
 
+	public static Node<Integer> leastCommonAntecessor(Node<Integer> root,
+			int n1, int n2) {
+		if (root == null)
+			return null;
+
+		int max = Math.max(n1, n2);
+		int min = Math.min(n1, n2);
+
+		if (root.getValue() >= min && root.getValue() <= max) {
+			return root;
+		} else if (root.getValue() < min && root.getValue() < max) {
+			return leastCommonAntecessor(root.getRight(), n1, n2);
+		} else if (root.getValue() > min && root.getValue() > max) {
+			return leastCommonAntecessor(root.getLeft(), n1, n2);
+		}
+		return null;
+	}
+
 	public static Node<Integer> rightRotation(Node<Integer> oldRoot) {
 		Node<Integer> root = oldRoot.getLeft();
 		oldRoot.setLeft(root.getRight());
@@ -319,6 +337,26 @@ public class TreeAlgorithms {
 		return -1;
 	}
 
+	public static void iterativeInOrder(Node<Integer> root, int num) {
+		Stack<Node<Integer>> stack = new Stack<>();
+		Node<Integer> current = root;
+		while (true) {
+			if (current != null) {
+				stack.push(current);
+				current = current.getLeft();
+			} else {
+				if (stack.isEmpty()) {
+					break;
+				} else {
+					current = stack.pop();
+					System.out.printf("%d\n", current.getValue());
+					current = current.getRight();
+				}
+			}
+		}
+
+	}
+
 	// Inorder
 	public static void findKthSmaller(Node<Integer> root, int[] k) {
 		if (k[0] < 0 || root == null)
@@ -334,53 +372,36 @@ public class TreeAlgorithms {
 
 	}
 
-	public static Node<Integer> leastCommonAntecessor(Node<Integer> root,
-			int n1, int n2) {
-		if (root == null)
-			return null;
-
-		int max = Math.max(n1, n2);
-		int min = Math.min(n1, n2);
-
-		if (root.getValue() >= min && root.getValue() <= max) {
-			return root;
-		} else if (root.getValue() < min && root.getValue() < max) {
-			return leastCommonAntecessor(root.getRight(), n1, n2);
-		} else if (root.getValue() > min && root.getValue() > max) {
-			return leastCommonAntecessor(root.getLeft(), n1, n2);
-		}
-		return null;
-	}
-	public static void zigzagTraversal(Node<Integer> root){
+	public static void zigzagTraversal(Node<Integer> root) {
 		LinkedList<Node<Integer>> level = new LinkedList<>();
 		boolean leftToRight = true;
 		level.add(root);
-		while(true){
+		while (true) {
 			LinkedList<Node<Integer>> nextLevel = new LinkedList<>();
 			for (Node<Integer> node : level) {
-				if(node.getLeft()!= null){
+				if (node.getLeft() != null) {
 					nextLevel.add(node.getLeft());
 				}
-				if(node.getRight()!= null){
+				if (node.getRight() != null) {
 					nextLevel.add(node.getRight());
 				}
 			}
-			if(!leftToRight){
+			if (!leftToRight) {
 				Collections.reverse(level);
 			}
+			leftToRight = !leftToRight;
 			for (Node<Integer> node : level) {
 				System.out.printf("%d ", node.getValue());
 			}
 			System.out.println();
-			leftToRight = !leftToRight;
-			if(nextLevel.isEmpty()){
+			if (nextLevel.isEmpty()) {
 				return;
-			}
-			else{
-				level= nextLevel;
+			} else {
+				level = nextLevel;
 			}
 		}
 	}
+
 	public static void mirrorTree(Node<Integer> root) {
 		if (root == null)
 			return;
@@ -389,6 +410,32 @@ public class TreeAlgorithms {
 		Node<Integer> temp = root.getRight();
 		root.setRight(root.getLeft());
 		root.setLeft(temp);
+	}
+
+	public static void morrisTraversal(Node<Integer> root) {
+		Node<Integer> current, pre;
+		if (root == null)
+			return;
+		current = root;
+		while (current != null) {
+			if (current.getLeft() == null) {
+				System.out.printf(" %d ", current.getValue());
+				current = current.getRight();
+			} else {
+				pre = current.getLeft();
+				while (pre.getRight() != null && pre.getRight() != current) {
+					pre = pre.getRight();
+				}
+				if (pre.getRight() == null) {
+					pre.setRight(current);
+					current = current.getLeft();
+				} else {
+					pre.setRight(null);
+					System.out.printf(" %d ", current.getValue());
+					current = current.getRight();
+				}
+			}
+		}
 	}
 
 	/**
@@ -456,7 +503,6 @@ public class TreeAlgorithms {
 		}
 		zigzagTraversal(root);
 		// printInOrder(root);
-
 
 	}
 
