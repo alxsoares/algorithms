@@ -10,7 +10,9 @@ public class MinInInterval {
 		for (int i = 0; i < k; i++) {
 			minHeap.add(A[i]);
 		}
+
 		int j = k;
+
 		for (int i = 0; i < A.length; i++) {
 			B[i] = minHeap.peek();
 			minHeap.remove(A[i]);
@@ -22,8 +24,8 @@ public class MinInInterval {
 	}
 
 	public static void main(String[] args) {
-		int [] A = {1,2,-1,3,4,5,6,7,8,9,10,9,1};
-		int [] B = minInInterval(A, 3);
+		int[] A = { 1, 2, -1, 3, 4, 5, 6, 7, 8, 9, 10, 9, 1 };
+		int[] B = minInInterval(A, 3);
 		for (int i = 0; i < B.length; i++) {
 			System.out.printf("%d ", B[i]);
 		}
