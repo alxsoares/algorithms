@@ -15,9 +15,9 @@ public class GuardAndLock {
 		boolean isVisited[][] = new boolean[7][7];
 		LinkedList<Node> queue = new LinkedList<Node>();
 
-		for (int i = 0; i < 7; i++) {
+		for (int i = 0; i < graph.length; i++) {
 
-			for (int j = 0; j < 7; j++) {
+			for (int j = 0; j < graph.length; j++) {
 				//Add Guards
 				if (graph[i][j] == 3) {
 					Node temp = new Node();
@@ -40,7 +40,7 @@ public class GuardAndLock {
 		while (!queue.isEmpty()) {
 			Node root = queue.poll();
 
-			if (root.x + 1 < 7) {
+			if (root.x + 1 < graph.length) {
 				if (!isVisited[root.x + 1][root.y]) {
 					Node temp = new Node();
 					temp.x = root.x + 1;
@@ -61,7 +61,7 @@ public class GuardAndLock {
 					distance[root.x - 1][root.y] = distance[root.x][root.y] + 1;
 				}
 			}
-			if (root.y + 1 < 7) {
+			if (root.y + 1 < graph.length) {
 				if (!isVisited[root.x][root.y + 1]) {
 					Node temp = new Node();
 					temp.x = root.x;
