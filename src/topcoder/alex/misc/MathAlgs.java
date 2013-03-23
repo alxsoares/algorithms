@@ -3,8 +3,8 @@ package topcoder.alex.misc;
 import java.math.BigInteger;
 
 public class MathAlgs {
-	public static int GCD(int x, int y) {
-		int a, b;
+	public static long GCD(long x, long y) {
+		long a, b;
 		if (x > y) {
 			a = x;
 			b = y;
@@ -20,6 +20,29 @@ public class MathAlgs {
 			if (b == 0)
 				return a;
 		}
+	}
+
+	public static long Cn(int n, int k) {
+		long numerator = 1;
+		long denominator = 1;
+		for (int i = k; i > 0; i--) {
+			long toMult = n - k + i;
+			long toDiv = i;
+			long gcd = GCD(toMult, toDiv);
+			toMult = toMult / gcd;
+			toDiv = toDiv / gcd;
+			gcd = GCD(numerator, toDiv);
+			numerator = numerator / gcd;
+			toDiv = toDiv / gcd;
+
+			gcd = GCD(numerator, denominator);
+			numerator = numerator / gcd;
+			denominator = denominator / gcd;
+
+			numerator *= toMult;
+			denominator *= toDiv;
+		}
+		return numerator / denominator;
 	}
 
 	public static void printPI(int arr[], int n) {
@@ -59,10 +82,11 @@ public class MathAlgs {
 	 */
 	public static void main(String[] args) {
 
-//		int arr[] = { 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
-//		printPI(arr, 3);
-		
+		 int arr[] = { 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,12,13,14 };
+		 printPI(arr, 3);
+
 		System.out.println(Exp(BigInteger.valueOf(2), 11));
+		System.out.printf("%d", Cn(1000, 2));
 	}
 
 }
