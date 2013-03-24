@@ -69,7 +69,21 @@ class Node {
 		}
 		return null;
 	}
-
+	public static Node findMergeNode(Node l1, Node l2){
+		Node h1 = l1;
+		Node h2 =l2;
+		while(h1!=h2){
+			if(h1== null){
+				h1  = l2;
+			}
+			if(h2== null){
+				h2 = l1;
+			}
+			h1 = h1.next;
+			h2 = h2.next;
+		}
+		return h1;
+	}
 	public static void main(String[] args) {
 		int a[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 		Node head = new Node(a[0]);
