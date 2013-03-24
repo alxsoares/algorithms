@@ -100,14 +100,14 @@ public class StringUtils {
 	}
 
 	public static void longestSubstringWithoutCharRepetition(char str[]) {
-		int i = 0, j = 0;
+		int i = 0;
 		int sublen = 0, index = 0;
 		int temp[] = new int[256];
 
 		while (i < str.length) {
 			int templen = 0;
+			int j = i;
 			Arrays.fill(temp, 0);
-			j = i;
 			while (j < str.length) {
 				temp[str[j]]++;
 				if (temp[str[j]] > 1)
@@ -141,7 +141,7 @@ public class StringUtils {
 		char[] a = "abcd".toCharArray();
 		while (next_permutation(a))
 			;
-		longestSubstringWithoutCharRepetition("abcdeffghijlkmnopq".toCharArray());
+		longestSubstringWithoutCharRepetition("abcdefghaxyzpbn".toCharArray());
 
 	}
 
