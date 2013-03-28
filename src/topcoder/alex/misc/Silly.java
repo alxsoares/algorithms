@@ -17,6 +17,22 @@ public class Silly {
 		memo[array.length - 1] = sum;
 		return memo;
 	}
+	
+	public static int[] multiplyOthers(int[] array) {
+		int memo[] = new int[array.length];
+		int multiply = 1;
+		for (int i = array.length - 1; i >= 0; i--) {
+			memo[i] = multiply * array[i];
+			multiply *= array[i];
+		}
+		multiply = 1;
+		for (int i = 0; i < array.length - 1; i++) {
+			memo[i] = multiply * memo[i + 1];
+			multiply *= array[i];
+		}
+		memo[array.length - 1] = multiply;
+		return memo;
+	}
 
 	// B[i] = min{A[i], A[i+1], A[i+2], A[i+3], ……., A[i+k]}
 	public static int[] mink(int[] a, int k) {
@@ -51,6 +67,11 @@ public class Silly {
 	public static void main(String[] args) {
 		int[] others = { 1, 2, 3, 4 };
 		int[] array = sumOthers(others);
+		for (int i = 0; i < array.length; i++) {
+			System.out.printf("%d ", array[i]);
+		}
+		System.out.println();
+		array = multiplyOthers(new int[]{1,2,3,4});
 		for (int i = 0; i < array.length; i++) {
 			System.out.printf("%d ", array[i]);
 		}
