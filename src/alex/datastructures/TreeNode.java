@@ -159,6 +159,19 @@ public class TreeNode {
 		return matches(r1.left, r2.left) && matches(r1.right, r2.right);
 	}
 
-	
-	
+	public static TreeNode removeNodesOutsideTheRange(TreeNode root, int min,
+			int max) {
+		if (root == null)
+			return null;
+		root.left = removeNodesOutsideTheRange(root.left, min, max);
+		root.right = removeNodesOutsideTheRange(root.right, min, max);
+		if (root.value < min) {
+			return root.right;
+		}
+		if (root.value > max) {
+			return root.left;
+		}
+
+		return root;
+	}
 }
