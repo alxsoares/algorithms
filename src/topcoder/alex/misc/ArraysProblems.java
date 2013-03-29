@@ -71,7 +71,33 @@ public class ArraysProblems {
 				break;
 			}
 		}
-		System.out.printf("Minimum array to be sorted %d %d", start, end);
+		System.out.printf("Minimum array to be sorted %d %d\n", start, end);
+	}
+	/**
+	 * Kadane's algorithm 
+	 */
+	public static int maxSubArraySum(int a[]){
+		int maxSofar = a[0];
+		int maxEndingHere=a[0];
+		int startTemp=0;
+		int start=0;
+		int end=0;
+		for(int i=1; i < a.length;i++){
+			
+			if(maxEndingHere < 0){
+				maxEndingHere = a[i];
+				startTemp=i;
+			}else{
+				maxEndingHere +=a[i];
+			}
+			if(maxEndingHere > maxSofar){
+				start = startTemp;
+				end=i;
+				maxSofar = maxEndingHere;
+			}
+		}
+		System.out.printf("%d %d\n", start, end);
+		return maxSofar;
 	}
 
 	/**
@@ -82,6 +108,7 @@ public class ArraysProblems {
 		subArraySum(arr, 23);
 		int a[] = {10, 12, 20, 30, 25, 40, 32, 31, 35, 50, 60};
 		printMinimumUnsorted(a);
+		System.out.printf("Maxsum = %d\n", maxSubArraySum(new int[]{-2, -3, 4, -1, -2, 1, 5, -3}));
 	}
 
 }
