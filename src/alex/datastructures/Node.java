@@ -84,6 +84,15 @@ class Node {
 		}
 		return h1;
 	}
+	public static Node reverse(Node l){
+		if(l == null || l.next==null)
+			return l;
+		Node next = l.next;
+		Node r = reverse(next);
+		next.next = l;
+		l.next = null;
+		return r;
+	}
 	public static void main(String[] args) {
 		int a[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 		Node head = new Node(a[0]);
@@ -93,5 +102,11 @@ class Node {
 			n = n.next;
 		}
 		System.out.printf("%d \n", head.nthToEnd(head, 4));
+		Node reverse = reverse(head);
+		while(reverse!= null){
+			System.out.printf("%d ",reverse.data);
+			reverse = reverse.next;
+		}
+		System.out.println();
 	}
 }
