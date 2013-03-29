@@ -2,7 +2,7 @@ package topcoder.alex.misc;
 
 /**
  * 
- Find the first circular tour that visits all petrol pumps February 11, 2013
+ Find the first circular tour that visits all petrol pumps 
  * 
  * Suppose there is a circle. There are n petrol pumps on that circle. You are
  * given two sets of data.
