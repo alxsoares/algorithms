@@ -31,7 +31,9 @@ public class FiniteAutomata {
 			}
 		}
 	}
-
+	/**
+	 * Complexity O(m^3*NUMBER_OF_CHARS)-> to be improved 
+	 */
 	public static void search(String pattern, String text) {
 		int M = pattern.length();
 		int N = text.length();
