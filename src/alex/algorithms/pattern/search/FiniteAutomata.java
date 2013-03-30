@@ -2,6 +2,8 @@ package alex.algorithms.pattern.search;
 
 public class FiniteAutomata {
 
+	private static final int NUMBER_OF_CHARS = 256;
+
 	public static int nextState(char[] pattern, int M, int state, int x) {
 		if (state < M && pattern[state] == x) {
 			return state + 1;
@@ -24,24 +26,26 @@ public class FiniteAutomata {
 
 	public static void computeTransitionsTable(char[] pattern, int M, int[][] TF) {
 		for (int state = 0; state <= M; state++) {
-			for (int x = 0; x < 256; x++) {
+			for (int x = 0; x < NUMBER_OF_CHARS; x++) {
 				TF[state][x] = nextState(pattern, M, state, x);
 			}
 		}
 	}
-	public static void search(String pattern, String text){
+
+	public static void search(String pattern, String text) {
 		int M = pattern.length();
 		int N = text.length();
-		int [][] TF = new int[M+1][256];
+		int[][] TF = new int[M + 1][NUMBER_OF_CHARS];
 		computeTransitionsTable(pattern.toCharArray(), M, TF);
-		int state =0;
-		for(int i=0; i< N;i++){
+		int state = 0;
+		for (int i = 0; i < N; i++) {
 			state = TF[state][text.charAt(i)];
-			if(state==M){
-				System.out.printf("Pattern found at index %d\n", i-M+1);
+			if (state == M) {
+				System.out.printf("Pattern found at index %d\n", i - M + 1);
 			}
 		}
 	}
+
 	public static void main(String[] args) {
 		search("Alex", "AlexAlexAlexAAAAAAAAAaaaaAlex");
 	}
