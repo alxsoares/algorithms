@@ -77,7 +77,7 @@ public class ArraysProblems {
 	 * Kadane's algorithm 
 	 */
 	public static int maxSubArraySum(int a[]){
-		int maxSofar = a[0];
+		int max = a[0];
 		int maxEndingHere=a[0];
 		int startTemp=0;
 		int start=0;
@@ -90,14 +90,14 @@ public class ArraysProblems {
 			}else{
 				maxEndingHere +=a[i];
 			}
-			if(maxEndingHere > maxSofar){
+			if(maxEndingHere > max){
 				start = startTemp;
 				end=i;
-				maxSofar = maxEndingHere;
+				max = maxEndingHere;
 			}
 		}
 		System.out.printf("%d %d\n", start, end);
-		return maxSofar;
+		return max;
 	}
 
 	/**
