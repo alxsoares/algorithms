@@ -57,19 +57,19 @@ public class FiniteAutomata {
 			TF[0][x] = 0;
 		}
 		TF[0][pattern[0]] = 1;
-		int lps = 0;
+		int lps = 0;// Longest prefix suffix.
 		for (int i = 1; i <= M; i++) {
 			for (int x = 0; x < NUMBER_OF_CHARS; x++) {
 				TF[i][x] = TF[lps][x];
 			}
-			if (i < M)
-			{
+			if (i < M) {
 				TF[i][pattern[i]] = i + 1;
 				lps = TF[lps][pattern[i]];
 			}
 		}
 		return TF;
 	}
+
 	public static void searchOptimised(String pattern, String text) {
 		int M = pattern.length();
 		int N = text.length();
@@ -82,6 +82,7 @@ public class FiniteAutomata {
 			}
 		}
 	}
+
 	public static void main(String[] args) {
 		search("Alex", "AlexAlexAlexAAAAAAAAAaaaaAlex");
 		searchOptimised("Alex", "AlexAlexAlexAAAAAAAAAaaaaAlex");
