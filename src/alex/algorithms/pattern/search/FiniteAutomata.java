@@ -84,8 +84,8 @@ public class FiniteAutomata {
 	}
 
 	public static void main(String[] args) {
-		search("Alex", "AlexAlexAlexAAAAAAAAAaaaaAlex");
-		searchOptimised("Alex", "AlexAlexAlexAAAAAAAAAaaaaAlex");
+		search("AAAlex", "AAAlexAAAAlexAAAlexAAAAAAAAAaaaaAAlex");
+		searchOptimised("AAAlex", "AAAlexAAAlexAAAlexAAAAAAAAAaaaaAAAlex");
 	}
 
 }
