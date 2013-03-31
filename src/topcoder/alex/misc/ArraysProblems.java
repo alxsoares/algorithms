@@ -59,40 +59,41 @@ public class ArraysProblems {
 				max = a[i];
 			}
 		}
-		for(int i=0; i < start;i++){
-			if(a[i] > min){
+		for (int i = 0; i < start; i++) {
+			if (a[i] > min) {
 				start = i;
 				break;
 			}
 		}
-		for(int i=a.length-1; i> end;i--){
-			if(a[i] < max){
+		for (int i = a.length - 1; i > end; i--) {
+			if (a[i] < max) {
 				end = i;
 				break;
 			}
 		}
 		System.out.printf("Minimum array to be sorted %d %d\n", start, end);
 	}
+
 	/**
-	 * Kadane's algorithm 
+	 * Kadane's algorithm
 	 */
-	public static int maxSubArraySum(int a[]){
+	public static int maxSubArraySum(int a[]) {
 		int max = a[0];
-		int maxEndingHere=a[0];
-		int startTemp=0;
-		int start=0;
-		int end=0;
-		for(int i=1; i < a.length;i++){
-			
-			if(maxEndingHere < 0){
+		int maxEndingHere = a[0];
+		int startTemp = 0;
+		int start = 0;
+		int end = 0;
+		for (int i = 1; i < a.length; i++) {
+
+			if (maxEndingHere < 0) {
 				maxEndingHere = a[i];
-				startTemp=i;
-			}else{
-				maxEndingHere +=a[i];
+				startTemp = i;
+			} else {
+				maxEndingHere += a[i];
 			}
-			if(maxEndingHere > max){
+			if (maxEndingHere > max) {
 				start = startTemp;
-				end=i;
+				end = i;
 				max = maxEndingHere;
 			}
 		}
@@ -101,14 +102,44 @@ public class ArraysProblems {
 	}
 
 	/**
+	 * Given an array of size n, the array contains numbers in range from 0 to
+	 * k-1 where k is a positive integer and k <= n. Find the maximum repeating
+	 * number in this array. Expected time complexity is O(n) and extra space
+	 * allowed is O(1). Modifications to array are allowed.
+	 */
+	public static int maximumRepetingNumber(int arr[], int k) {
+		//@formatter:off
+		// Iterate though input array arr[], for every element arr[i], increment arr[arr[i]%k] by k
+		//@formatter:on
+		for (int i = 0; i < arr.length; i++) {
+			arr[arr[i] % k] += k;
+		}
+		int index = 0;
+		for (int i = 1; i < arr.length; i++) {
+			if (arr[i] > arr[index]) {
+				index = i;
+			}
+		}
+		// reconstructing the array
+		for (int i = 0; i < arr.length; i++) {
+			arr[i] %= k;
+		}
+		return index;
+	}
+
+	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		int arr[] = { 15, 2, 4, 8, 9, 5, 10, 23 };
 		subArraySum(arr, 23);
-		int a[] = {10, 12, 20, 30, 25, 40, 32, 31, 35, 50, 60};
+		int a[] = { 10, 12, 20, 30, 25, 40, 32, 31, 35, 50, 60 };
 		printMinimumUnsorted(a);
-		System.out.printf("Maxsum = %d\n", maxSubArraySum(new int[]{-2, -3, 4, -1, -2, 1, 5, -3}));
+		System.out.printf("Maxsum = %d\n", maxSubArraySum(new int[] { -2, -3,
+				4, -1, -2, 1, 5, -3 }));
+		int arr2[] = { 2, 3, 3, 5, 3, 4, 1, 7 };
+		System.out.printf("Max repeting number = %d\n",
+				maximumRepetingNumber(arr2, 8));
 	}
 
 }
