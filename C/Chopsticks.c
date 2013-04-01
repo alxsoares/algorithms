@@ -22,6 +22,7 @@ resolve (int ini, int chop)
     if (v2 < v1) v1 = v2;
   }
   r[ini][chop]=v1;
+
   return v1;
 }
 
