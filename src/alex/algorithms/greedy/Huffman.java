@@ -46,11 +46,11 @@ public class Huffman {
 
 		if (root.left == null && root.right == null) {
 			System.out.printf("%c: ", root.data);
-			printArray(buffer, top);
+			print(buffer, top);
 		}
 	}
 
-	void printArray(int buffer[], int n) {
+	void print(int buffer[], int n) {
 		int i;
 		for (i = 0; i < n; ++i)
 			System.out.printf("%d", buffer[i]);
