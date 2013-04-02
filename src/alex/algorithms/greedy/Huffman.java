@@ -5,26 +5,26 @@ import java.util.PriorityQueue;
 
 public class Huffman {
 
-	HeapNode buildHuffmanTree(final char data[], final int freq[], int size) {
-		HeapNode left, right, top;
+	HuffmanTreeNode buildHuffmanTree(final char data[], final int freq[], int size) {
+		HuffmanTreeNode left, right, top;
 
-		PriorityQueue<HeapNode> heap = new PriorityQueue<>(size,
-				new Comparator<HeapNode>() {
+		PriorityQueue<HuffmanTreeNode> heap = new PriorityQueue<>(size,
+				new Comparator<HuffmanTreeNode>() {
 
 					@Override
-					public int compare(HeapNode o1, HeapNode o2) {
+					public int compare(HuffmanTreeNode o1, HuffmanTreeNode o2) {
 						return o1.freq.compareTo(o2.freq);
 					}
 				});
 		for (int i = 0; i < size; i++) {
-			heap.add(HeapNode.newNode(data[i], freq[i]));
+			heap.add(HuffmanTreeNode.newNode(data[i], freq[i]));
 		}
 
 		while (heap.size() != 1) {
 			left = heap.poll();
 			right = heap.poll();
 
-			top = HeapNode.newNode('$', left.freq + right.freq);
+			top = HuffmanTreeNode.newNode('$', left.freq + right.freq);
 			top.left = left;
 			top.right = right;
 			heap.add(top);
@@ -33,32 +33,32 @@ public class Huffman {
 		return heap.poll();
 	}
 
-	void printCodes(HeapNode root, int arr[], int top) {
+	void printCodes(HuffmanTreeNode root, int buffer[], int top) {
 		if (root.left != null) {
-			arr[top] = 0;
-			printCodes(root.left, arr, top + 1);
+			buffer[top] = 0;
+			printCodes(root.left, buffer, top + 1);
 		}
 
 		if (root.right != null) {
-			arr[top] = 1;
-			printCodes(root.right, arr, top + 1);
+			buffer[top] = 1;
+			printCodes(root.right, buffer, top + 1);
 		}
 
 		if (root.left == null && root.right == null) {
 			System.out.printf("%c: ", root.data);
-			printArr(arr, top);
+			printArray(buffer, top);
 		}
 	}
 
-	void printArr(int arr[], int n) {
+	void printArray(int buffer[], int n) {
 		int i;
 		for (i = 0; i < n; ++i)
-			System.out.printf("%d", arr[i]);
+			System.out.printf("%d", buffer[i]);
 		System.out.printf("\n");
 	}
 
 	void HuffmanCodes(char data[], int freq[], int size) {
-		HeapNode root = buildHuffmanTree(data, freq, size);
+		HuffmanTreeNode root = buildHuffmanTree(data, freq, size);
 
 		int arr[] = new int[100], top = 0;
 		printCodes(root, arr, top);
@@ -75,14 +75,14 @@ public class Huffman {
 
 }
 
-class HeapNode {
+class HuffmanTreeNode {
 	char data;
 	Integer freq;
-	HeapNode left;
-	HeapNode right;
+	HuffmanTreeNode left;
+	HuffmanTreeNode right;
 
-	static HeapNode newNode(char data, Integer freq) {
-		HeapNode n = new HeapNode();
+	static HuffmanTreeNode newNode(char data, Integer freq) {
+		HuffmanTreeNode n = new HuffmanTreeNode();
 		n.data = data;
 		n.freq = freq;
 		n.left = n.right = null;
