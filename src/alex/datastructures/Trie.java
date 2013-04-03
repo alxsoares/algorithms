@@ -53,7 +53,7 @@ public class Trie {
 	    String [] keys= {"the", "a", "there", "answer", "any", "by", "bye", "their"};
 	    Trie trie = new Trie();
 	 
-	   HashMap<Boolean, String> output = new HashMap<>();
+	   HashMap<Boolean, String> output = new HashMap<Boolean, String>();
 	   output.put(true, "Present in trie");
 	   output.put(false, "Not present in trie");
 	 
