@@ -45,30 +45,80 @@ public class Trie {
 		return (p != null && p.value > 0);
 	}
 
+	boolean deleteHelper(TrieNode node, String key, int level, int length) {
+		if (node != null) {
+			// Base case
+			if (level == length) {
+				if (node.value != 0) {
+					// Unmark leaf node
+					node.value = 0;
+
+					// If empty, node to be deleted
+					if (node.isItFreeNode()) {
+						return true;
+					}
+
+					return false;
+				}
+			} else // Recursive case
+			{
+				int index = key.charAt(level) - 'a';
+
+				if (deleteHelper(node.children[index], key, level + 1, length)) {
+					// last node marked, delete it
+					node.children[index] = null;
+
+					// recursively climb up, and delete eligible nodes
+					return (node.value == 0 && node.isItFreeNode());
+				}
+			}
+		}
+
+		return false;
+	}
+
+	void deleteKey(String key) {
+		int len = key.length();
+
+		if (len > 0) {
+			deleteHelper(root, key, 0, len);
+		}
+	}
+
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		// Input keys (use only 'a' through 'z' and lower case)
-	    String [] keys= {"the", "a", "there", "answer", "any", "by", "bye", "their"};
-	    Trie trie = new Trie();
-	 
-	   HashMap<Boolean, String> output = new HashMap<Boolean, String>();
-	   output.put(true, "Present in trie");
-	   output.put(false, "Not present in trie");
-	 
-	    // Construct trie
-	    for(int i = 0; i < keys.length; i++)
-	    {
-	        trie.insert(keys[i]);
-	    }
-	 
-	    // Search for different keys
-	    System.out.printf("%s --- %s\n", "the", output.get(trie.search("the") ));
-	    System.out.printf("%s --- %s\n", "these", output.get(trie.search( "these")) );
-	    System.out.printf("%s --- %s\n", "their", output.get(trie.search( "their")) );
-	    System.out.printf("%s --- %s\n", "thaw", output.get(trie.search( "thaw")) );
+		String[] keys = { "the", "a", "there", "answer", "any", "by", "bye",
+				"their" };
+		Trie trie = new Trie();
 
+		HashMap<Boolean, String> output = new HashMap<Boolean, String>();
+		output.put(true, "Present in trie");
+		output.put(false, "Not present in trie");
+
+		// Construct trie
+		for (int i = 0; i < keys.length; i++) {
+			trie.insert(keys[i]);
+		}
+
+		// Search for different keys
+		System.out.printf("%s --- %s\n", "the", output.get(trie.search("the")));
+		System.out.printf("%s --- %s\n", "these",
+				output.get(trie.search("these")));
+		System.out.printf("%s --- %s\n", "their",
+				output.get(trie.search("their")));
+		System.out.printf("%s --- %s\n", "thaw",
+				output.get(trie.search("thaw")));
+		trie.deleteKey("their");
+		System.out.printf("%s --- %s\n", "the", output.get(trie.search("the")));
+		System.out.printf("%s --- %s\n", "these",
+				output.get(trie.search("these")));
+		System.out.printf("%s --- %s\n", "their",
+				output.get(trie.search("their")));
+		System.out.printf("%s --- %s\n", "thaw",
+				output.get(trie.search("thaw")));
 	}
 
 }
@@ -83,6 +133,16 @@ class TrieNode {
 		node.value = 0;
 
 		return node;
+	}
+
+	boolean isItFreeNode() {
+		int i;
+		for (i = 0; i < ALPHABET_SIZE; i++) {
+			if (children[i] != null)
+				return false;
+		}
+
+		return true;
 	}
 
 }
