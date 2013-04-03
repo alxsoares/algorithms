@@ -57,7 +57,7 @@ public class Huffman {
 		System.out.printf("\n");
 	}
 
-	void HuffmanCodes(char data[], int freq[], int size) {
+	void huffmanCodes(char data[], int freq[], int size) {
 		HuffmanTreeNode root = buildHuffmanTree(data, freq, size);
 
 		int arr[] = new int[100], top = 0;
@@ -69,7 +69,7 @@ public class Huffman {
 		int freq[] = { 5, 9, 12, 13, 16, 45 };
 		int size = arr.length;
 		Huffman huffman = new Huffman();
-		huffman.HuffmanCodes(arr, freq, size);
+		huffman.huffmanCodes(arr, freq, size);
 
 	}
 
