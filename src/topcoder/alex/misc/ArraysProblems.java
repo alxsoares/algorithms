@@ -1,6 +1,7 @@
 package topcoder.alex.misc;
 
 import java.util.Arrays;
+import java.util.Stack;
 
 public class ArraysProblems {
 	/**
@@ -235,6 +236,26 @@ public class ArraysProblems {
 			return getMedianRec(ar1, ar2, i + 1, right, n);
 		}
 	}
+	
+	public static int[] getNextGreaterElementArray(int arr[]){
+        if(arr == null ) return null;
+        int nge[] = new int[arr.length];
+        nge[arr.length-1] = -1;
+        int curr = 1;
+        Stack<Integer> stack = new Stack<Integer>();
+        stack.push(0);
+        while(curr < arr.length){
+            while( !stack.isEmpty() && arr[stack.peek()] < arr[curr] ){
+                    nge[stack.pop()] = arr[curr]; 
+                }
+                stack.push(curr);
+            curr++;
+        }
+        while(!stack.isEmpty()){
+            nge[stack.pop()] = -1;
+        }
+        return nge;
+    }
 
 	/**
 	 * @param args
@@ -263,6 +284,10 @@ public class ArraysProblems {
 		Arrays.sort(b);
 		Arrays.sort(c);
 		System.out.printf("%d\n", getMedianRec(b, c, 0, b.length-1, b.length));
+		int [] nge = getNextGreaterElementArray(new int[]{4, 5, 2, 25});
+		for (int i = 0; i < nge.length; i++) {
+			System.out.printf("%d\n",nge[i]);
+		}
 	}
 
 }
