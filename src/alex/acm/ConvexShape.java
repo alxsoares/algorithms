@@ -29,9 +29,7 @@ public class ConvexShape {
     private final int[] x = new int[3000];
     private final int[] y = new int[3000];
 
-    private final char[][] s = new char[50][50];
-
-    boolean check(final int x, final int a1, final int b1, final int y, final int a2, final int b2) {
+    boolean check(final int x, final int a1, final int b1, final int y, final int a2, final int b2, final char[][] s) {
         for (int i = Math.min(a1, b1); i <= Math.max(a1, b1); i++)
             if (s[x][i] != 'B')
                 return false;
@@ -53,9 +51,9 @@ public class ConvexShape {
         }
         for (int i = 1; i < count; i++)
             for (int j = i + 1; j <= count; j++) {
-                if (check(x[i], y[i], y[j], y[j], x[i], x[j]))
+                if (check(x[i], y[i], y[j], y[j], x[i], x[j], s))
                     continue;
-                if (check(x[j], y[i], y[j], y[i], x[i], x[j]))
+                if (check(x[j], y[i], y[j], y[i], x[i], x[j], s))
                     continue;
                 System.out.println("NO");
                 return;
