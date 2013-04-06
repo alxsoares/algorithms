@@ -1,4 +1,4 @@
-package alex.algorithms;
+package alex.algorithms.dynamicprogramming;
 
 public class MaximumSumIncreasingSubsequence {
 	public static int maxSumIncreasingSubSequence(int array[]){
