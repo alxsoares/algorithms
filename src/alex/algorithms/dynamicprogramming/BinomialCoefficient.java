@@ -23,10 +23,20 @@ public class BinomialCoefficient {
 		}
 		return C[n][k];
 	}
+	public static long binomialCoefficientOptimised(int n, int k){
+		long C[] = new long[k+1];
+		C[0] = 1;
+		for(int i=1; i<=n;i++){
+			for(int j=Math.min(i, k); j>0;j--){
+				C[j] = C[j] + C[j-1];
+			}
+		}
+		return C[k];
+	}
 
 	public static void main(String[] args) {
-		System.out.printf("%d\n", binomialCoefficient(100, 5));
-		System.out.printf("%d\n", binomialCoefficientR(100, 5));
+		System.out.printf("%d\n", binomialCoefficient(100, 11));
+		System.out.printf("%d\n", binomialCoefficientOptimised(100, 11));
 	}
 
 }
