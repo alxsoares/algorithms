@@ -27,7 +27,7 @@ public class FloydWarshall {
 	}
 
 	public static void main(String[] args) {
-		int INF = Integer.MAX_VALUE / 10;
+		int INF = Integer.MAX_VALUE;
 		int G[][] = { { 0, 5, INF, 10 }, { INF, 0, 3, INF },
 				{ INF, INF, 0, 1 }, { INF, INF, INF, 0 } };
 		int dist[][] = floydWarshall(G);
