@@ -13,7 +13,10 @@ public class FloydWarshall {
 		for (int v = 0; v < V; v++) {
 			for (int u = 0; u < V; u++) {
 				for (int k = 0; k < V; k++) {
-					if (dist[v][u] > dist[v][k] + dist[k][u]) {
+					//Avoiding arithmetic overflow
+					if (dist[v][k] != Integer.MAX_VALUE
+							&& dist[k][u] != Integer.MAX_VALUE
+							&& dist[v][u] > dist[v][k] + dist[k][u]) {
 						dist[v][u] = dist[v][k] + dist[k][u];
 					}
 				}
