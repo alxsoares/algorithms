@@ -27,10 +27,11 @@ public class Partition {
             for (int j = 1; j <= n; j++) {
 
                 partition[i][j] = partition[i][j - 1];
-
+                //@formatter:off
                 if (i >= array[j - 1]) {
                     partition[i][j] = partition[i][j] || partition[i - array[j - 1]][j - 1];
                 }
+              //@formatter:on
 
             }
         }
