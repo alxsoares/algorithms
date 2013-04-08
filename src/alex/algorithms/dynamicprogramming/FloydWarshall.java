@@ -13,7 +13,10 @@ public class FloydWarshall {
 		for (int v = 0; v < V; v++) {
 			for (int u = 0; u < V; u++) {
 				for (int k = 0; k < V; k++) {
-					if (dist[v][u] > dist[v][k] + dist[k][u]) {
+					//Avoiding arithmetic overflow
+					if (dist[v][k] != Integer.MAX_VALUE
+							&& dist[k][u] != Integer.MAX_VALUE
+							&& dist[v][u] > dist[v][k] + dist[k][u]) {
 						dist[v][u] = dist[v][k] + dist[k][u];
 					}
 				}
@@ -24,7 +27,7 @@ public class FloydWarshall {
 	}
 
 	public static void main(String[] args) {
-		int INF = Integer.MAX_VALUE / 10;
+		int INF = Integer.MAX_VALUE;
 		int G[][] = { { 0, 5, INF, 10 }, { INF, 0, 3, INF },
 				{ INF, INF, 0, 1 }, { INF, INF, INF, 0 } };
 		int dist[][] = floydWarshall(G);

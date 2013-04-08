@@ -31,8 +31,8 @@ public class CuttingARod {
 	public static void main(String[] args) {
 		int arr[] = {1, 5, 8, 9, 10, 17, 17, 20};
 	    int n = arr.length;
-	    System.out.printf("Maximum Obtainable Value is %d\n", cutRod(n,arr));
-	    System.out.printf("Maximum Obtainable Value is %d\n", cutRodRecursive(n,arr));
+	    System.out.printf("Maximum Profit Value is %d\n", cutRod(n,arr));
+	    System.out.printf("Maximum Profit Value is %d\n", cutRodRecursive(n,arr));
 	}
 
 }
