@@ -18,15 +18,18 @@ public class KMP {
 				lps[i++] = previouslength;
 			} else {
 				if (previouslength != 0) {
-					previouslength = lps[previouslength - 1];
+					previouslength = lps[previouslength-1];
 				} else {
 					lps[i] = 0;
 					i++;
 				}
 			}
-
+			System.out.printf(" i, previouslength %d %d\n", i, previouslength);
 		}
-
+		for (int j = 0; j < lps.length; j++) {
+			System.out.printf("%d ", lps[j]);
+		}
+		System.out.println();
 		return lps;
 	}
 
@@ -41,7 +44,7 @@ public class KMP {
 			if (j == pattern.length()) {
 				System.out.printf("Pattern found at %d\n", i - j);
 				j = lps[j - 1];
-			} else if ( pattern.charAt(j) != text.charAt(i)) {
+			} else if (j < pattern.length() && i < text.length() && pattern.charAt(j) != text.charAt(i)) {
 				if (j != 0) {
 					j = lps[j - 1];
 				} else {
@@ -52,8 +55,8 @@ public class KMP {
 	}
 
 	public static void main(String[] args) {
-		String text = "ABABDABACDABABCABAB";
-		String pattern = "ABABCABAB";
+		String text = "ABABCABABABABABCABAABABDABACDABABCABAABABCABABAB";
+		String pattern = "ABABCABABAB";
 		KMPSearch(text,pattern);
 
 	}
