@@ -2,7 +2,7 @@ package alex.algorithms.pattern;
 
 public class KMP {
 	/**
-	 * Computes Longest Prefix Suffix 
+	 * Computes Longest Prefix Suffix
 	 */
 	public static int[] computeLPS(char[] pattern) {
 
@@ -18,7 +18,7 @@ public class KMP {
 				lps[i++] = previouslength;
 			} else {
 				if (previouslength != 0) {
-					previouslength = lps[previouslength-1];
+					previouslength = lps[previouslength - 1];
 				} else {
 					lps[i] = 0;
 					i++;
@@ -33,8 +33,30 @@ public class KMP {
 		return lps;
 	}
 
+	public static int[] computeLPS2(char[] P) {
+
+		int[] lps = new int[P.length];
+		lps[0] = 0;
+		int k = 0;
+		for (int q = 1; q < P.length; q++) {
+			while (k > 0 && P[k] != P[q]) {
+				k = lps[k - 1];
+			}
+			if (P[k] == P[q]) {
+				k++;
+			}
+			lps[q] = k;
+
+		}
+		for (int j = 0; j < lps.length; j++) {
+			System.out.printf("%d ", lps[j]);
+		}
+		System.out.println();
+		return lps;
+	}
+
 	public static void KMPSearch(String text, String pattern) {
-		int[] lps = computeLPS(pattern.toCharArray());
+		int[] lps = computeLPS2(pattern.toCharArray());
 		int i = 0, j = 0;
 		while (i < text.length()) {
 			if (pattern.charAt(j) == text.charAt(i)) {
@@ -44,7 +66,8 @@ public class KMP {
 			if (j == pattern.length()) {
 				System.out.printf("Pattern found at %d\n", i - j);
 				j = lps[j - 1];
-			} else if (j < pattern.length() && i < text.length() && pattern.charAt(j) != text.charAt(i)) {
+			} else if (j < pattern.length() && i < text.length()
+					&& pattern.charAt(j) != text.charAt(i)) {
 				if (j != 0) {
 					j = lps[j - 1];
 				} else {
@@ -55,9 +78,9 @@ public class KMP {
 	}
 
 	public static void main(String[] args) {
-		String text = "ABABCABABABABABCABAABABDABACDABABCABAABABCABABAB";
-		String pattern = "ABABCABABAB";
-		KMPSearch(text,pattern);
+		String text = "AAACAAAAABABCABABABABABCABAABABDABACDABABCABAABABCABABAB";
+		String pattern = "AAACAAAA";
+		KMPSearch(text, pattern);
 
 	}
 
