@@ -33,8 +33,7 @@ public class KMP {
 		return lps;
 	}
 
-	public static int[] computeLPS2(char[] P) {
-
+	public static int[] computeLPSCormen(char[] P) {
 		int[] lps = new int[P.length];
 		lps[0] = 0;
 		int k = 0;
@@ -56,7 +55,7 @@ public class KMP {
 	}
 
 	public static void KMPSearch(String text, String pattern) {
-		int[] lps = computeLPS2(pattern.toCharArray());
+		int[] lps = computeLPSCormen(pattern.toCharArray());
 		int i = 0, j = 0;
 		while (i < text.length()) {
 			if (pattern.charAt(j) == text.charAt(i)) {
