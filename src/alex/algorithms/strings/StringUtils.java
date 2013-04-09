@@ -128,21 +128,55 @@ public class StringUtils {
         for (i = index; i < index + sublen; i++) {
             System.out.printf("%c", str[i]);
         }
+        System.out.println();
+    }
+    private static void longestUniqueSubsttr(char [] str){
+    	int temp[] = new int[256];
+    	int i=0;
+    	int j=0;
+    	int length = Integer.MIN_VALUE;
+    	int start=0, end=0;
+    	while(i < str.length){
+    		Arrays.fill(temp, 0);
+    		j=i;
+    		int tempLength =0;
+    		while(j < str.length){
+    			temp[str[j]]++;
+    			if(temp[str[j]] > 1){
+    				break;
+    			}
+    			j++;
+    			tempLength++;
+    		}
+    		if(tempLength > length){
+    			start = i;
+    			end = j;
+    			length = tempLength;
+    		}
+    		while(j < str.length && str[j]!= str[i]){
+    			i++;
+    		}
+    		i++;
+    	}
+    	for(i=start; i < end; i++){
+    		System.out.printf("%c", str[i]);
+    	}
+    	System.out.println();
     }
 
     public static void main(final String[] args) {
-        System.out.println(removeChars("aaabbbbAlex", "Alex"));
-        System.out.println(reverseWords("AAAA BBB CCC   ".toCharArray()));
-        System.out.println(numberToString(01));
-        char[] chars = "AAAAAAAAAAAaBBabbbc".toCharArray();
-        removeDuplicates(chars);
-        System.out.println(new String(chars));
-        System.out.println("Permutacaoes");
-        char[] a = "abcd".toCharArray();
-        while (next_permutation(a))
-            ;
+//        System.out.println(removeChars("aaabbbbAlex", "Alex"));
+//        System.out.println(reverseWords("AAAA BBB CCC   ".toCharArray()));
+//        System.out.println(numberToString(01));
+//        char[] chars = "AAAAAAAAAAAaBBabbbc".toCharArray();
+//        removeDuplicates(chars);
+//        System.out.println(new String(chars));
+//        System.out.println("Permutacaoes");
+//        char[] a = "abcd".toCharArray();
+//        while (next_permutation(a))
+//            ;
         longestSubstringWithoutCharRepetition("abcdefghaxyzpbn".toCharArray());
-
+        longestUniqueSubsttr("abcdefghaxyzpbn".toCharArray());
     }
 
 }
