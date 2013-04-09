@@ -69,14 +69,15 @@ class Node {
 		}
 		return null;
 	}
-	public static Node findMergeNode(Node l1, Node l2){
+
+	public static Node findMergeNode(Node l1, Node l2) {
 		Node h1 = l1;
-		Node h2 =l2;
-		while(h1!=h2){
-			if(h1== null){
-				h1  = l2;
+		Node h2 = l2;
+		while (h1 != h2) {
+			if (h1 == null) {
+				h1 = l2;
 			}
-			if(h2== null){
+			if (h2 == null) {
 				h2 = l1;
 			}
 			h1 = h1.next;
@@ -84,8 +85,9 @@ class Node {
 		}
 		return h1;
 	}
-	public static Node reverse(Node l){
-		if(l == null || l.next==null)
+
+	public static Node reverse(Node l) {
+		if (l == null || l.next == null)
 			return l;
 		Node next = l.next;
 		Node r = reverse(next);
@@ -93,6 +95,23 @@ class Node {
 		l.next = null;
 		return r;
 	}
+
+	public static Node reverseIterative(Node l) {
+		if (l == null || l.next == null) {
+			return l;
+		}
+		Node next = l.next;
+		l.next = null;
+		while(next.next != null){
+			Node c = next.next;
+			next.next = l;
+			l = next;
+			next = c;
+		}
+		next.next = l;
+		return next;
+	}
+
 	public static void main(String[] args) {
 		int a[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 		Node head = new Node(a[0]);
@@ -102,9 +121,9 @@ class Node {
 			n = n.next;
 		}
 		System.out.printf("%d \n", head.nthToEnd(head, 4));
-		Node reverse = reverse(head);
-		while(reverse!= null){
-			System.out.printf("%d ",reverse.data);
+		Node reverse = reverseIterative(head);
+		while (reverse != null) {
+			System.out.printf("%d ", reverse.data);
 			reverse = reverse.next;
 		}
 		System.out.println();
