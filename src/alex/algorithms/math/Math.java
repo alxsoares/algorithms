@@ -1,5 +1,8 @@
 package alex.algorithms.math;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class Math {
 	private static final double EPSLON = Double.MIN_VALUE;
 
@@ -92,6 +95,27 @@ public class Math {
 		}
 	}
 
+	static boolean isPrime(long n) {
+		if (n == 2 || n == 3)
+			return true;
+		for (int i = 2; i * i <= n; i++) {
+			if (n % i == 0)
+				return false;
+		}
+		return true;
+	}
+
+	public static int nthPrime(final int n) {
+		int i = 2;
+		for (int j = 4; j <= Long.MAX_VALUE; j++) {
+			if (isPrime(j)){
+				i++;
+				if(i == n) return j;
+			}
+		}
+		return -1;
+	}
+
 	public static int trailingZeroes(int num) {
 		int r = 0;
 		if (num < 5)
@@ -114,37 +138,42 @@ public class Math {
 		}
 		return count;
 	}
-	public static int max(int a, int b){
-		int c = (a-b);
-		int k = (c>>31)&1;
-		return a - k*(c);
+
+	public static int max(int a, int b) {
+		int c = (a - b);
+		int k = (c >> 31) & 1;
+		return a - k * (c);
 	}
-	public static int sum(int a, int b){
-		if(b==0) return a;
-		int sum = a^b;
-		int carry = (a&b)<<1;
+
+	public static int sum(int a, int b) {
+		if (b == 0)
+			return a;
+		int sum = a ^ b;
+		int carry = (a & b) << 1;
 		return sum(sum, carry);
 	}
-	//e^x = 1 + x/1! + x^2/2! + x^3/3! + ...... 
-	//e^x = 1 + (x/1) (1 + (x/2) (1 + (x/3) (........) ) ) 
-	public static float exp(int n, float x){
-		float sum =1.0f;
-		for(int i=n-1; i>0;i--){
-			sum=1 + x*sum/i;
+
+	// e^x = 1 + x/1! + x^2/2! + x^3/3! + ......
+	// e^x = 1 + (x/1) (1 + (x/2) (1 + (x/3) (........) ) )
+	public static float exp(int n, float x) {
+		float sum = 1.0f;
+		for (int i = n - 1; i > 0; i--) {
+			sum = 1 + x * sum / i;
 		}
 		return sum;
 	}
-	
+
 	public static void main(final String[] args) {
 		// IntegerDivision(200, 7);
 		// System.out.println(sqrt(36.0));
 		// System.out.println(pow(2, 0.5));
 		// System.out.println(pow2(2, 3));
-		primes(20000);
-		System.out.println(trailingZeroes(200));
-		System.out.println(numZeros(200));
-		System.out.println(max(-300,-400));
-		System.out.println(sum(0x00ff,0x00ff));
-		System.out.printf("%f",exp(1000, 1));
+		// primes(20000);
+		// System.out.println(trailingZeroes(200));
+		// System.out.println(numZeros(200));
+		// System.out.println(max(-300,-400));
+		// System.out.println(sum(0x00ff,0x00ff));
+		// System.out.printf("%f",exp(1000, 1));
+		System.out.printf("%d", nthPrime(10001));
 	}
 }
