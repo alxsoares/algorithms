@@ -14,7 +14,14 @@ public class FastFibonacci {
 		}
 		return res;
 	}
-
+	public static long[][] multiply2by2( long A[][], long B[][]){
+		long [][] C = new long[2][2];
+		C[0][0] = A[0][0] *B[0][0] + A[0][1]*B[1][0];
+		C[0][1] = A[0][0] *B[0][1] + A[0][1]*B[1][1];
+		C[1][0] = A[1][0] *B[0][0] + A[1][1]*B[1][0];
+		C[1][1] = A[1][0] *B[0][1] + A[1][1]*B[1][1];
+		return C;
+	}
 	public static int[][] pow(int a[][], int n) {
 		if (n == 1)
 			return a;
@@ -27,9 +34,20 @@ public class FastFibonacci {
 		}
 	}
 
+	public static long[][] pow2(long a[][], int n) {
+		if (n == 1)
+			return a;
+		long B[][] = pow2(a, n / 2);// if n is odd
+		if (n % 2 == 0) {
+			return multiply2by2(B, B);
+		} else {
+			return multiply2by2(a, multiply2by2(B, B));
+		}
+	}
+	
 	public static long fastFib(int nfib) {
-		int[][] base = { { 1, 1 }, { 1, 0 } };
-		int f[][] = pow(base, nfib);
+		long[][] base = { { 1, 1 }, { 1, 0 } };
+		long f[][] = pow2(base, nfib);
 		return f[0][1];
 	}
 
@@ -63,7 +81,7 @@ public class FastFibonacci {
 		System.out.println(fastFib(7));
 		System.out.println(fastFib(8));
 		System.out.println(fastFib(9));
-		System.out.println(fastFib(10));
+		System.out.println(fastFib(100));
 		
 		System.out.println(fastFibIterative(1));
 		System.out.println(fastFibIterative(2));

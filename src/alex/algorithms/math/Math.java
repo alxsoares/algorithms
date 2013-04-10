@@ -111,7 +111,18 @@ public class Math {
 		}
 		return n*r*r;
 	}
-
+	public static double powIter(double n, int e){
+		double factor = n;
+		double res=1;
+		while(e > 0){
+			if((e & 1) > 0){
+				res = res*factor;
+			}
+			e = e>>1;
+			factor*=factor;
+		}
+		return res;
+	}
 	public static double pow(final double n, final double e) {
 		double decExp = e - (int) e;
 		double partialExp = 0.5;
