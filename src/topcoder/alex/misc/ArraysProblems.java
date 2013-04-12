@@ -130,6 +130,25 @@ public class ArraysProblems {
 		return index;
 	}
 
+	/**
+	 * 1. Given an array of size n, having numbers from 1..n , with one number
+	 * missing and one occurring twice. Find the 2 numbers
+	 */
+	public static void findMissingAndDuplicate(int arr[]) {
+		int n = arr.length;
+		for(int i=0; i < n; i++){
+			arr[(arr[i]-1)%n]+=n;
+		}
+		for(int i=0; i < n; i++){
+			if(arr[i] <= n){
+				System.out.printf("Missing Number is %d\n", i+1);
+			}
+			if(arr[i] > 2*n){
+				System.out.printf("Duplicated Number is %d\n", i+1);
+			}
+		}
+	}
+
 	public static int secondMax(int a[]) {
 		int first = Integer.MIN_VALUE;
 		int second = Integer.MIN_VALUE;
@@ -262,34 +281,9 @@ public class ArraysProblems {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		int arr[] = { 15, 2, 4, 8, 9, 5, 10, 23 };
-		subArraySum(arr, 23);
-		int a[] = { 10, 12, 20, 30, 25, 40, 32, 31, 35, 50, 60 };
-		printMinimumUnsorted(a);
-		System.out.printf("Maxsum = %d\n", maxSubArraySum(new int[] { -2, -3,
-				4, -1, -2, 1, 5, -3 }));
-		int arr2[] = { 2, 3, 3, 5, 3, 4, 1, 7 };
-		System.out.printf("Max repeting number = %d\n",
-				maximumRepetingNumber(arr2, 8));
-
-		int a2[] = { -1, 12, 9982, 73, 389, 1212, 398294, 1, 2938283,
-				834834897, 292392392, 1, 2, 12 };
-		// System.out.printf("%d\n", secondMax(a));
-		// Arrays.sort(a);
-		// System.out.printf("%d\n", a[a.length - 2]);
-		find3Numbers(a2, 15);
-		minAbsSumPair(a2);
-		int b[] = { 14, 10, 2, 2, 3, 3, 4, 5, 6, 6, 7, 7, 8, 8 };
-		int c[] = { 10, 20, 3, 4, 3, 3, 4, 5, 6, 6, 7, 9, 8, 8 };
-		// get2NonRepetingNumbers(b);
-		Arrays.sort(b);
-		Arrays.sort(c);
-		System.out
-				.printf("%d\n", getMedianRec(b, c, 0, b.length - 1, b.length));
-		int[] nge = getNextGreaterElementArray(new int[] { 4, 5, 2, 25 });
-		for (int i = 0; i < nge.length; i++) {
-			System.out.printf("%d\n", nge[i]);
-		}
+				
+		int [] dupMissing = {1,1,3,4,5,6,7,8,9,10};
+		findMissingAndDuplicate(dupMissing);
 	}
 
 }
