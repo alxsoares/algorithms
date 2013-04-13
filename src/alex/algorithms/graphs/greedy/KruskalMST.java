@@ -1,4 +1,4 @@
-package alex.algorithms.greedy;
+package alex.algorithms.graphs.greedy;
 
 import java.util.Arrays;
 
