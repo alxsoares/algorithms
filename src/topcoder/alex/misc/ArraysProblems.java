@@ -335,7 +335,7 @@ public class ArraysProblems {
 		}
 		System.out.println();
 	}
-	
+
 	/**
 	 * You are given an unsorted array with both positive and negative elements.
 	 * You have to find the smallest positive number missing from the array in
@@ -345,7 +345,7 @@ public class ArraysProblems {
 	public static void smallestPositiveNumberMissingUnsortedArray(int[] arr) {
 		int i = 0;
 		int j = arr.length - 1;
-		//Move non-negative to left
+		// Move non-negative to left
 		while (i < j) {
 			while (arr[i] > 0 && i < j)
 				i++;
@@ -363,45 +363,66 @@ public class ArraysProblems {
 		}
 		printArray(arr);
 		int size = i;
-		for(i=0; i < size;i++){
-			int index = Math.abs(arr[i])-1;
-			if( index < size && index>= 0 && arr[index]> 0){
-				arr[index]*=-1;
+		for (i = 0; i < size; i++) {
+			int index = Math.abs(arr[i]) - 1;
+			if (index < size && index >= 0 && arr[index] > 0) {
+				arr[index] *= -1;
 			}
 		}
 		printArray(arr);
-		for(i=0; i < size; i++){
-			if(arr[i] > 0){
-				System.out.printf("First positive missing is %d \n", i+1);
+		for (i = 0; i < size; i++) {
+			if (arr[i] > 0) {
+				System.out.printf("First positive missing is %d \n", i + 1);
 				return;
 			}
 		}
-		System.out.printf("First positive missing is %d \n", i+1);
+		System.out.printf("First positive missing is %d \n", i + 1);
 	}
-	public static void findTwoRepeatingIntegers(int arr[]){
+
+	public static void findTwoRepeatingIntegers(int arr[]) {
 		int n = arr.length;
-		for(int i=0; i < n;i++){
-			arr[(arr[i]-1)%n]+=n;
+		for (int i = 0; i < n; i++) {
+			arr[(arr[i] - 1) % n] += n;
 		}
-		for(int i=0 ; i < n; i++){
-			if(arr[i]>2*n){
-				System.out.printf("%d is repeating\n", i+1);
+		for (int i = 0; i < n; i++) {
+			if (arr[i] > 2 * n) {
+				System.out.printf("%d is repeating\n", i + 1);
 			}
 		}
 	}
-	public static int maxDiff(int arr[]){
-		int diff = arr[1]-arr[0];
+
+	public static int maxDiff(int arr[]) {
+		int diff = arr[1] - arr[0];
 		int min = arr[0];
-		for(int i=1; i < arr.length;i++){
-			if(arr[i] - min > diff ){
+		for (int i = 1; i < arr.length; i++) {
+			if (arr[i] - min > diff) {
 				diff = arr[i] - min;
 			}
-			if(min > arr[i]){
+			if (min > arr[i]) {
 				min = arr[i];
 			}
 		}
 		return diff;
 	}
+
+	/**
+	 * Given an array all of whose elements are positive numbers, find the
+	 * maximum sum of a subsequence with the constraint that no 2 numbers in the
+	 * sequence should be adjacent in the array. So 3 2 7 10 should return 13
+	 * (sum of 3 and 10) or 3 2 5 10 7 should return 15 (sum of 3, 5 and
+	 * 7).Answer the question in most efficient way.
+	 */
+	public static int findMaxSumNoAdjacent(int[] arr) {
+		int excl = 0;
+		int incl = arr[0];
+		for(int i=1; i < arr.length;i++){
+			int aux = Math.max(incl, excl);
+			incl = excl+arr[i];//can not be adjacent
+			excl = aux;
+		}
+		return Math.max(incl, excl);
+	}
+
 	/**
 	 * @param args
 	 */
@@ -412,11 +433,12 @@ public class ArraysProblems {
 		int arr[] = { -1, 2, -3, 4, 5, 6, -7, 8, 9 };
 		rearrangePositiveNegative(arr);
 		printArray(arr);
-		smallestPositiveNumberMissingUnsortedArray(new int[] { 2, 3, -7, 6, 8, 1, -10, 15 });
-		findTwoRepeatingIntegers(new int[]{4, 2, 4, 5, 2, 3, 1});
-		System.out.printf("Max difference = %d \n", maxDiff(new int[]{1, 2, 6, 80, 100}));
+		smallestPositiveNumberMissingUnsortedArray(new int[] { 2, 3, -7, 6, 8,
+				1, -10, 15 });
+		findTwoRepeatingIntegers(new int[] { 4, 2, 4, 5, 2, 3, 1 });
+		System.out.printf("Max difference = %d \n", maxDiff(new int[] { 1, 2,
+				6, 80, 100 }));
+		System.out.printf("Max Sum = %d \n", findMaxSumNoAdjacent(new int[]{5, 5, 10, 100, 10, 5}) );
 	}
-
-	
 
 }
