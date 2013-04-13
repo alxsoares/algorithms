@@ -389,6 +389,19 @@ public class ArraysProblems {
 			}
 		}
 	}
+	public static int maxDiff(int arr[]){
+		int diff = arr[1]-arr[0];
+		int min = arr[0];
+		for(int i=1; i < arr.length;i++){
+			if(arr[i] - min > diff ){
+				diff = arr[i] - min;
+			}
+			if(min > arr[i]){
+				min = arr[i];
+			}
+		}
+		return diff;
+	}
 	/**
 	 * @param args
 	 */
@@ -401,6 +414,7 @@ public class ArraysProblems {
 		printArray(arr);
 		smallestPositiveNumberMissingUnsortedArray(new int[] { 2, 3, -7, 6, 8, 1, -10, 15 });
 		findTwoRepeatingIntegers(new int[]{4, 2, 4, 5, 2, 3, 1});
+		System.out.printf("Max difference = %d \n", maxDiff(new int[]{1, 2, 6, 80, 100}));
 	}
 
 	
