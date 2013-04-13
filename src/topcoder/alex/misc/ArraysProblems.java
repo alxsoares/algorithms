@@ -294,36 +294,89 @@ public class ArraysProblems {
 	 * the output should be [9, -7, 8, -3, 5, -1, 2, 4, 6]
 	 */
 	public static void rearrangePositiveNegative(int arr[]) {
-//		for(int j=0 ; j < arr.length;j++){
-//			if(arr[j]< 0){
-//				i++;
-//				int aux
-//			}
-//		}
-		int i=0;
-		int j = arr.length-1;
-		while(i < j){
-			while(arr[i] < 0 &&  i < j) i++;
-			while(arr[j] > 0 && i < j) j--;
-			if(i < j){
+		// for(int j=0 ; j < arr.length;j++){
+		// if(arr[j]< 0){
+		// i++;
+		// int aux
+		// }
+		// }
+		int i = 0;
+		int j = arr.length - 1;
+		while (i < j) {
+			while (arr[i] < 0 && i < j)
+				i++;
+			while (arr[j] > 0 && i < j)
+				j--;
+			if (i < j) {
 				int aux = arr[i];
 				arr[i] = arr[j];
 				arr[j] = aux;
-				i++;j--;
-			}else{
+				i++;
+				j--;
+			} else {
 				j--;
 			}
 		}
-		int pos =i;
+		int pos = i;
 		System.out.println(pos);
-		int neg =0;
-		while(pos < arr.length && neg < pos && arr[neg] < 0){
+		int neg = 0;
+		while (pos < arr.length && neg < pos && arr[neg] < 0) {
 			int aux = arr[neg];
 			arr[neg] = arr[pos];
 			arr[pos] = aux;
 			pos++;
-			neg+=2;
+			neg += 2;
 		}
+	}
+
+	private static void printArray(int[] arr) {
+		for (int i = 0; i < arr.length; i++) {
+			System.out.printf("%d ", arr[i]);
+		}
+		System.out.println();
+	}
+	
+	/**
+	 * You are given an unsorted array with both positive and negative elements.
+	 * You have to find the smallest positive number missing from the array in
+	 * O(n) time using constant extra space. You can modify the original array.
+	 * 
+	 */
+	public static void smallestPositiveNumberMissingUnsortedArray(int[] arr) {
+		int i = 0;
+		int j = arr.length - 1;
+		//Move non-negative to left
+		while (i < j) {
+			while (arr[i] > 0 && i < j)
+				i++;
+			while (arr[j] <= 0 && i < j)
+				j--;
+			if (i < j) {
+				int aux = arr[i];
+				arr[i] = arr[j];
+				arr[j] = aux;
+				i++;
+				j--;
+			} else {
+				j--;
+			}
+		}
+		printArray(arr);
+		int size = i;
+		for(i=0; i < size;i++){
+			int index = Math.abs(arr[i])-1;
+			if( index < size && index>= 0 && arr[index]> 0){
+				arr[index]*=-1;
+			}
+		}
+		printArray(arr);
+		for(i=0; i < size; i++){
+			if(arr[i] > 0){
+				System.out.printf("First positive missing is %d \n", i+1);
+				return;
+			}
+		}
+		System.out.printf("First positive missing is %d \n", i+1);
 	}
 
 	/**
@@ -333,16 +386,12 @@ public class ArraysProblems {
 
 		int[] dupMissing = { 1, 1, 3, 4, 5, 6, 7, 8, 9, 10 };
 		findMissingAndDuplicate(dupMissing);
-		 int arr[] = {-1, 2, -3, 4, 5, 6, -7, 8, 9};
-		 rearrangePositiveNegative(arr);
-		 printArray(arr);
+		int arr[] = { -1, 2, -3, 4, 5, 6, -7, 8, 9 };
+		rearrangePositiveNegative(arr);
+		printArray(arr);
+		smallestPositiveNumberMissingUnsortedArray(new int[] { 2, 3, -7, 6, 8, 1, -10, 15 });
 	}
 
-	private static void printArray(int[] arr) {
-		for(int i=0; i < arr.length;i++){
-			System.out.printf("%d ", arr[i]);
-		}
-		System.out.println();
-	}
+	
 
 }
