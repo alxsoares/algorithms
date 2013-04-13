@@ -378,7 +378,17 @@ public class ArraysProblems {
 		}
 		System.out.printf("First positive missing is %d \n", i+1);
 	}
-
+	public static void findTwoRepeatingIntegers(int arr[]){
+		int n = arr.length;
+		for(int i=0; i < n;i++){
+			arr[(arr[i]-1)%n]+=n;
+		}
+		for(int i=0 ; i < n; i++){
+			if(arr[i]>2*n){
+				System.out.printf("%d is repeating\n", i+1);
+			}
+		}
+	}
 	/**
 	 * @param args
 	 */
@@ -390,6 +400,7 @@ public class ArraysProblems {
 		rearrangePositiveNegative(arr);
 		printArray(arr);
 		smallestPositiveNumberMissingUnsortedArray(new int[] { 2, 3, -7, 6, 8, 1, -10, 15 });
+		findTwoRepeatingIntegers(new int[]{4, 2, 4, 5, 2, 3, 1});
 	}
 
 	
