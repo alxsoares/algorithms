@@ -2,6 +2,10 @@ package topcoder.alex;
 
 import java.util.Arrays;
 
+/**
+ * http://community.topcoder.com/stat?c=problem_statement&pm=11566&rd=14547
+ * 
+ */
 public class RowAndCoins {
 	String cells;
 	int t;
