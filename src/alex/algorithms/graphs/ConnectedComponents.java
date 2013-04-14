@@ -21,7 +21,7 @@ public class ConnectedComponents {
 		}
 	}
 
-	public static int countConnectComponents(int M[][]) {
+	public static int countConnectedComponents(int M[][]) {
 		int COL = M.length;
 		int ROW = M[0].length;
 		boolean visited[][] = new boolean[ROW][COL];
@@ -48,7 +48,7 @@ public class ConnectedComponents {
 			        {1, 0, 1, 0, 1}
 			    };
 		 //@formatter:on
-		 System.out.printf("Number of connected components=%d\n", countConnectComponents(M));
+		 System.out.printf("Number of connected components=%d\n", countConnectedComponents(M));
 	}
 
 }
