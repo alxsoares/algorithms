@@ -6,12 +6,12 @@ import java.util.Random;
 
 public class IDAStar {
 
-	int MaxDepth;
+	int maxDepth;
 	int nextMaxDepth = 0;
-	long visited[] = new long[50];
-	int BOUND = 50;
+	int BOUND = 50;//max moves
+	long visited[] = new long[BOUND];
 
-	public void teste() {
+	public void test() {
 		byte puzz1[] = { 2, 3, 4, 0, 1, 5, 7, 8, 9, 6, 10, 12, 13, 14, 11, 15 };
 		byte puzz2[] = { 2, 3, 4, 8, 1, 5, 7, 12, 6, 0, 10, 15, 9, 13, 14, 11 };
 		byte puzz3[] = { 1, 0, 3, 4, 10, 2, 6, 8, 5, 9, 7, 11, 13, 14, 15, 12 };
@@ -19,20 +19,14 @@ public class IDAStar {
 		byte puzz5[] = { 2, 4, 8, 12, 1, 3, 7, 0, 6, 5, 10, 15, 9, 13, 14, 11 };
 		byte puzz6[] = { 2, 4, 8, 12, 1, 5, 7, 15, 0, 10, 3, 11, 6, 9, 13, 14 };
 		byte puzz7[] = { 13, 1, 2, 4, 5, 0, 3, 7, 9, 6, 10, 12, 15, 8, 11, 14 };
+		
 		IDA(createStartNode(puzz1));
-
 		IDA(createStartNode(puzz2));
-
 		IDA(createStartNode(puzz3));
-
 		IDA(createStartNode(puzz4));
-
 		IDA(createStartNode(puzz5));
-
 		IDA(createStartNode(puzz6));
-
 		IDA(createStartNode(puzz7));
-
 		System.out.println("1000");
 		for (int i = 0; i < 1000; i++) {
 			byte puzz[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0 };
@@ -59,7 +53,7 @@ public class IDAStar {
 					l = pos / 4;
 					c = pos % 4;
 					c++;
-					if (l >= 0 && c >= 0 && l < 4 && c < 4) {
+					if (isSafe(l, c)) {
 						int pos2 = 4 * l + c;
 						byte aux = puzz[pos];
 						puzz[pos] = puzz[pos2];
@@ -76,7 +70,7 @@ public class IDAStar {
 					l = pos / 4;
 					c = pos % 4;
 					c--;
-					if (l >= 0 && c >= 0 && l < 4 && c < 4) {
+					if (isSafe(l, c)) {
 						int pos2 = 4 * l + c;
 						byte aux = puzz[pos];
 						puzz[pos] = puzz[pos2];
@@ -93,7 +87,7 @@ public class IDAStar {
 					l = pos / 4;
 					c = pos % 4;
 					l++;
-					if (l >= 0 && c >= 0 && l < 4 && c < 4) {
+					if (isSafe(l, c)) {
 						int pos2 = 4 * l + c;
 						byte aux = puzz[pos];
 						puzz[pos] = puzz[pos2];
@@ -110,7 +104,7 @@ public class IDAStar {
 					l = pos / 4;
 					c = pos % 4;
 					l--;
-					if (l >= 0 && c >= 0 && l < 4 && c < 4) {
+					if (isSafe(l, c)) {
 						int pos2 = 4 * l + c;
 						byte aux = puzz[pos];
 						puzz[pos] = puzz[pos2];
@@ -126,19 +120,23 @@ public class IDAStar {
 
 	}
 
+	private boolean isSafe(int l, int c) {
+		return l >= 0 && c >= 0 && l < 4 && c < 4;
+	}
+
 	void solve(byte puzz[]) {
 		Node start = createStartNode(puzz);
 		IDA(start);
 	}
 
 	public void IDA(Node start) {
-		MaxDepth = estimate(start.puzz);
+		maxDepth = estimate(start.puzz);
 		if (!isSolvable(start.puzz)) {
 			System.out.println("This puzzle is not solvable.");
 			return;
 		}
 		while (!solve(start, 0)) {
-			MaxDepth = nextMaxDepth;
+			maxDepth = nextMaxDepth;
 			nextMaxDepth = 0;
 		}
 
@@ -214,7 +212,7 @@ public class IDAStar {
 
 	boolean solve(Node node, int depth) {
 		int h = estimate(node.puzz);
-		if (depth + h > MaxDepth) {
+		if (depth + h > maxDepth) {
 			if (nextMaxDepth == 0) {
 				nextMaxDepth = depth + h;
 			} else {
@@ -407,7 +405,7 @@ public class IDAStar {
 		long a = System.currentTimeMillis();
 		IDAStar main = new IDAStar();
 
-		main.teste();
+		main.test();
 		long b = System.currentTimeMillis();
 
 		System.out.println("Tempo :" + (b - a));
@@ -417,28 +415,20 @@ public class IDAStar {
 }
 
 class Node implements Comparable<Node> {
-
 	public float g;
-
 	public int step;
-
 	public String path = "";
-
 	public byte puzz[];
-
 	public int pos;
-
+	
 	public boolean equals(Node obj) {
 		Node n = obj;
-
 		if (n == null) {
 			return true;
 		}
-
 		if (this.getState() == (n.getState())) {
 			return true;
 		}
-
 		return false;
 	}
 
@@ -469,11 +459,6 @@ class Node implements Comparable<Node> {
 			state=state|puzz[i];
 		}
 		return state;
-//		StringBuffer buff = new StringBuffer();
-//		for (int i = 0; i < puzz.length; i++) {
-//			buff.append(Long.toString(puzz[i], 16));
-//		}
-//		return buff.toString();
 	}
 
 }
