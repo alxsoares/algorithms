@@ -2,6 +2,11 @@ package topcoder.alex;
 
 import java.util.Arrays;
 
+/**
+ * 
+ * http://community.topcoder.com/stat?c=problem_statement&pm=11549&rd=14548
+ * 
+ */
 public class SmallBricks31 {
 	int w;
 	int mem[][] = new int[11][1 << 10];
