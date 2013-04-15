@@ -44,7 +44,7 @@ public class SmallBricks31 {
 	}
 
 	int F(int h, int previousRow) {
-		// Memoization (Remember
+		// Memoization
 		int res = mem[h][previousRow];
 		if (res == -1) {
 			if (h == 0) {
@@ -54,6 +54,7 @@ public class SmallBricks31 {
 				// add F(h-1, currentRow) to the result for each one
 				res = backtrack(h, previousRow, 0, 0);
 			}
+			mem[h][previousRow] = res;
 		}
 		return res;
 	}
@@ -71,6 +72,7 @@ public class SmallBricks31 {
 		SmallBricks31 s = new SmallBricks31();
 		System.out.println(s.countWays(3, 2));
 		System.out.println(s.countWays(5, 5));
+		System.out.println(s.countWays(4, 9));
 	}
 
 }
