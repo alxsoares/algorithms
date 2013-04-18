@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 import java.util.Random;
 import java.util.Stack;
@@ -438,6 +439,33 @@ public class TreeAlgorithms {
 		}
 	}
 
+	public static boolean isLeaf(Node<Integer> n) {
+		if (n.getLeft() == n.getRight() && n.getLeft() == null) {
+			return true;
+		}
+		return false;
+	}
+
+	public static void printPaths(Node<Integer> root, LinkedList<Integer> path) {
+		if (isLeaf(root)) {
+			path.add(root.getValue());
+			for (Iterator<Integer> iterator = path.iterator(); iterator
+					.hasNext();) {
+				Integer v = iterator.next();
+				System.out.printf("%d ", v);
+			}
+			path.removeLast();
+			System.out.println();
+		} else {
+			path.add(root.getValue());
+			if (root.getLeft() != null)
+				printPaths(root.getLeft(), path);
+			if (root.getRight() != null)
+				printPaths(root.getRight(), path);
+			path.removeLast();
+		}
+	}
+
 	/**
 	 * @param args
 	 */
@@ -492,16 +520,17 @@ public class TreeAlgorithms {
 		// find(root, 199);
 		// System.out.println(findKth(root, 199));
 		// System.out.println(findKth2(root, 199));
-		printTreeLevels(root, 3);
-		System.out.println();
-		ArrayList<LinkedList<Node<Integer>>> levels = getTreeLevels(root);
-		for (LinkedList<Node<Integer>> linkedList : levels) {
-			for (Node<Integer> node : linkedList) {
-				System.out.printf("%d ", node.getValue());
-			}
-			System.out.println();
-		}
-		zigzagTraversal(root);
+		// printTreeLevels(root, 3);
+		// System.out.println();
+		// ArrayList<LinkedList<Node<Integer>>> levels = getTreeLevels(root);
+		// for (LinkedList<Node<Integer>> linkedList : levels) {
+		// for (Node<Integer> node : linkedList) {
+		// System.out.printf("%d ", node.getValue());
+		// }
+		// System.out.println();
+		// }
+		// zigzagTraversal(root);
+		printPaths(root, new LinkedList<Integer>());
 		// printInOrder(root);
 
 	}
