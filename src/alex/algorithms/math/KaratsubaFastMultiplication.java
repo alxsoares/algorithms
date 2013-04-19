@@ -4,7 +4,7 @@ import java.math.BigInteger;
 import java.util.Random;
 
 public class KaratsubaFastMultiplication {
-	private static final int CUTOFF = 1500;
+	private static final int CUTOFF = 1536;
 
 	//O(n^1.5) time complexity for multiplication.
 	public static BigInteger karatsuba(BigInteger x, BigInteger y) {
