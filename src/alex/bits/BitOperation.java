@@ -95,6 +95,14 @@ public class BitOperation {
 		}
 		return count;
 	}
+	
+	public static int diffBits2(int a, int b) {
+		int count = 0;
+		for (int c = a ^ b; c != 0; c = c&(c-1)) {
+			count ++;
+		}
+		return count;
+	}
 
 	public static int swappOddEvenBits(int n) {
 		return ((n & 0xaaaaaaaa) >> 1) | ((n & 0x55555555) << 1);
@@ -157,6 +165,13 @@ public class BitOperation {
 		int xor = 14;
 		int rightMost = xor & ~(xor -1);
 		System.out.println(Integer.toBinaryString((rightMost)));
+		System.out.printf("Diff Bits =%d\n",diffBits(2,3));
+		System.out.printf("Diff Bits =%d\n",diffBits(10,8));
+		System.out.printf("Diff Bits =%d\n\n",diffBits(16,8));
+		
+		System.out.printf("Diff Bits =%d\n",diffBits2(2,3));
+		System.out.printf("Diff Bits =%d\n",diffBits2(10,8));
+		System.out.printf("Diff Bits =%d\n",diffBits2(16,8));
 	}
 
 }
