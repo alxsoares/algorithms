@@ -415,12 +415,37 @@ public class ArraysProblems {
 	public static int findMaxSumNoAdjacent(int[] arr) {
 		int excl = 0;
 		int incl = arr[0];
-		for(int i=1; i < arr.length;i++){
+		for (int i = 1; i < arr.length; i++) {
 			int aux = Math.max(incl, excl);
-			incl = excl+arr[i];//can not be adjacent
+			incl = excl + arr[i];// can not be adjacent
 			excl = aux;
 		}
 		return Math.max(incl, excl);
+	}
+
+	public static int maxIndexDiff(int array[]) {
+		int[] LMIN = new int[array.length];
+		int[] RMAX = new int[array.length];
+		LMIN[0] = array[0];
+		for (int i = 1; i < array.length; i++) {
+			LMIN[i] = Math.min(array[i], LMIN[i - 1]);
+		}
+		RMAX[array.length - 1] = array[array.length - 1];
+		for (int i = array.length - 2; i >= 0; i--) {
+			RMAX[i] = Math.max(array[i], RMAX[i + 1]);
+		}
+		int maxDiff = Integer.MIN_VALUE;
+		int i = 0;
+		int j = 0;
+		while (i < array.length && j < array.length) {
+			if (LMIN[i] < RMAX[j]) {
+				maxDiff = Math.max(maxDiff, j - i);
+				j++;
+			} else {
+				i++;
+			}
+		}
+		return maxDiff;
 	}
 
 	/**
@@ -438,7 +463,9 @@ public class ArraysProblems {
 		findTwoRepeatingIntegers(new int[] { 4, 2, 4, 5, 2, 3, 1 });
 		System.out.printf("Max difference = %d \n", maxDiff(new int[] { 1, 2,
 				6, 80, 100 }));
-		System.out.printf("Max Sum = %d \n", findMaxSumNoAdjacent(new int[]{5, 5, 10, 100, 10, 5}) );
+		System.out.printf("Max Sum = %d \n", findMaxSumNoAdjacent(new int[] {
+				5, 5, 10, 100, 10, 5 }));
+		System.out.printf("Maximum j-i=%d\n", maxIndexDiff(new int[]{9, 2, 3, 4, 5, 6, 7, 8, 18, 0}));
 	}
 
 }
