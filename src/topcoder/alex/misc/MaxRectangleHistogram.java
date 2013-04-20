@@ -2,6 +2,10 @@ package topcoder.alex.misc;
 
 import java.util.Stack;
 
+/**
+ * http://www.informatik.uni-ulm.de/acm/Locals/2003/html/histogram.html
+ * 
+ */
 public class MaxRectangleHistogram {
 
 	public static int findMinimum(int[] hist, int start, int end) {
@@ -48,7 +52,7 @@ public class MaxRectangleHistogram {
 				}
 			}
 		}
-		while(!s.isEmpty()){
+		while (!s.isEmpty()) {
 			int index = s.pop();
 			areaWithTop = hist[index] * (s.empty() ? i : i - s.peek() - 1);
 			if (areaWithTop > maxArea) {
@@ -63,7 +67,10 @@ public class MaxRectangleHistogram {
 		int hist[] = { 6, 1, 5, 4, 5, 2, 6 };
 		System.out.printf("Max area is %d\n", getMaxArea(hist));
 		System.out.printf("Max area is %d\n", getMaxArea2(hist));
-		System.out.printf("Max area is %d\n", getMaxArea2(new int[]{6, 2, 5, 4, 5, 1, 6}));
+		System.out.printf("Max area is %d\n", getMaxArea2(new int[] { 6, 2, 5,
+				4, 5, 1, 6 }));
+		System.out.printf("Max area is %d\n", getMaxArea2(new int[] { 7, 2, 1,
+				4, 5, 1, 3, 3 }));
 	}
 
 }
