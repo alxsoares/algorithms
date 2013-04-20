@@ -4,18 +4,29 @@ public class SegmentTree {
 
 	public static int sum(int[] segTree, int start, int end, int queryStart,
 			int queryEnd, int index) {
+		
 		if (queryStart <= start && queryEnd >= end) {
 			return segTree[index];
 		}
+		
 		if (end < queryStart || start > queryEnd) {
 			return 0;
 		}
+		
 		int mid = start + (end - start) / 2;
+		
 		return sum(segTree, start, mid, queryStart, queryEnd, 2 * index + 1)
 				+ sum(segTree, mid + 1, end, queryStart, queryEnd,
 						2 * index + 2);
 	}
 
+	public static int getSum(int[] segTree, int n, int queryStart, int queryEnd) {
+		if (queryStart < 0 || queryEnd > n - 1 || queryStart > queryEnd) {
+			return -1;// Invalid
+		}
+		return sum(segTree, 0, n - 1, queryStart, queryEnd, 0);
+	}
+	
 	public static void updateValue(int[] segTree, int start, int end, int i,
 			int diff, int index) {
 		if (i < start || i > end) {
@@ -38,12 +49,6 @@ public class SegmentTree {
 		updateValue(segTree, 0, array.length - 1, i, diff, 0);
 	}
 
-	public static int getSum(int[] segTree, int n, int queryStart, int queryEnd) {
-		if (queryStart < 0 || queryEnd > n - 1 || queryStart > queryEnd) {
-			return -1;// Invalid
-		}
-		return sum(segTree, 0, n - 1, queryStart, queryEnd, 0);
-	}
 
 	public static int constructSegmentTree(int[] array, int start, int end,
 			int[] segTree, int sIndex) {
@@ -60,10 +65,14 @@ public class SegmentTree {
 	}
 
 	public static int[] constructSegmentTree(int[] array) {
+		
 		int x = (int) (Math.ceil(Math.log10(array.length) / Math.log10(2)));
-		int max_size = 2 * (int) Math.pow(2, x) - 1;
-		int[] segTree = new int[max_size];
+		int maxSize = 2 * (int) Math.pow(2, x) - 1;
+		
+		int[] segTree = new int[maxSize];
+		
 		constructSegmentTree(array, 0, array.length - 1, segTree, 0);
+		
 		return segTree;
 	}
 
