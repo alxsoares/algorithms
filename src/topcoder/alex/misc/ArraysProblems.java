@@ -219,7 +219,7 @@ public class ArraysProblems {
 		System.out.printf("%d %d %d\n", a[imin], a[jmin], a[imin] + a[jmin]);
 	}
 
-	public static void get2NonRepetingNumbers(final int a[]) {
+	public static void get2NonRepeatingNumbers(final int a[]) {
 		int xor = 0;
 
 		for (int i = 0; i < a.length; i++) {
@@ -447,6 +447,18 @@ public class ArraysProblems {
 		}
 		return maxDiff;
 	}
+	//O(2^n)???
+	public static int maxIndexDiffRec(int[] array, int start, int end) {
+		if(end < start) return -1;
+		if (array[end] > array[start]) {
+			int x = end - start;
+			return x;
+		} else {
+			int x = maxIndexDiffRec(array, start + 1, end);
+			int y = maxIndexDiffRec(array, start, end - 1);
+			return Math.max(x, y);
+		}
+	}
 
 	/**
 	 * @param args
@@ -465,7 +477,10 @@ public class ArraysProblems {
 				6, 80, 100 }));
 		System.out.printf("Max Sum = %d \n", findMaxSumNoAdjacent(new int[] {
 				5, 5, 10, 100, 10, 5 }));
-		System.out.printf("Maximum j-i=%d\n", maxIndexDiff(new int[]{9, 2, 3, 4, 5, 6, 7, 8, 18, 0}));
+		System.out.printf("Maximum j-i=%d\n", maxIndexDiff(new int[] { 9, 2, 3,
+				4, 5, 6, 7, 8, 18, 0 }));
+		System.out.printf("Maximum j-i=%d\n", maxIndexDiffRec(new int[] { 9, 2, 3,
+				4, 5, 6, 7, 8, 18, 0 },0,9));
 	}
 
 }
