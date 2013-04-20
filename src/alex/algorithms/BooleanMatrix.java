@@ -9,33 +9,57 @@ package alex.algorithms;
 public class BooleanMatrix {
 
 	public static void modifyMatrix(int mat[][]) {
-		int row[] = new int[mat.length];
-		int col[] = new int[mat[0].length];
-
-		int i, j;
-
-		for (i = 0; i < mat.length; i++) {
-			for (j = 0; j < mat[i].length; j++) {
+//		int row[] = new int[mat.length];
+//		int col[] = new int[mat[0].length];
+		boolean firstColumn = false;
+		boolean firstRow = false;
+		
+		for(int i=0; i < mat.length; i++){
+			if(mat[i][0]==1){
+				firstColumn = true;
+			}
+		}
+		for(int i=0; i < mat[0].length; i++){
+			if(mat[0][i]==1){
+				firstRow = true;
+			}
+		}
+		
+		for (int i = 1; i < mat.length; i++) {
+			for (int j = 1; j < mat[i].length; j++) {
 				if (mat[i][j] == 1) {
-					row[i] = 1;
-					col[j] = 1;
+					mat[i][0] = 1;
+					mat[0][j] = 1;
 				}
 			}
 		}
 
-		for (i = 0; i < mat.length; i++) {
-			for (j = 0; j < mat[0].length; j++) {
-				if (row[i] == 1 || col[j] == 1) {
+		for (int i = 1; i < mat.length; i++) {
+			for (int j = 1; j < mat[0].length; j++) {
+				if (mat[i][0] == 1 || mat[0][j] == 1) {
 					mat[i][j] = 1;
 				}
+			}
+		}
+		for(int i=0; i < mat.length; i++){
+			if(firstColumn){
+				mat[i][0] = 1;
+			}else{
+				mat[i][0] = 0;
+			}
+		}
+		for(int i=0; i < mat[0].length; i++){
+			if(firstRow){
+				mat[0][i] = 1;
+			}else{
+				mat[0][i] = 0;
 			}
 		}
 	}
 
 	public static void printMatrix(int mat[][]) {
-		int i, j;
-		for (i = 0; i < mat.length; i++) {
-			for (j = 0; j < mat[i].length; j++) {
+		for (int i = 0; i < mat.length; i++) {
+			for (int j = 0; j < mat[i].length; j++) {
 				System.out.printf("%d ", mat[i][j]);
 			}
 			System.out.printf("\n");
