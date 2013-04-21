@@ -14,7 +14,7 @@ public class PrimMST {
         int parent[] = new int[V];
         final Integer key[] = new Integer[V];
 
-        PriorityQueue<Integer> minHeap = new PriorityQueue<>(G.size(), new Comparator<Integer>() {
+        PriorityQueue<Integer> minHeap = new PriorityQueue<Integer>(G.size(), new Comparator<Integer>() {
             @Override
             public int compare(final Integer o1, final Integer o2) {
                 return key[o1].compareTo(key[o2]);
@@ -24,7 +24,6 @@ public class PrimMST {
         for (int v = 1; v < V; ++v) {
             parent[v] = -1;
             key[v] = Integer.MAX_VALUE;
-
         }
 
         key[0] = 0;
