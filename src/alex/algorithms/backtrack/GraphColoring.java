@@ -50,7 +50,7 @@ public class GraphColoring {
 
 	public static void main(String[] args) {
 		//@formatter:off
-		 /* Create following graph and test whether it is 3 colorable
+		 /* 
 	       3)---(2)
 	       |   / |
 	       |  /  |
