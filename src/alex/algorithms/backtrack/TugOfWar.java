@@ -37,8 +37,8 @@ public class TugOfWar {
 		} else {
 			// consider the cases where current element is included in the
 			// solution
-			tugOfWar(array, n, currentSelected, numberOfSelected, solution, sum,
-					currentSum, currentPosition + 1);
+			tugOfWar(array, n, currentSelected, numberOfSelected, solution,
+					sum, currentSum, currentPosition + 1);
 		}
 
 		// removes current element before returning to the caller of this
@@ -74,7 +74,6 @@ public class TugOfWar {
 		}
 		System.out.println();
 	}
-
 
 	static int dp[][] = new int[20][1000];
 
