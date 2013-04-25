@@ -459,7 +459,24 @@ public class ArraysProblems {
 			return Math.max(x, y);
 		}
 	}
-
+	public static boolean isSubSet(int [] a, int[] b){
+		Arrays.sort(a);
+		Arrays.sort(b);
+		int i=0;
+		int j=0;
+		while(b[0]>a[j]){
+			j++;
+		}
+		while(j < a.length && i <b.length){
+			if(a[j]==b[i]){
+				j++; i++; 
+			}else{
+				return false;
+			}
+		}
+		if(i!= b.length) return false;
+		return true;
+	}
 	/**
 	 * @param args
 	 */
@@ -481,6 +498,9 @@ public class ArraysProblems {
 				4, 5, 6, 7, 8, 18, 0 }));
 		System.out.printf("Maximum j-i=%d\n", maxIndexDiffRec(new int[] { 9, 2, 3,
 				4, 5, 6, 7, 8, 18, 0 },0,9));
+		 int arr1[] = {11, 1, 13, 21, 3, 7};
+		    int arr2[] = {11, 3, 7, 1};
+		    System.out.println(isSubSet(arr1, arr2));
 	}
 
 }
