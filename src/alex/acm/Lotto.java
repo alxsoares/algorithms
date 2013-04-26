@@ -10,7 +10,6 @@ class Lotto {
         byte lin[] = new byte[maxLg];
 
         int lg = 0, car = -1;
-        String line = "";
 
         try {
 
