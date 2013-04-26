@@ -477,6 +477,35 @@ public class ArraysProblems {
 		if(i!= b.length) return false;
 		return true;
 	}
+	public static boolean areConsecutive(int [] array){
+		int min = Integer.MAX_VALUE;
+		int max = Integer.MIN_VALUE;
+		for (int i = 0; i < array.length; i++) {
+			if(array[i] > max){
+				max = array[i];
+			}
+			if(array[i]< min){
+				min = array[i];
+			}
+		}
+		int number = max - min +1;
+		if(number == array.length){
+			//normalising to 0...n-1
+			for (int i = 0; i < array.length; i++) {
+				array[i]-=min;
+			}
+			for (int i = 0; i < array.length; i++) {
+				array[array[i] % array.length]+=array.length;
+			}
+			for (int i = 0; i < array.length; i++) {
+				if(array[i] > 2*array.length){
+					return false;
+				}
+			}
+			return true;
+		}
+		return false;
+	}
 	/**
 	 * @param args
 	 */
@@ -501,6 +530,7 @@ public class ArraysProblems {
 		 int arr1[] = {11, 1, 13, 21, 3, 7};
 		    int arr2[] = {11, 3, 7, 1};
 		    System.out.println(isSubSet(arr1, arr2));
+		 System.out.println(areConsecutive(new int[]{-3, -1, -2,0,1,2,3,-3}));
 	}
 
 }
