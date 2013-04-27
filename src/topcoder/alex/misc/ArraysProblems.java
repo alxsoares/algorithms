@@ -447,9 +447,11 @@ public class ArraysProblems {
 		}
 		return maxDiff;
 	}
-	//O(2^n)???
+
+	// O(2^n)???
 	public static int maxIndexDiffRec(int[] array, int start, int end) {
-		if(end < start) return -1;
+		if (end < start)
+			return -1;
 		if (array[end] > array[start]) {
 			int x = end - start;
 			return x;
@@ -459,46 +461,50 @@ public class ArraysProblems {
 			return Math.max(x, y);
 		}
 	}
-	public static boolean isSubSet(int [] a, int[] b){
+
+	public static boolean isSubSet(int[] a, int[] b) {
 		Arrays.sort(a);
 		Arrays.sort(b);
-		int i=0;
-		int j=0;
-		while(b[0]>a[j]){
+		int i = 0;
+		int j = 0;
+		while (b[0] > a[j]) {
 			j++;
 		}
-		while(j < a.length && i <b.length){
-			if(a[j]==b[i]){
-				j++; i++; 
-			}else{
+		while (j < a.length && i < b.length) {
+			if (a[j] == b[i]) {
+				j++;
+				i++;
+			} else {
 				return false;
 			}
 		}
-		if(i!= b.length) return false;
+		if (i != b.length)
+			return false;
 		return true;
 	}
-	public static boolean areConsecutive(int [] array){
+
+	public static boolean areConsecutive(int[] array) {
 		int min = Integer.MAX_VALUE;
 		int max = Integer.MIN_VALUE;
 		for (int i = 0; i < array.length; i++) {
-			if(array[i] > max){
+			if (array[i] > max) {
 				max = array[i];
 			}
-			if(array[i]< min){
+			if (array[i] < min) {
 				min = array[i];
 			}
 		}
-		int number = max - min +1;
-		if(number == array.length){
-			//normalising to 0...n-1
+		int number = max - min + 1;
+		if (number == array.length) {
+			// normalising to 0...n-1
 			for (int i = 0; i < array.length; i++) {
-				array[i]-=min;
+				array[i] -= min;
 			}
 			for (int i = 0; i < array.length; i++) {
-				array[array[i] % array.length]+=array.length;
+				array[array[i] % array.length] += array.length;
 			}
 			for (int i = 0; i < array.length; i++) {
-				if(array[i] > 2*array.length){
+				if (array[i] > 2 * array.length) {
 					return false;
 				}
 			}
@@ -506,6 +512,40 @@ public class ArraysProblems {
 		}
 		return false;
 	}
+
+	public static int merge(int[] arr, int[] left, int[] right) {
+		int i = 0, j = 0, count = 0;
+		while (i < left.length || j < right.length) {
+			if (i == left.length) {
+				arr[i + j] = right[j];
+				j++;
+			} else if (j == right.length) {
+				arr[i + j] = left[i];
+				i++;
+			} else if (left[i] <= right[j]) {
+				arr[i + j] = left[i];
+				i++;
+			} else {
+				arr[i + j] = right[j];
+				//right element is lesser than all the rest of array left
+				count += left.length - i;
+				j++;
+			}
+		}
+		return count;
+	}
+
+	public static int countInversions(int[] arr) {
+		if (arr.length < 2)
+			return 0;
+
+		int m = (arr.length + 1) / 2;
+		int left[] = Arrays.copyOfRange(arr, 0, m);
+		int right[] = Arrays.copyOfRange(arr, m, arr.length);
+
+		return countInversions(left) + countInversions(right) + merge(arr, left, right);
+	}
+
 	/**
 	 * @param args
 	 */
@@ -525,12 +565,17 @@ public class ArraysProblems {
 				5, 5, 10, 100, 10, 5 }));
 		System.out.printf("Maximum j-i=%d\n", maxIndexDiff(new int[] { 9, 2, 3,
 				4, 5, 6, 7, 8, 18, 0 }));
-		System.out.printf("Maximum j-i=%d\n", maxIndexDiffRec(new int[] { 9, 2, 3,
-				4, 5, 6, 7, 8, 18, 0 },0,9));
-		 int arr1[] = {11, 1, 13, 21, 3, 7};
-		    int arr2[] = {11, 3, 7, 1};
-		    System.out.println(isSubSet(arr1, arr2));
-		 System.out.println(areConsecutive(new int[]{-3, -1, -2,0,1,2,3,-3}));
+		System.out.printf(
+				"Maximum j-i=%d\n",
+				maxIndexDiffRec(new int[] { 9, 2, 3, 4, 5, 6, 7, 8, 18, 0 }, 0,
+						9));
+		int arr1[] = { 11, 1, 13, 21, 3, 7 };
+		int arr2[] = { 11, 3, 7, 1 };
+		System.out.println(isSubSet(arr1, arr2));
+		System.out.println(areConsecutive(new int[] { -3, -1, -2, 0, 1, 2, 3,
+				-3 }));
+		int[] inv = { 2, 5, 3, 1, 10 };
+		System.out.println("Inversoes=" + countInversions(inv));
 	}
 
 }
