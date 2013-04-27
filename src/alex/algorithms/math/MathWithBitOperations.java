@@ -44,7 +44,7 @@ public class MathWithBitOperations {
 		System.out.println(subtract(10,2));
 		System.out.println(sum(Integer.MAX_VALUE/2,Integer.MAX_VALUE/2));
 		System.out.println(subtract(Integer.MAX_VALUE/2,Integer.MAX_VALUE/2));
-		
+		System.out.println(multiply(Integer.MAX_VALUE/2,2));
 		System.out.println(multiply(10,10));
 		System.out.println(multiply(10,-10));
 	}
