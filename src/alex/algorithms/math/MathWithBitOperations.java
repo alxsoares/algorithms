@@ -39,6 +39,33 @@ public class MathWithBitOperations {
 		}
 		return result;
 	}
+	
+	public static int division(int a, int b){
+		if(b==0) throw new IllegalArgumentException("Division by 0.");
+		boolean minus = false;
+		if((a < 0 && b > 0) || (a> 0 && b < 0)){
+			minus =true;
+		}
+		if(a < 0){
+			a = sum(~a,1);
+		}
+		if(b < 0){
+			b = sum(~b,1);System.out.println(multiply(10,10));
+		}
+		int result=0;
+		for(int i=0; i < 32; i=sum(i,1)){
+			result = result << 1;
+			if((a >> (31-i))>= b){
+				a = subtract(a, b << 31-i);
+				result = sum(result,1);
+			}
+		}
+		
+		if(minus){
+			result = sum(~result,1);
+		}
+		return result;
+	}
 	public static void main(String[] args) {
 		System.out.println(sum(10,2));
 		System.out.println(subtract(10,2));
@@ -47,6 +74,8 @@ public class MathWithBitOperations {
 		System.out.println(multiply(Integer.MAX_VALUE/2,2));
 		System.out.println(multiply(10,10));
 		System.out.println(multiply(10,-10));
+		System.out.println(division(10,-10));
+		System.out.println(division(Integer.MAX_VALUE/2,Integer.MAX_VALUE/4));
 	}
 
 }
