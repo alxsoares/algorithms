@@ -12,10 +12,14 @@ public class SumWithoutPlusOperator {
 
 		return a;
 	}
-
+	public static int subtract( int a, int b){
+		return sum(a, sum(~b,1));//java is two complement's
+	}
 	public static void main(String[] args) {
 		System.out.println(sum(10,2));
+		System.out.println(subtract(10,2));
 		System.out.println(sum(Integer.MAX_VALUE/2,Integer.MAX_VALUE/2));
+		System.out.println(subtract(Integer.MAX_VALUE/2,Integer.MAX_VALUE/2));
 	}
 
 }
