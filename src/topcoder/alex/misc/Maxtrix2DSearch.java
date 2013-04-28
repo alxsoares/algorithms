@@ -44,10 +44,34 @@ public class Maxtrix2DSearch {
 		return found;
 
 	}
+	public static boolean find2(int matrix[][], int value){
+		int row = 0;
+		int col = matrix[0].length-1;
+		while(row < matrix[0].length && col >=0){
+			if(value == matrix[row][col]){
+				System.out.printf("Row = %d Col=%d \n ", row, col);
+				return true;
+			}
+			if(matrix[row][col] > value){
+				col--;
+			}else{
+				row++;
+			}
+		}
+		System.out.println("Not found!");
+		return false;
+	}
 
 	public static void main(String[] args) {
 		int [][] matrix = {{1,2,8,9},{2,4,9,12},{4,7,10,13},{6,8,11,15}};
 		System.out.println(find(matrix, 13));
+		System.out.println(find(matrix, 7));
+		System.out.println(find(matrix, 100));
+		
+		System.out.println(find2(matrix, 13));
+		System.out.println(find2(matrix, 7));
+		System.out.println(find2(matrix, 100));
+
 	}
 
 }
