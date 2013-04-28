@@ -47,7 +47,7 @@ public class Maxtrix2DSearch {
 	public static boolean find2(int matrix[][], int value){
 		int row = 0;
 		int col = matrix[0].length-1;
-		while(row < matrix[0].length && col >=0){
+		while(row < matrix.length && col >=0){
 			if(value == matrix[row][col]){
 				System.out.printf("Row = %d Col=%d \n ", row, col);
 				return true;
