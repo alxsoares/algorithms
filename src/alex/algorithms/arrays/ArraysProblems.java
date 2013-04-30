@@ -1,4 +1,4 @@
-package topcoder.alex.misc;
+package alex.algorithms.arrays;
 
 import java.util.Arrays;
 import java.util.Stack;
