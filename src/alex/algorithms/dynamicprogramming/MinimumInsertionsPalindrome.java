@@ -1,5 +1,6 @@
 package alex.algorithms.dynamicprogramming;
 
+
 //@formatter:off
 /**
  * 
@@ -34,13 +35,15 @@ public class MinimumInsertionsPalindrome {
 	}
 
 	// Dynamic Programming version
+	// Time complexity: O(N^2)
+	// Auxiliary Space: O(N^2)
 	public static int minInsertionsDP(char[] str) {
 		int n = str.length;
 		int table[][] = new int[n][n];
 		for (int gap = 1; gap < n; gap++) {
 
 			for (int high = gap, low = 0; high < n; high++, low++) {
-				
+
 				if (str[low] == str[high]) {
 					table[low][high] = table[low + 1][high - 1];
 				} else {
@@ -52,6 +55,34 @@ public class MinimumInsertionsPalindrome {
 		return table[0][n - 1];
 	}
 
+	private static char[] reverse(char[] str) {
+		char[] a = new char[str.length];
+		for (int i = 0; i < a.length; i++) {
+			a[str.length - i - 1] = str[i];
+		}
+		return a;
+	}
+
+	public static int minInsertionsWithLCS(String str) {
+		int n = str.length();
+		char[] A = str.toCharArray();
+		char[] B = reverse(A);
+		int[][] L = new int[n+1][n+1];
+		for(int i=0; i <= n;i++){
+			for(int j=0; j <= n; j++){
+				if(i==0 || j==0){
+					L[i][j] =0;
+				}else if(A[i-1]==B[j-1]){
+					L[i][j] = L[i-1][j-1]+1;
+				}else{
+					L[i][j] = Math.max(L[i][j-1],L[i-1][j]);
+				}
+			}
+		}
+		int LCS = L[n][n];
+		return n - LCS;
+	}
+
 	public static void main(String[] args) {
 		String s = "abcde";
 		System.out.printf("Min insertions for \"%s\" is  %d \n", s,
@@ -59,6 +90,11 @@ public class MinimumInsertionsPalindrome {
 		s = "bcd";
 		System.out.printf("Min insertions for \"%s\" is  %d \n", s,
 				minInsertionsRecursive(s.toCharArray(), 0, s.length() - 1));
+
+		s = "gee";
+		System.out.printf("Min insertions for \"%s\" is  %d \n", s,
+				minInsertionsRecursive(s.toCharArray(), 0, s.length() - 1));
+
 		
 		s = "abcde";
 		System.out.printf("Min insertions for \"%s\" is  %d \n", s,
@@ -66,10 +102,21 @@ public class MinimumInsertionsPalindrome {
 		s = "bcd";
 		System.out.printf("Min insertions for \"%s\" is  %d \n", s,
 				minInsertionsDP(s.toCharArray()));
-		
+
 		s = "gee";
 		System.out.printf("Min insertions for \"%s\" is  %d \n", s,
 				minInsertionsDP(s.toCharArray()));
+		
+		s = "abcde";
+		System.out.printf("Min insertions for \"%s\" is  %d \n", s,
+				minInsertionsWithLCS(s));
+		s = "bcd";
+		System.out.printf("Min insertions for \"%s\" is  %d \n", s,
+				minInsertionsWithLCS(s));
+
+		s = "gee";
+		System.out.printf("Min insertions for \"%s\" is  %d \n", s,
+				minInsertionsWithLCS(s));
 	}
 
 }
