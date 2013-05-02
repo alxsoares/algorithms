@@ -60,6 +60,75 @@ public class TreeNode {
 		return null;
 	}
 
+	// same as inorderSucc
+	public static TreeNode getNextInOrder(TreeNode node) {
+		if (node == null)
+			return null;
+		if (node.right != null) {
+			TreeNode next = node.right;
+			while (next.left != null) {
+				next = next.left;
+			}
+			return next;
+		} else {
+			TreeNode parent = node.parent;
+			TreeNode current = node;
+			while (parent != null && current == parent.right) {
+				current = parent;
+				parent = current.parent;
+			}
+			return parent;
+		}
+	}
+
+	public static Result largerBST(TreeNode root, int min, int max) {
+		if (root == null) {
+			Result r = new Result();
+			r.isBST = true;
+			r.size = 0;
+			return r;
+		}
+		Result left = largerBST(root.left, min, root.value);
+		Result right = largerBST(root.right, root.value, max);
+
+		if (left.isBST && right.isBST && root.value >= min && root.value <= max) {
+			Result r = new Result();
+			r.isBST = true;
+			r.size = left.size + right.size + 1;
+			return r;
+		} else {
+			Result r = new Result();
+			r.isBST = false;
+			r.size = Math.max(left.size, right.size);
+			return r;
+		}
+	}
+
+	public static boolean isBSTInOrder(TreeNode root) {
+		return isBSTPrev(root, Integer.MIN_VALUE);
+	}
+
+	private static boolean isBSTPrev(TreeNode root, int prev) {
+		if (root == null)
+			return true;
+
+		return isBSTPrev(root.left, prev) && (root.value >= prev)
+				&& isBSTPrev(root.right, root.value);
+	}
+
+	public static boolean isBST(TreeNode root) {
+		return isBSTRange(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
+	}
+
+	private static boolean isBSTRange(TreeNode root, int min, int max) {
+		if (root == null)
+			return true;
+		if (root.value < min || root.value > max)
+			return false;
+		return (isBSTRange(root.left, min, root.value) && isBSTRange(
+				root.right, root.value, max));
+	}
+
 	private static TreeNode leftMostSucc(TreeNode e) {
 		if (e == null)
 			return null;
@@ -174,4 +243,9 @@ public class TreeNode {
 
 		return root;
 	}
+}
+
+class Result {
+	boolean isBST;
+	int size;
 }
