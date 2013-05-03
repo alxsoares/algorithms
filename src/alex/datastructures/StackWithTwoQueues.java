@@ -26,14 +26,25 @@ public class StackWithTwoQueues<T> {
 			empty = queue2;
 			nonEmpty = queue1;
 		}
-		while (nonEmpty.size() > 0) {
+		while (nonEmpty.size() > 1) {
 			empty.add(nonEmpty.poll());
 		}
-		return empty.poll();
+		return nonEmpty.poll();
+	}
+
+	public boolean isEmpty() {
+		return !(queue1.size() > 0 || queue2.size() > 0);
 	}
 
 	public static void main(String[] args) {
-
+		StackWithTwoQueues<Integer> stack = new StackWithTwoQueues<>();
+		stack.push(1);
+		stack.push(2);
+		stack.push(3);
+		System.out.println(stack.pop());
+		stack.push(4);
+		while (!stack.isEmpty()) {
+			System.out.println(stack.pop());
+		}
 	}
-
 }
