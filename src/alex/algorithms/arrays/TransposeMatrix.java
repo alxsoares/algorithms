@@ -8,18 +8,17 @@ public class TransposeMatrix {
 	}
 
 	static void transpose(int m[], int L, int M) {
-		int LxM = L * M;
 		int i, j, k, stillToMove;
-		for (i = 0, stillToMove = LxM; stillToMove > 0; i++) {
+		for (i = 0, stillToMove = L*M; stillToMove > 0; i++) {
 			for (j = pred(i, L, M); j > i; j = pred(j, L, M))
 				;
 			if (j < i)
 				continue;
 			for (k = i, j = pred(i, L, M); j != i; k = j, j = pred(j, L, M)) {
 				exchange(m, k, j);
-				--stillToMove;
+				stillToMove--;
 			}
-			--stillToMove;
+			stillToMove--;
 		}
 	}
 
