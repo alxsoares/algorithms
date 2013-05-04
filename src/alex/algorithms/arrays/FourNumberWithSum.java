@@ -31,7 +31,7 @@ public class FourNumberWithSum {
 		}
 
 	}
-	//O(n^4)
+	//O(n^3)
 	public static void find4Numbers(int [] array, int X){
 		int n = array.length;
 		Arrays.sort(array);
