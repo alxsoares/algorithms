@@ -1,5 +1,7 @@
 package alex.algorithms.dynamicprogramming;
 
+import java.util.Arrays;
+
 public class EditDistance {
 
     public static int editDistance(final String X, final String Y) {
@@ -7,9 +9,7 @@ public class EditDistance {
         int n = X.length() + 1;
         int T[][] = new int[n][m];
         for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                T[i][j] = -1;
-            }
+           Arrays.fill(T[i], -1);
         }
         // T[i][0] = i
         for (int i = 0; i < n; i++) {
