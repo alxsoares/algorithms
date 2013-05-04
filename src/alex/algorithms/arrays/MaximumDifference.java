@@ -2,14 +2,6 @@ package alex.algorithms.arrays;
 
 public class MaximumDifference {
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
-
 	public static int maxDiff(int arr[]) {
 		int diff = arr[1] - arr[0];
 		int min = arr[0];
@@ -61,6 +53,28 @@ public class MaximumDifference {
 			int y = maxIndexDiffRec(array, start, end - 1);
 			return Math.max(x, y);
 		}
+	}
+
+	public static int maxDiffKadane(int[] array) {
+		int diff = array[1] - array[0];
+		int currentSum = diff;
+		int maxSum = currentSum;
+		for (int i = 1; i < array.length - 1; i++) {
+			diff = array[i + 1] - array[i];
+			if (currentSum > 0) {
+				currentSum += diff;
+			} else
+				currentSum = diff;
+			if (currentSum > maxSum)
+				maxSum = currentSum;
+		}
+		return maxSum;
+	}
+
+	public static void main(String[] args) {
+		int array[] = { 80, 2, 6, 3, 100 };
+		System.out.printf("%d\n", maxDiff(array));
+		System.out.printf("%d\n", maxDiffKadane(array));
 	}
 
 }
