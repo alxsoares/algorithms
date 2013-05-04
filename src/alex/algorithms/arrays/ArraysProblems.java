@@ -104,56 +104,6 @@ public class ArraysProblems {
 		return max;
 	}
 
-	/**
-	 * Given an array of size n, the array contains numbers in range from 0 to
-	 * k-1 where k is a positive integer and k <= n. Find the maximum repeating
-	 * number in this array. Expected time complexity is O(n) and extra space
-	 * allowed is O(1). Modifications to array are allowed.
-	 */
-	public static int maximumRepetingNumber(final int arr[], final int k) {
-		//@formatter:off
-		// Iterate though input array arr[], for every element arr[i], increment arr[arr[i]%k] by k
-		//@formatter:on
-		for (int i = 0; i < arr.length; i++) {
-			arr[arr[i] % k] += k;
-		}
-		int index = 0;
-		for (int i = 1; i < arr.length; i++) {
-			if (arr[i] > arr[index]) {
-				index = i;
-			}
-		}
-		// reconstructing the array
-		for (int i = 0; i < arr.length; i++) {
-			arr[i] %= k;
-		}
-		return index;
-	}
-
-	/**
-	 * 1. Given an array of size n, having numbers from 1..n , with one number
-	 * missing and one occurring twice. Find the 2 numbers
-	 */
-	public static void findMissingAndDuplicate(final int arr[]) {
-		int n = arr.length;
-		for (int i = 0; i < n; i++) {
-			arr[(arr[i] - 1) % n] += n;
-		}
-		for (int i = 0; i < n; i++) {
-			if (arr[i] <= n) {
-				System.out.printf("Missing Number is %d\n", i + 1);
-			}
-			if (arr[i] > 2 * n) {
-				System.out.printf("Duplicated Number is %d\n", i + 1);
-			}
-
-		}
-		// restoring the array
-		for (int i = 0; i < n; i++) {
-			arr[i] = arr[i] % n;
-		}
-	}
-
 	public static int secondMax(final int a[]) {
 		int first = Integer.MIN_VALUE;
 		int second = Integer.MIN_VALUE;
@@ -468,7 +418,7 @@ public class ArraysProblems {
 	public static void main(final String[] args) {
 
 		int[] dupMissing = { 1, 1, 3, 4, 5, 6, 7, 8, 9, 10 };
-		findMissingAndDuplicate(dupMissing);
+		MissingAndDuplicate.findMissingAndDuplicate(dupMissing);
 		int arr[] = { -1, 2, -3, 4, 5, 6, -7, 8, 9 };
 		rearrangePositiveNegative(arr);
 		printArray(arr);
