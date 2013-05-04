@@ -241,26 +241,6 @@ public class ArraysProblems {
 		System.out.printf("%d %d \n", x, y);
 	}
 
-	public static int getMedianRec(final int ar1[], final int ar2[],
-			final int left, final int right, final int n) {
-		if (left > right) {
-			return getMedianRec(ar2, ar1, 0, n - 1, n);
-		}
-		int i = (left + right) / 2;
-		int j = n - i - 1;
-		if (ar1[i] > ar2[j] && (j == n - 1 || ar2[j + 1] >= ar1[i])) {
-			if (ar2[j] > ar1[i - 1] || i == 0) {
-				return (ar1[i] + ar2[j]) / 2;
-			} else {
-				return (ar1[i] + ar1[i - 1]) / 2;
-			}
-		} else if (ar1[i] > ar2[j] && (j != n - 1 && ar1[i] > ar2[j + 1])) {
-			return getMedianRec(ar1, ar2, left, i - 1, n);
-		} else {
-			return getMedianRec(ar1, ar2, i + 1, right, n);
-		}
-	}
-
 	public static int[] getNextGreaterElementArray(final int arr[]) {
 		if (arr == null)
 			return null;
@@ -391,20 +371,6 @@ public class ArraysProblems {
 		}
 	}
 
-	public static int maxDiff(int arr[]) {
-		int diff = arr[1] - arr[0];
-		int min = arr[0];
-		for (int i = 1; i < arr.length; i++) {
-			if (arr[i] - min > diff) {
-				diff = arr[i] - min;
-			}
-			if (min > arr[i]) {
-				min = arr[i];
-			}
-		}
-		return diff;
-	}
-
 	/**
 	 * Given an array all of whose elements are positive numbers, find the
 	 * maximum sum of a subsequence with the constraint that no 2 numbers in the
@@ -421,45 +387,6 @@ public class ArraysProblems {
 			excl = aux;
 		}
 		return Math.max(incl, excl);
-	}
-
-	public static int maxIndexDiff(int array[]) {
-		int[] LMIN = new int[array.length];
-		int[] RMAX = new int[array.length];
-		LMIN[0] = array[0];
-		for (int i = 1; i < array.length; i++) {
-			LMIN[i] = Math.min(array[i], LMIN[i - 1]);
-		}
-		RMAX[array.length - 1] = array[array.length - 1];
-		for (int i = array.length - 2; i >= 0; i--) {
-			RMAX[i] = Math.max(array[i], RMAX[i + 1]);
-		}
-		int maxDiff = Integer.MIN_VALUE;
-		int i = 0;
-		int j = 0;
-		while (i < array.length && j < array.length) {
-			if (LMIN[i] < RMAX[j]) {
-				maxDiff = Math.max(maxDiff, j - i);
-				j++;
-			} else {
-				i++;
-			}
-		}
-		return maxDiff;
-	}
-
-	// O(2^n)???
-	public static int maxIndexDiffRec(int[] array, int start, int end) {
-		if (end < start)
-			return -1;
-		if (array[end] > array[start]) {
-			int x = end - start;
-			return x;
-		} else {
-			int x = maxIndexDiffRec(array, start + 1, end);
-			int y = maxIndexDiffRec(array, start, end - 1);
-			return Math.max(x, y);
-		}
 	}
 
 	public static boolean isSubSet(int[] a, int[] b) {
@@ -527,23 +454,12 @@ public class ArraysProblems {
 				i++;
 			} else {
 				arr[i + j] = right[j];
-				//right element is lesser than all the rest of array left
+				// right element is lesser than all the rest of array left
 				count += left.length - i;
 				j++;
 			}
 		}
 		return count;
-	}
-
-	public static int countInversions(int[] arr) {
-		if (arr.length < 2)
-			return 0;
-
-		int m = (arr.length + 1) / 2;
-		int left[] = Arrays.copyOfRange(arr, 0, m);
-		int right[] = Arrays.copyOfRange(arr, m, arr.length);
-
-		return countInversions(left) + countInversions(right) + merge(arr, left, right);
 	}
 
 	/**
@@ -559,23 +475,25 @@ public class ArraysProblems {
 		smallestPositiveNumberMissingUnsortedArray(new int[] { 2, 3, -7, 6, 8,
 				1, -10, 15 });
 		findTwoRepeatingIntegers(new int[] { 4, 2, 4, 5, 2, 3, 1 });
-		System.out.printf("Max difference = %d \n", maxDiff(new int[] { 1, 2,
-				6, 80, 100 }));
+		System.out.printf("Max difference = %d \n",
+				MaximumDifference.maxDiff(new int[] { 1, 2, 6, 80, 100 }));
 		System.out.printf("Max Sum = %d \n", findMaxSumNoAdjacent(new int[] {
 				5, 5, 10, 100, 10, 5 }));
-		System.out.printf("Maximum j-i=%d\n", maxIndexDiff(new int[] { 9, 2, 3,
-				4, 5, 6, 7, 8, 18, 0 }));
 		System.out.printf(
 				"Maximum j-i=%d\n",
-				maxIndexDiffRec(new int[] { 9, 2, 3, 4, 5, 6, 7, 8, 18, 0 }, 0,
-						9));
+				MaximumDifference.maxIndexDiff(new int[] { 9, 2, 3, 4, 5, 6, 7,
+						8, 18, 0 }));
+		System.out.printf(
+				"Maximum j-i=%d\n",
+				MaximumDifference.maxIndexDiffRec(new int[] { 9, 2, 3, 4, 5, 6,
+						7, 8, 18, 0 }, 0, 9));
 		int arr1[] = { 11, 1, 13, 21, 3, 7 };
 		int arr2[] = { 11, 3, 7, 1 };
 		System.out.println(isSubSet(arr1, arr2));
 		System.out.println(areConsecutive(new int[] { -3, -1, -2, 0, 1, 2, 3,
 				-3 }));
 		int[] inv = { 2, 5, 3, 1, 10 };
-		System.out.println("Inversoes=" + countInversions(inv));
+		System.out.println("Inversoes=" + CountInversions.countInversions(inv));
 	}
 
 }
