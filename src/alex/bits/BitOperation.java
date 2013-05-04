@@ -68,14 +68,16 @@ public class BitOperation {
 		// n=0001000.....
 		return ((n & (n - 1)) == 0);
 	}
-	public static int countNumberOfOnes(int n){
-		int count =0;
-		while(n > 0){
-			n = n & (n-1);
+
+	public static int countNumberOfOnes(int n) {
+		int count = 0;
+		while (n > 0) {
+			n = n & (n - 1);
 			count++;
 		}
 		return count;
 	}
+
 	public static int updateBits(int n, int m, int i, int j) {
 		int allOnes = ~0;
 		// 1110000000000...
@@ -95,11 +97,11 @@ public class BitOperation {
 		}
 		return count;
 	}
-	
+
 	public static int diffBits2(int a, int b) {
 		int count = 0;
-		for (int c = a ^ b; c != 0; c = c&(c-1)) {
-			count ++;
+		for (int c = a ^ b; c != 0; c = c & (c - 1)) {
+			count++;
 		}
 		return count;
 	}
@@ -142,9 +144,77 @@ public class BitOperation {
 		}
 		return r;
 	}
-	public static int negate(int a){
-		return (~a)+1;
+
+	public static int negate(int a) {
+		return (~a) + 1;
 	}
+
+	public static void printTwoOddRepeatedNumbers(int[] array) {
+		int xor = 0;
+		for (int i = 0; i < array.length; i++) {
+			xor = xor ^ array[i];
+		}
+		// get the leftmost bit different on the two numbers
+		int one = 1;
+		int indexBit = 1;
+		while ((xor & one) == 0 && indexBit < 32) {
+			indexBit++;
+			xor = xor >> 1;
+		}
+		if (indexBit >= 32)
+			throw new IllegalArgumentException(
+					"There is no two numbers with odd repetitions");
+		
+		int leftMost = 1 << indexBit;
+		int xor1 = 0;
+		int xor2 = 0;
+		for (int i = 0; i < array.length; i++) {
+			if ((array[i] & leftMost) == 0) {
+				xor1 = xor1 ^ array[i];
+			} else {
+				xor2 = xor2 ^ array[i];
+			}
+		}
+		System.out.printf("Number1=%d and Number2=%d\n", xor1, xor2);
+	}
+	public static void printTwoMissingNumbers(int array[]){
+		int xor =0;
+		for(int i=1; i<=array.length+2;i++){
+			xor=xor^i;
+		}
+		for(int i=0; i<array.length;i++){
+			xor=xor^array[i];
+		}
+
+		int one = 1;
+		int indexBit = 1;
+		while ((xor & one) == 0 && indexBit < 32) {
+			indexBit++;
+			xor = xor >> 1;
+		}
+		if (indexBit >= 32)
+			throw new IllegalArgumentException(
+					"There is no two numbers with odd repetitions");
+		int leftMost = (1<<indexBit);
+		int xor1=0;
+		int xor2=0;
+		for(int i=1;i<=array.length+2;i++){
+			if((i&leftMost)==0){
+				xor1=xor1^i;
+			}else{
+				xor2=xor2^i;
+			}
+		}
+		for(int i=0;i<array.length;i++){
+			if((array[i]&leftMost)==0){
+				xor1=xor1^array[i];
+			}else{
+				xor2=xor2^array[i];
+			}
+		}
+		System.out.printf("%d %d\n", xor1,xor2);
+	}
+
 	/**
 	 * @param args
 	 */
@@ -157,21 +227,24 @@ public class BitOperation {
 				Integer.toBinaryString(reverseBits2(i)));
 		System.out.printf("%d %d %d %d\n", Integer.reverse(i), reverse(i),
 				reverseBits(i), reverseBits2(i));
-		System.out.printf("Num of ones =%d\n",countNumberOfOnes(3));
-		
+		System.out.printf("Num of ones =%d\n", countNumberOfOnes(3));
+
 		System.out.println(negate(12));
 		System.out.println(negate(-1));
-		
+
 		int xor = 14;
-		int rightMost = xor & ~(xor -1);
+		int rightMost = xor & ~(xor - 1);
 		System.out.println(Integer.toBinaryString((rightMost)));
-		System.out.printf("Diff Bits =%d\n",diffBits(2,3));
-		System.out.printf("Diff Bits =%d\n",diffBits(10,8));
-		System.out.printf("Diff Bits =%d\n\n",diffBits(16,8));
-		
-		System.out.printf("Diff Bits =%d\n",diffBits2(2,3));
-		System.out.printf("Diff Bits =%d\n",diffBits2(10,8));
-		System.out.printf("Diff Bits =%d\n",diffBits2(16,8));
+		System.out.printf("Diff Bits =%d\n", diffBits(2, 3));
+		System.out.printf("Diff Bits =%d\n", diffBits(10, 8));
+		System.out.printf("Diff Bits =%d\n\n", diffBits(16, 8));
+
+		System.out.printf("Diff Bits =%d\n", diffBits2(2, 3));
+		System.out.printf("Diff Bits =%d\n", diffBits2(10, 8));
+		System.out.printf("Diff Bits =%d\n", diffBits2(16, 8));
+		int array[] = { 1, 1, 2, 2, 3, 4,4,4, 6, 6, 7, 7 };
+		printTwoOddRepeatedNumbers(array);
+		printTwoMissingNumbers(new int[]{1,2,3,5,7,8,9,10});
 	}
 
 }
