@@ -47,9 +47,8 @@ public class AllSubSets {
 	
 	public static void main(String[] args) {
 		Integer arr[] = {1,2,3,4,5,6};
-		AllSubSets s = new AllSubSets();
 		ArrayList<Integer> set = new ArrayList<Integer>(Arrays.asList(arr));
-		ArrayList<ArrayList<Integer>> all = s.allsubs(set);
+		ArrayList<ArrayList<Integer>> all = allsubs(set);
 		for (Iterator<ArrayList<Integer>> iterator = all.iterator(); iterator.hasNext();) {
 			ArrayList<Integer> sub =  iterator.next();
 			for (Iterator<Integer> iterator2 = sub.iterator(); iterator2.hasNext();) {
