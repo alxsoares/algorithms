@@ -102,7 +102,7 @@ class Node {
 		}
 		Node next = l.next;
 		l.next = null;
-		while(next.next != null){
+		while (next.next != null) {
 			Node c = next.next;
 			next.next = l;
 			l = next;

@@ -106,6 +106,38 @@ public class LinkedListUtils {
 		return node;
 	}
 
+	public static ListNode removeDuplicates(ListNode head) {
+		if (head == null)
+			return null;
+		ListNode preNode = null;
+		ListNode node = head;
+		while (node != null) {
+			ListNode next = node.next;
+			boolean delete = false;
+			if (next != null && next.data == node.data) {
+				delete = true;
+			}
+			if (!delete) {
+				preNode = node;
+				node = next;
+			} else {
+				int value = node.data;
+				ListNode toBeDeleted = node;
+				while (toBeDeleted != null && toBeDeleted.data == value) {
+					next = toBeDeleted.next;
+					toBeDeleted = next;
+				}
+			}
+			if (preNode == null) {
+				head = next;
+			} else {
+				preNode.next = next;
+			}
+			node = next;
+		}
+		return head;
+	}
+
 	public static void main(String[] args) {
 
 	}
