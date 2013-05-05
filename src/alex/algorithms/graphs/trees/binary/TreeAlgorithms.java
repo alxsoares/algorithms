@@ -295,6 +295,39 @@ public class TreeAlgorithms {
 		}
 	}
 
+	public static void printZigZag(Node<Integer> root) {
+		if (root == null)
+			return;
+		Stack<Node<Integer>>[] levels = new Stack[2];
+		int current = 0;
+		int next = 1;
+		levels[current].push(root);
+		while (!levels[0].isEmpty() || !levels[1].isEmpty()) {
+			Node<Integer> node = levels[current].pop();
+			System.out.printf("%d ", node.getValue());
+			if (current == 0) {
+				if (node.getLeft() != null) {
+					levels[next].push(node.getLeft());
+				}
+				if (node.getRight() != null) {
+					levels[next].push(node.getRight());
+				}
+			} else {
+				if (node.getRight() != null) {
+					levels[next].push(node.getRight());
+				}
+				if (node.getLeft() != null) {
+					levels[next].push(node.getLeft());
+				}
+			}
+			if (levels[current].isEmpty()) {
+				System.out.println();
+			}
+			current = (current + 1) % 2;
+			next = (next + 1) % 2;
+		}
+	}
+
 	public static int findKth(Node<Integer> root, int num) {
 		Stack<Node<Integer>> stack = new Stack<>();
 		Node<Integer> current = root;
