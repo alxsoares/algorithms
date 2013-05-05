@@ -58,12 +58,30 @@ public class Permut {
                 perm(s, stack, n, level + 1);
         }
     }
+    public static void printPermutations(String s){
+    	printPermutations(s.toCharArray(),0);
+    }
+    private static void printPermutations(char [] s, int n) {
+    	if(n == s.length){
+    		System.out.printf("%s\n",new String(s));
+    	}else{
+    		for(int i=n;i <s.length;i++){
+    			char aux = s[i];
+    			s[i] = s[n];
+    			s[n] = aux;
+    			printPermutations(s,n+1);
+    			s[n] = s[i];
+    			s[i] = aux;
+    		}
+    	}
+	}
 
-    public static void main(final String[] args) {
+	public static void main(final String[] args) {
         Permut permut = new Permut();
         String src = "0123456789ABC";
         // permut.permut(src.toCharArray(),new char[7],0,7);
         // permut.permutString(src.toCharArray(),0);
-        permut.perm(src.toCharArray(), new int[src.length()], src.length(), 0);
+//        permut.perm(src.toCharArray(), new int[src.length()], src.length(), 0);
+        printPermutations("ABC");
     }
 }
