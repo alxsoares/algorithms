@@ -173,6 +173,45 @@ public class LinkedListUtils {
 		return reversedHead;
 	}
 
+	public static ListNode reverseGroups(ListNode head, int k) {
+		if (head == null || k <= 1)
+			return head;
+
+		ListNode reversedHead = null;
+		ListNode n1 = head;
+		ListNode prev = null;
+		while (n1 != null) {
+			ListNode n2 = n1;
+			for (int i = 1; i < k && n2.next != null; i++) {
+				n2 = n2.next;
+			}
+			ListNode next = n2.next;
+			reverseGroup(n1, n2);
+			if (reversedHead == null) {
+				reversedHead = n2;
+			}
+			if (prev != null) {
+				prev.next = n2;
+			}
+			prev = n1;
+			n1 = next;
+		}
+
+		return reversedHead;
+	}
+
+	private static void reverseGroup(ListNode n1, ListNode n2) {
+		ListNode n = n1;
+		ListNode prev = null;
+		while (n != n2) {
+			ListNode next = n.next;
+			n.next = prev;
+			prev = n;
+			n = next;
+		}
+		n.next = prev;
+	}
+
 	public static void main(String[] args) {
 
 	}
