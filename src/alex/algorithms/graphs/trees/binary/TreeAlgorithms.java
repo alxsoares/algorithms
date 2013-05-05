@@ -328,6 +328,36 @@ public class TreeAlgorithms {
 		}
 	}
 
+	public static void findPath(Node<Integer> root, int expectedSum) {
+		if (root == null)
+			return;
+		ArrayList<Integer> path = new ArrayList<Integer>();
+		int currentSum = 0;
+		findPath(root, expectedSum, currentSum, path);
+	}
+
+	private static void findPath(Node<Integer> root, int expectedSum,
+			int currentSum, ArrayList<Integer> path) {
+		currentSum += root.getValue();
+		path.add(root.getValue());
+		boolean isLeaf = (root.getLeft() == null && root.getRight() == null);
+		if(isLeaf && currentSum == expectedSum){
+			System.out.printf("Path found\n");
+			for (Iterator<Integer> iterator = path.iterator(); iterator.hasNext();) {
+				Integer integer =  iterator.next();
+				System.out.printf("%d ", integer);
+			}
+			System.out.println();
+		}
+		if(root.getLeft()!= null){
+			findPath(root.getLeft(), expectedSum, currentSum, path);
+		}
+		if(root.getRight()!= null){
+			findPath(root.getRight(), expectedSum, currentSum, path);
+		}
+		path.remove(path.size()-1);
+	}
+
 	public static int findKth(Node<Integer> root, int num) {
 		Stack<Node<Integer>> stack = new Stack<>();
 		Node<Integer> current = root;
@@ -583,6 +613,7 @@ public class TreeAlgorithms {
 		// }
 		// zigzagTraversal(root);
 		printPaths(root, new LinkedList<Integer>());
+		findPath(root, 20000);
 		// printInOrder(root);
 
 	}
