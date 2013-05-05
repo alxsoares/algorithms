@@ -1,6 +1,7 @@
 package alex.algorithms.graphs.trees.binary;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -25,16 +26,13 @@ public class ReconstructTree {
 			}
 		}
 
-		int[] inorderLeft = new int[i];
-		int[] preorderLeft = new int[i];
-		System.arraycopy(inorder, 0, inorderLeft, 0, i);
-		System.arraycopy(preorder, 1, preorderLeft, 0, i);
+		int[] inorderLeft = Arrays.copyOfRange(inorder, 0, i-1);
+		int[] preorderLeft = Arrays.copyOfRange(preorder,1,i);
+//		System.arraycopy(preorder, 1, preorderLeft, 0, i);
 		root.setLeft(reconstruct(inorderLeft, preorderLeft));
-		int[] inorderRight = new int[inorder.length - i - 1];
-		int[] preorderRight = new int[inorder.length - i - 1];
-		System.arraycopy(inorder, i + 1, inorderRight, 0, inorderRight.length);
-		System.arraycopy(preorder, i + 1, preorderRight, 0,
-				preorderRight.length);
+		int [] inorderRight = Arrays.copyOfRange(inorder, i+1, inorder.length);
+		int[] preorderRight = Arrays.copyOfRange(preorder,i+1,preorder.length);
+
 		root.setRight(reconstruct(inorderRight, preorderRight));
 		return root;
 	}
