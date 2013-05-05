@@ -466,6 +466,25 @@ public class TreeAlgorithms {
 		}
 	}
 
+	public static boolean isSymmetrical(Node<Integer> root) {
+		return isSymmetrical(root, root);
+	}
+
+	private static boolean isSymmetrical(Node<Integer> root, Node<Integer> root2) {
+		if (root == null && root2 == null) {
+			return true;
+		}
+
+		if (root == null || root2 == null) {
+			return false;
+		}
+		if (root.getValue() != root2.getValue())
+			return false;
+
+		return isSymmetrical(root.getLeft(), root2.getRight())
+				&& isSymmetrical(root.getRight(), root2.getLeft());
+	}
+
 	/**
 	 * @param args
 	 */
