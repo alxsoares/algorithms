@@ -138,6 +138,25 @@ public class LinkedListUtils {
 		return head;
 	}
 
+	public static ListNode findKthToTail(ListNode head, int k) {
+		if (head == null || k == 0)
+			return null;
+		ListNode ahead = head;
+		for (int i = 0; i < k - 1; i++) {
+			if (ahead.next != null) {
+				ahead = ahead.next;
+			} else {
+				return null;
+			}
+		}
+		ListNode kth = head;
+		while (ahead.next != null) {
+			kth = kth.next;
+			ahead = ahead.next;
+		}
+		return kth;
+	}
+
 	public static void main(String[] args) {
 
 	}
