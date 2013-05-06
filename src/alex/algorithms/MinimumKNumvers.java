@@ -30,7 +30,7 @@ public class MinimumKNumvers {
 	}
 
 	public static void main(String[] args) {
-		int input[] = {10,1,9,12,334,5,5,5,5,1,20,-1};
+		int input[] = {10,1,9,12,334,5,5,5,5,4,1,20};
 		printKMinimumNumbers(input, 4);
 	}
 
