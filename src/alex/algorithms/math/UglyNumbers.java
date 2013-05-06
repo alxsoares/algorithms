@@ -18,16 +18,16 @@ public class UglyNumbers {
 		return false;
 	}
 
-//	public static int getNthUglyNumber(int n) {
-//		int count = 1;
-//		int i = 1;
-//		while (count < n) {
-//			i++;
-//			if (isUgly(i))
-//				count++;
-//		}
-//		return i;
-//	}
+	public static int getNthUglyNumber(int n) {
+		int count = 1;
+		int i = 1;
+		while (count < n) {
+			i++;
+			if (isUgly(i))
+				count++;
+		}
+		return i;
+	}
 
 	public static int getNthUglyNumberDynamicProgramming(int n) {
 		int[] ugly = new int[n + 1];
@@ -57,7 +57,7 @@ public class UglyNumbers {
 		return ugly[n - 1];
 	}
 
-	public static int getNthUgly(int n) {
+	public static int getNthUglyEfficient(int n) {
 		if (n <= 0)
 			return 0;
 		int ugly[] = new int[n + 1];
@@ -90,7 +90,7 @@ public class UglyNumbers {
 	public static void main(String[] args) {
 		System.out.println(getNthUglyNumber(150));
 		System.out.println(getNthUglyNumberDynamicProgramming(150));
-		System.out.println(getNthUgly(150));
+		System.out.println(getNthUglyEfficient(150));
 	}
 
 }
