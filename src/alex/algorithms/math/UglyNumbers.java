@@ -18,16 +18,16 @@ public class UglyNumbers {
 		return false;
 	}
 
-	public static int getNthUglyNumber(int n) {
-		int count = 1;
-		int i = 1;
-		while (count < n) {
-			i++;
-			if (isUgly(i))
-				count++;
-		}
-		return i;
-	}
+//	public static int getNthUglyNumber(int n) {
+//		int count = 1;
+//		int i = 1;
+//		while (count < n) {
+//			i++;
+//			if (isUgly(i))
+//				count++;
+//		}
+//		return i;
+//	}
 
 	public static int getNthUglyNumberDynamicProgramming(int n) {
 		int[] ugly = new int[n + 1];
