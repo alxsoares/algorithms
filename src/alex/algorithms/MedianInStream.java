@@ -3,6 +3,8 @@ package alex.algorithms;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
+import alex.datastructures.MaxHeap;
+
 public class MedianInStream {
 
 	private PriorityQueue<Integer> minHeap;
@@ -37,6 +39,24 @@ public class MedianInStream {
 			}
 		}
 
+	}
+
+	public void t(int num) {
+		if (maxHeap.size() == minHeap.size()) {
+			if (minHeap.peek() != null && num > minHeap.peek()) {
+				maxHeap.offer(minHeap.poll());
+				minHeap.offer(num);
+			} else {
+				maxHeap.offer(num);
+			}
+		} else {
+			if (num < maxHeap.peek()) {
+				minHeap.offer(maxHeap.poll());
+				maxHeap.offer(num);
+			} else {
+				minHeap.offer(num);
+			}
+		}
 	}
 
 	public double getMedian() {
