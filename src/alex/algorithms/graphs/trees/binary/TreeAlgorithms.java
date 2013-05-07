@@ -545,7 +545,7 @@ public class TreeAlgorithms {
             depthA++;
         }
         n = a;
-        while (a.getParent() != null) {
+        while (n.getParent() != null) {
             n = n.getParent();
             depthB++;
         }
