@@ -3,18 +3,6 @@ package alex.algorithms.math;
 public class Math {
     private static final double EPSLON = Double.MIN_VALUE;
 
-    // public static void IntegerDivision(int numerator, final int denominator)
-    // {
-    // int quot = 0;
-    // while (numerator > denominator) {
-    // numerator = numerator - denominator;
-    // quot++;
-    // }
-    // int rest = numerator;
-    //
-    // System.out.println("Quotient=[" + quot + "] and Denominator=[" + rest +
-    // "]");
-    // }
     public static int abs(final int n) {
         if (n < 0) {
             return -n;
