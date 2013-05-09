@@ -535,6 +535,33 @@ public class TreeAlgorithms {
 
         return isSymmetrical(root.getLeft(), root2.getRight()) && isSymmetrical(root.getRight(), root2.getLeft());
     }
+    public static int distance2(final Node<Integer> a, final Node<Integer> b) {
+    	Node<Integer> nodeA = a;
+    	Node<Integer> nodeB = b;
+    	while(nodeA != nodeB){
+    		if(nodeA==null) nodeA = b;
+    		if(nodeB == null) nodeB = a;
+    		nodeA = nodeA.getParent();
+    		nodeB = nodeB.getParent();
+    	}
+    	Node<Integer> lca = nodeA;
+    	nodeA = a;
+    	nodeB = b;
+    	int distance = 0;
+    	while(nodeA!= lca)
+    	{
+    		nodeA =nodeA.getParent();
+    		distance++;
+    	}
+    	
+    	while(nodeB!= lca)
+    	{
+    		nodeB =nodeB.getParent();
+    		distance++;
+    	}
+    	
+    	return distance;
+    }
 
     public static int distance(final Node<Integer> a, final Node<Integer> b) {
         int depthA = 0;
