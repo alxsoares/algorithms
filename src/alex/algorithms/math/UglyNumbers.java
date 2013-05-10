@@ -1,5 +1,8 @@
 package alex.algorithms.math;
 
+import java.util.Iterator;
+import java.util.TreeSet;
+
 public class UglyNumbers {
 
 	public static int maxDivide(int a, int b) {
@@ -56,6 +59,25 @@ public class UglyNumbers {
 		}
 		return ugly[n - 1];
 	}
+	public static void printSumMultiple3Or5(){
+		int sum=0;		
+		TreeSet<Integer> set = new TreeSet<>();
+		for(int i=3;i<1000;i++){
+			if(i%3==0){
+				set.add(i);
+			}
+			else if(i%5==0){
+				set.add(i);
+			}
+		}
+		sum =0;
+		for (Iterator<Integer> iterator = set.iterator(); iterator.hasNext();) {
+			Integer e =  iterator.next();
+			sum+=e;
+			
+		}
+		System.out.printf("Sum=%d\n",sum);
+	}
 
 	public static int getNthUglyEfficient(int n) {
 		if (n <= 0)
@@ -91,6 +113,7 @@ public class UglyNumbers {
 		System.out.println(getNthUglyNumber(150));
 		System.out.println(getNthUglyNumberDynamicProgramming(150));
 		System.out.println(getNthUglyEfficient(150));
+		printSumMultiple3Or5();
 	}
 
 }
