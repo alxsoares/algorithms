@@ -157,6 +157,45 @@ public class LinkedListUtils {
 		return kth;
 	}
 
+	public static ListNode swapFirstAndLastKthNodes(ListNode head, int k) {
+		if (head == null || k == 0)
+			return head;
+		ListNode ahead = head;
+		ListNode prevAhead = null;
+		for (int i = 0; i < k - 1; i++) {
+			if (ahead.next != null) {
+				prevAhead = ahead;
+				ahead = ahead.next;
+			} else {
+				return head;
+			}
+		}
+		ListNode aheadCopy = ahead;
+		ListNode tailKth = head;
+		ListNode prevTailKth = null;
+		while (aheadCopy.next != null) {
+			prevTailKth = tailKth;
+			tailKth = tailKth.next;
+		}
+		if (prevAhead != null && prevTailKth != null) {
+			// swap
+			prevAhead.next = tailKth;
+			prevTailKth.next = ahead;
+			ListNode temp = tailKth.next;
+			tailKth.next = ahead.next;
+			ahead.next = temp;
+
+		} else {
+			// swap first and last change the head
+			ListNode tmp = ahead.next;
+			ahead.next = null;
+			prevTailKth.next = ahead;
+			tailKth.next = tmp;
+			head = tailKth;
+		}
+		return head;
+	}
+
 	public static ListNode reverse(ListNode head) {
 		ListNode reversedHead = null;
 		ListNode node = head;
