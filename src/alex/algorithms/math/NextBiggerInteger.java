@@ -40,6 +40,7 @@ public class NextBiggerInteger {
 		System.out.printf("%d \n", next(next(next(12345))));
 		System.out.printf("%d \n", next(next(next(next(12345)))));
 		System.out.printf("%d \n", next(next(next(next(next(12345))))));
+		System.out.printf("%d \n", next(22222212));
 	}
 
 }
