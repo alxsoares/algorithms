@@ -2,7 +2,6 @@ package alex.algorithms.math.projecteuler;
 
 import java.util.ArrayList;
 import java.util.BitSet;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
