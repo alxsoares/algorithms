@@ -33,10 +33,24 @@ public class BinomialCoefficient {
 		}
 		return C[k];
 	}
+	
+	public static long binomialCoefficientOptimisedHuge(int n, int k){
+		long C[] = new long[k+1];
+		C[0] = 1;
+		int counter =0;
+		for(int i=1; i<=n;i++){
+			for(int j=Math.min(i, k); j>0;j--){
+				C[j] = C[j] + C[j-1];
+				if(C[j]%10==0) counter++;
+			}
+		}
+		return counter;
+	}
 
 	public static void main(String[] args) {
 		System.out.printf("%d\n", binomialCoefficient(100, 11));
 		System.out.printf("%d\n", binomialCoefficientOptimised(100, 11));
+		System.out.printf("%d\n", binomialCoefficientOptimisedHuge(1000000000, 10000000-10));
 	}
 
 }
