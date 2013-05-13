@@ -46,6 +46,14 @@ public class Euler027 {
             }
         }
         System.out.printf("%d %d %d %d\n", max, aa, bb, aa * bb);
+        int n = 0;
+        long prime = n * n + aa * n + bb;
+        while (prime > 1 && isPrime(prime)) {
+            n++;
+            System.out.printf("%d ", prime);
+            prime = n * n + aa * n + bb;
+        }
+        System.out.println();
 
     }
 }
