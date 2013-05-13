@@ -1,5 +1,9 @@
 package alex.algorithms.math.projecteuler;
 
+/**
+ * 
+ * http://mathworld.wolfram.com/FullReptendPrime.html
+ */
 public class Euler026 {
     public static void main(final String[] args) {
         int max = 0;
