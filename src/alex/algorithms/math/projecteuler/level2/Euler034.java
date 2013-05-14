@@ -6,11 +6,9 @@ public class Euler034 {
         int result = 0;
         int fact = 1;
         facts[0] = 1;
-        int sum = 1;
         for (int i = 1; i < 10; i++) {
             fact *= i;
             facts[i] = fact;
-            sum += fact;
         }
 
         for (int i = 10; i < facts[9] * 9; i++) {
