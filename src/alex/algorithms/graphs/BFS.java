@@ -3,8 +3,8 @@ package alex.algorithms.graphs;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-public class Path {
-    public static boolean BFS(final int source, final int destination, final ArrayList<ArrayList<Integer>> G) {
+public class BFS {
+    public static boolean dfs(final int source, final int destination, final ArrayList<ArrayList<Integer>> G) {
         if (source == destination)
             return true;
         LinkedList<Integer> queue = new LinkedList<Integer>();
@@ -37,7 +37,7 @@ public class Path {
         g.get(2).add(0);
         g.get(2).add(3);
         g.get(3).add(3);
-        System.out.println(BFS(1, 3, g));
+        System.out.println(dfs(1, 3, g));
     }
     
 }
