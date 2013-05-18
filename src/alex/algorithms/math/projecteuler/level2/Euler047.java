@@ -2,7 +2,7 @@ package alex.algorithms.math.projecteuler.level2;
 
 import java.util.Set;
 
-import alex.algorithms.math.projecteuler.ErastotenesSieve;
+import alex.algorithms.math.projecteuler.Eratosthenes;
 
 public class Euler047 {
 	public static int numberOfPrimeFactors(int n, Set<Integer> primes) {
@@ -25,7 +25,7 @@ public class Euler047 {
 	}
 
 	public static void main(String[] args) {
-		Set<Integer> sieve = ErastotenesSieve.sieve(10000);
+		Set<Integer> sieve = Eratosthenes.sieve(10000);
 		int res = 2 * 3 * 5 * 7;
 		int consecutives = 1;
 		while (consecutives < 4) {

@@ -1,6 +1,6 @@
 package alex.algorithms.math.projecteuler.level3;
 
-import alex.algorithms.math.projecteuler.ErastotenesSieve;
+import alex.algorithms.math.projecteuler.Eratosthenes;
 
 public class Euler070 {
 	static boolean isPerm(long m, long n) {
@@ -27,7 +27,7 @@ public class Euler070 {
 	}
 
 	public static void main(String[] args) {
-		Integer[] primes = ErastotenesSieve.sieve(2000, 5000);
+		Integer[] primes = Eratosthenes.sieve(2000, 5000);
 		long sol=1;
 		long solPhi=1;
 		double phiRatio =Double.POSITIVE_INFINITY;

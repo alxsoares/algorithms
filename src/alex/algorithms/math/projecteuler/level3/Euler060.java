@@ -2,10 +2,10 @@ package alex.algorithms.math.projecteuler.level3;
 
 import java.util.HashSet;
 
-import alex.algorithms.math.projecteuler.ErastotenesSieve;
+import alex.algorithms.math.projecteuler.Eratosthenes;
 
 public class Euler060 {
-	static Integer[] primes = ErastotenesSieve.sieve(30000).toArray(
+	static Integer[] primes = Eratosthenes.sieve(30000).toArray(
 			new Integer[0]);
 	static int concat(int a, int b) {
         int c = b;

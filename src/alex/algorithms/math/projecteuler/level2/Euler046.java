@@ -2,7 +2,7 @@ package alex.algorithms.math.projecteuler.level2;
 
 import java.util.Set;
 
-import alex.algorithms.math.projecteuler.ErastotenesSieve;
+import alex.algorithms.math.projecteuler.Eratosthenes;
 
 public class Euler046 {
 	public static boolean isTwiceSquare(long n) {
@@ -11,7 +11,7 @@ public class Euler046 {
 	}
 
 	public static void main(String[] args) {
-		Set<Integer> sieve = ErastotenesSieve.sieve(10000);
+		Set<Integer> sieve = Eratosthenes.sieve(10000);
 		for (long odd = 3;; odd += 2) {
 			boolean notFound = true;
 			for (Integer prime : sieve) {
