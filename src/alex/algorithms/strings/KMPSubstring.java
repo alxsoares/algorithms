@@ -8,10 +8,11 @@ public class KMPSubstring {
 		dfa[pat.charAt(0)][0] = 1;
 		for (int X = 0, j = 1; j < M; j++) {
 			for (int c = 0; c < R; c++) {
-				dfa[c][j] = dfa[c][X];// copy restart states
+				dfa[c][j] = dfa[c][X];// copy transitions from restart state.
 			}
 			dfa[pat.charAt(j)][j] = j + 1;
-			X = dfa[pat.charAt(j)][X];// current restart state
+			X = dfa[pat.charAt(j)][X];// redefine restart state knowing we have
+										// matched until this far.
 		}
 		return dfa;
 	}
