@@ -18,7 +18,7 @@ public class CycleDetection {
 				num[i] = 0;
 				pred[i] = v;
 				dfs(i);
-			} else if (num[i] != -1) {
+			} else {
 				pred[i] = v;
 				System.out.printf("Ciclo encontrado entre %d e %d\n", v, i);
 				return true;
