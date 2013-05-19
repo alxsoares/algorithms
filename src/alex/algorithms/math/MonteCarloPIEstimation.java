@@ -17,6 +17,7 @@ public class MonteCarloPIEstimation {
 			}
 		}
 		System.out.printf("%f\n%f\n", 4*((double)countIn/ITERATIONS),java.lang.Math.PI);
+		
 	}
 
 }
