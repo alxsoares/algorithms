@@ -1,6 +1,5 @@
 package alex.algorithms.math.projecteuler.level3;
 
-import java.util.ArrayList;
 import java.util.TreeSet;
 
 public class Euler074 {
