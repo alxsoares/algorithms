@@ -10,8 +10,6 @@ public class MergeSort {
 		int mid = (a.length + 1) / 2;
 		int left[] = Arrays.copyOfRange(a, 0, mid);
 		int right[] = Arrays.copyOfRange(a, mid, a.length);
-		System.arraycopy(a, 0, left, 0, left.length);
-		System.arraycopy(a, mid, right, 0, right.length);
 		sort(left);
 		sort(right);
 		merge(a, left, right);
