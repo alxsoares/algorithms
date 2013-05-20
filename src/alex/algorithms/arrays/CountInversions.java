@@ -20,7 +20,7 @@ public class CountInversions {
 		int left[] = Arrays.copyOfRange(arr, 0, m);
 		int right[] = Arrays.copyOfRange(arr, m, arr.length);
 	
-		return countInversions(left) + countInversions(right) + CountInversions.merge(arr, left, right);
+		return countInversions(left) + countInversions(right) + merge(arr, left, right);
 	}
 
     public static int merge(int[] arr, int[] left, int[] right) {
