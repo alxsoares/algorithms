@@ -24,7 +24,7 @@ public class CountTwos {
 
 	public static void main(String[] args) {
 		System.out.printf("Number of 2s from 0 to %d => %d \n", 1000,
-				count2R(888));
+				count2R(1000));
 	}
 
 }
