@@ -87,7 +87,7 @@ public class ArticulationPoints {
 	    // Call the recursive helper function to find articulation points
 	    // in DFS tree rooted with vertex 'i'
 	    for (int i = 0; i < V; i++)
-	        if (visited[i] == false)
+	        if (!visited[i])
 	            dfs(0, visited, disc, low, parent, ap);
 	 
 	    // Now ap[] contains articulation points, print them
