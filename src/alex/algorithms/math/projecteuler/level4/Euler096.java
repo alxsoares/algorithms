@@ -38,7 +38,6 @@ public class Euler096 {
             FileInputStream fstream = new FileInputStream("file.txt");
             DataInputStream in = new DataInputStream(fstream);
             BufferedReader br = new BufferedReader(new InputStreamReader(in));
-            String strLine;
             for (int i = 0; i < 50; i++) {
                 br.readLine();
                 positions = new ArrayList<String>();
