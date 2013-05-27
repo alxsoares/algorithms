@@ -44,7 +44,7 @@ public class DAGShortestPath {
 		}
 		int dist[] = new int[V];
 		Arrays.fill(dist, Integer.MAX_VALUE);
-		dist[source] = 0;
+		dist[top.peek()] = 0;
 		while (!top.isEmpty()) {
 			int u = top.pop();
 			if (dist[u] != Integer.MAX_VALUE) {

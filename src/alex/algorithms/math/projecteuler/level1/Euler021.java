@@ -2,7 +2,11 @@ package alex.algorithms.math.projecteuler.level1;
 
 import java.util.HashMap;
 import java.util.Map;
-
+/**
+ *
+ * Very inefficient
+ *
+ */
 public class Euler021 {
 
 	/**

@@ -39,6 +39,7 @@ public class PrimMST {
 				if (minHeap.contains(v) && W[u][v] < key[v]) {
 					key[v] = W[u][v];
 					parent[v] = u;
+					//update value in the heap => relax(u,v,w)
 					minHeap.remove(v);
 					minHeap.add(v);
 				}

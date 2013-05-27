@@ -3,9 +3,11 @@ package alex.algorithms.math.projecteuler;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.BitSet;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.Stack;
 import java.util.TreeSet;
 
 import javax.naming.LimitExceededException;
@@ -166,7 +168,7 @@ public class Euler233 {
 		}
 		return primes;
 	}
-
+	static Set<Long> cache = new HashSet<>();
 	public static long Test2(long num) {
 		long prod = 1;
 		long sqrt = (long) Math.sqrt(num);
@@ -174,8 +176,9 @@ public class Euler233 {
 			long p1 = 4*i+1;
 			long p3 = 4*i+3;
 			long p = p3;
-			if (num % p == 0 && p % 4 == 3 && isPrime(p)) {
+			if ( num % p == 0 && p % 4 == 3 && (cache.contains(p) || isPrime(p))) {
 				int div = 0;
+				cache.add(p);
 				while (num % p == 0) {
 					div++;
 					p *= p3;
@@ -184,7 +187,8 @@ public class Euler233 {
 					return 0;
 			}
 			p=p1;
-			if (num % p == 0 && p % 4 == 1 && isPrime(p)) {
+			if (num % p == 0 && p % 4 == 1 && (cache.contains(p) || isPrime(p))) {
+				cache.add(p);
 				int div = 0;
 				while (num % p == 0) {
 					div++;
@@ -196,7 +200,25 @@ public class Euler233 {
 		}
 		return 4 * prod;
 	}
-
+	public static void generate(){
+		int LIMIT = (int) 1e7;
+		Integer[] sieve = sieve(2, LIMIT);
+		Stack<Integer> prods = new Stack<>();
+		int i=0;
+		long prod =1;
+		while(true){
+			if(sieve[i]%4==3){
+				i++; continue;
+			}
+			while(Test2(prod)!=420){
+				prod*=sieve[i];
+			}
+			System.out.printf("%d\n",prod);
+			break;
+		}
+		
+		
+	}
 	public static void main(String[] args) {
 		long LIMIT = (long) Math.sqrt(1e22);
 //		System.out.println(LIMIT);
@@ -204,13 +226,15 @@ public class Euler233 {
 //		Integer[] sieve = sieve(2, LIMIT);
 		// System.out.println(test(10000, sieve));
 //		System.out.println(Test(100000000, sieve));
-		for (int i = 10; i <= LIMIT; i++) {
-			long test = Test2(i * i);
-			if (test ==420) {
-				System.out.printf("%d => %d\n", i, test);
-			}
-		}
+//		for (long i = 226525; i <= LIMIT; i++) {
+//			long test = Test2(i * i);
+//			if (test >=420) {
+//				System.out.printf("%d => %d\n", i, test);
+//			}
+//		}
+		System.out.println(Test2(84246500*84246500));
 		System.out.println(Test2(10000*10000));
+//		generate();
 //		System.out.println(primes.size());
 	}
 
@@ -236,5 +260,4 @@ public class Euler233 {
 		}
 		return numbers.toArray(new Integer[0]);
 	}
-
 }

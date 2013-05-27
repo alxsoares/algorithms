@@ -22,9 +22,9 @@ public class Dijkstra {
 		for (int v = 0; v < G.size(); v++) {
 			dist[v] = Integer.MAX_VALUE;
 			prev[v] = null;
-//			minHeap.add(v);
+			minHeap.add(v);
 		}
-//		minHeap.remove(source);
+		minHeap.remove(source);
 		dist[source] = 0;
 		minHeap.add(source);
 		while (!minHeap.isEmpty()) {
