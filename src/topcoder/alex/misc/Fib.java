@@ -79,6 +79,8 @@ public class Fib {
 		System.out.println(fibR(5));
 		System.out.println(fibR(6));
 		System.out.println(fibR(50));
+		System.out.println(fibR(12));
+		System.out.println(nfib(13));
 	}
 
 }
