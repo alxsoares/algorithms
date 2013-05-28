@@ -1,242 +1,132 @@
 package alex.algorithms.math.projecteuler;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.BitSet;
-import java.util.HashSet;
-import java.util.Iterator;
+import java.util.Collections;
 import java.util.List;
-import java.util.Set;
-import java.util.Stack;
-import java.util.TreeSet;
-
-import javax.naming.LimitExceededException;
-import javax.print.attribute.SetOfIntegerSyntax;
 
 public class Euler233 {
-	static long pointsInside(long R, ArrayList<Long> d1, ArrayList<Long> d3) {
-		int sum = 0;
-		long D = R * R;
-		for (int x = 0; x <= R; x++) {
-			for (int y = 0; y <= R; y++) {
-				long distQuadratic = x * x + y * y;
-				if (distQuadratic == D) {
-					sum++;
-				}
-			}
-		}
-		return 4 * sum - 4;
-	}
-
-	static long schinzel(long r) {
-		int k = 0;
-		int d1 = 0;
-		int d3 = 0;
-		long n = r * r;
-		while (4 * k + 1 <= n || 4 * k + 3 <= n) {
-			if (n % (4 * k + 1) == 0) {
-				d1++;
-			}
-			if (n % (4 * k + 3) == 0) {
-				d3++;
-			}
-			k++;
-		}
-		return 4 * (d1 - d3);
-	}
-
-	static long schinzel2(long r) {
-		int k = 0;
-		int d1 = 0;
-		int d3 = 0;
-		long n = r * r;
-		Integer[] sieve = Eratosthenes.sieve(2, 1000000000);
-		for (int i = 0; i < sieve.length; i++) {
-			Integer p = sieve[i];
-			if (p % 4 == 1 && n % p == 0) {
-				d1++;
-				for (long pp = 2 * p; pp <= n; pp += p) {
-					if (pp % 4 == 1 && n % pp == 0)
-						d1++;
-				}
-			}
-			if (p % 4 == 3 && n % p == 0) {
-				d3++;
-				for (long pp = 2 * p; pp <= n; pp += p) {
-					if (pp % 4 == 3 && n % pp == 0)
-						d3++;
-				}
-			}
-		}
-		return 4 * (d1 - d3);
-
-	}
-
-	public static int points(long r) {
-		int sum = 0;
-		Set<Long> X = new TreeSet<>();
-		long limitY = (long) Math.ceil((r / Math.sqrt(2)));
-		for (int y = 0; y <= limitY; y++) {
-			long xx = r * r - y * y;
-			long x = (long) Math.sqrt(xx);
-			if (!X.contains(xx) && x * x == xx) {
-				sum++;
-				X.add(xx);
-			}
-		}
-		return 8 * sum - 4;
-	}
-
-	public static int test(int num, Integer[] sieve) {
-		TreeSet<Integer> div = new TreeSet<Integer>();
-		long lmit = (long) Math.sqrt(1e11);
-		for (int i = 0; i < sieve.length && sieve[i] <= num; i++) {
-			int p = sieve[i];
-			while (p <= num) {
-				if (num % p == 0) {
-					div.add(p);
-					div.add(num / p);
-				}
-				p += sieve[i];
-			}
-		}
-		div.add(1);
-		div.add(num);
-		int d1 = 0;
-		int d3 = 0;
-		for (Iterator<Integer> iterator = div.iterator(); iterator.hasNext();) {
-			Integer d = iterator.next();
-			System.out.printf("%d ", d);
-			if (d % 4 == 1) {
-				d1++;
-			}
-			if (d % 4 == 3) {
-				d3++;
-			}
-		}
-		return 4 * (d1 - d3);
-	}
-
-	public static int Test(long num, Integer[] sieve) {
-		int prod = 1;
-		for (int i = 0; i < sieve.length; i++) {
-			int p = sieve[i];
-			if (num % p == 0 && p % 4 == 3) {
-				int div = 0;
-				while (num % p == 0) {
-					div++;
-					p *= sieve[i];
-				}
-				if (div % 2 == 1)
-					return 0;
-			}
-			if (num % p == 0 && p % 4 == 1) {
-				int div = 0;
-				while (num % p == 0) {
-					div++;
-					p *= sieve[i];
-				}
-				prod *= (div + 1);
-			}
-		}
-		return 4 * prod;
-	}
-
-	public static boolean isPrime(long n) {
-		if (n < 2)
-			return false;
-		long sqrt = (long) Math.sqrt(n);
-		for (long i = 2; i <= sqrt; i++) {
-			if (n % i == 0)
-				return false;
-		}
-		return true;
-	}
-
-	public static List<Long> primes(long upperBound) {
-		List<Long> primes = new ArrayList<Long>();
-		long k = 0;
-		while (4 * k + 1 <= upperBound || 4 * k + 3 <= upperBound) {
-			long d1 = 4 * k + 1;
-			long d3 = 4 * k + 3;
-			if (isPrime(d1)) {
-				primes.add(d1);
-			}
-			if (isPrime(d3)) {
-				primes.add(d3);
-			}
-		}
-		return primes;
-	}
-	static Set<Long> cache = new HashSet<>();
-	public static long Test2(long num) {
-		long prod = 1;
-		long sqrt = (long) Math.sqrt(num);
-		for (long i = 0; i <= sqrt; i++) {
-			long p1 = 4*i+1;
-			long p3 = 4*i+3;
-			long p = p3;
-			if ( num % p == 0 && p % 4 == 3 && (cache.contains(p) || isPrime(p))) {
-				int div = 0;
-				cache.add(p);
-				while (num % p == 0) {
-					div++;
-					p *= p3;
-				}
-				if (div % 2 == 1)
-					return 0;
-			}
-			p=p1;
-			if (num % p == 0 && p % 4 == 1 && (cache.contains(p) || isPrime(p))) {
-				cache.add(p);
-				int div = 0;
-				while (num % p == 0) {
-					div++;
-					p *= p1;
-				}
-				prod *= (div + 1);
-			}
-			if(p1 > sqrt && p3> sqrt) break;
-		}
-		return 4 * prod;
-	}
-	public static void generate(){
-		int LIMIT = (int) 1e7;
-		Integer[] sieve = sieve(2, LIMIT);
-		Stack<Integer> prods = new Stack<>();
-		int i=0;
-		long prod =1;
-		while(true){
-			if(sieve[i]%4==3){
-				i++; continue;
-			}
-			while(Test2(prod)!=420){
-				prod*=sieve[i];
-			}
-			System.out.printf("%d\n",prod);
-			break;
-		}
-		
-		
-	}
-	public static void main(String[] args) {
-		long LIMIT = (long) Math.sqrt(1e22);
-//		System.out.println(LIMIT);
-//		System.out.println((long) 1e22);
-//		Integer[] sieve = sieve(2, LIMIT);
-		// System.out.println(test(10000, sieve));
-//		System.out.println(Test(100000000, sieve));
-//		for (long i = 226525; i <= LIMIT; i++) {
-//			long test = Test2(i * i);
-//			if (test >=420) {
-//				System.out.printf("%d => %d\n", i, test);
-//			}
-//		}
-		System.out.println(Test2(84246500*84246500));
-		System.out.println(Test2(10000*10000));
-//		generate();
-//		System.out.println(primes.size());
-	}
+	// static long limit = 100000000000L;
+	// static long limit2 = (limit / (5 * 5 * 5 * 13 * 13));
+	// static int limit3 = (int) (limit2 / 17 + 1);
+	//
+	// public static void main(String[] args) {
+	// ArrayList<Long> bases = new ArrayList<Long>();
+	// ArrayList<Long> fourKPlusOnePrimes = new ArrayList<Long>();
+	// long limit = 100000000000l;
+	//
+	// ArrayList<Long> multipliers = new ArrayList<Long>();
+	//
+	// Integer[] candidatePrimes = Eratosthenes.sieve(2, 4733728);
+	//
+	// for (int i = 1; i < candidatePrimes.length; i++) {
+	// if ((candidatePrimes[i] - 1) % 4 == 0) {
+	// fourKPlusOnePrimes.add(candidatePrimes[i].longValue());
+	// }
+	// }
+	// long tenthPower = fourKPlusOnePrimes.get(0);
+	// int a = 1;
+	// long candidate = (long) Math.pow(fourKPlusOnePrimes.get(a), 2)
+	// * (long) Math.pow(tenthPower, 10);
+	// while (candidate <= limit) {
+	// bases.add(candidate);
+	// candidate = (long) Math.pow(fourKPlusOnePrimes.get(++a), 2)
+	// * (long) Math.pow(tenthPower, 10);
+	// }
+	//
+	//
+	// for (int seventhPower = 0; seventhPower < 3; seventhPower++) {
+	// long qToPower7 = (long) Math.pow(
+	// fourKPlusOnePrimes.get(seventhPower), 7);
+	// long qToPowerThree;
+	// for (int thirdPower = 0; (qToPowerThree = (long) Math.pow(
+	// fourKPlusOnePrimes.get(thirdPower), 3)) <= (limit / qToPower7);
+	// thirdPower++) {
+	// if (thirdPower != seventhPower) {
+	// candidate = qToPower7 * qToPowerThree;
+	// bases.add(candidate);
+	// }
+	// }
+	// }
+	// long qToPowerThree;
+	// long qToPowerTwo;
+	// long qToPowerOne;
+	// long partialResult;
+	//
+	// long maxResult = 0;
+	// long[] maxResFactors = new long[3];
+	//
+	// int numPrimesInArray = fourKPlusOnePrimes.size();
+	//
+	// for (int thirdPower = 0; (qToPowerThree = (long) Math.pow(
+	// fourKPlusOnePrimes.get(thirdPower), 3)) <= (limit / (25 * 13));
+	// thirdPower++) {
+	// long dividedLimit = (limit / (qToPowerThree * ((thirdPower == 0) ? 13
+	// : 5)));
+	// for (int secondPower = 0; (qToPowerTwo = (long) Math.pow(
+	// fourKPlusOnePrimes.get(secondPower), 2)) <= dividedLimit; secondPower++)
+	// {
+	// partialResult = qToPowerThree * qToPowerTwo;
+	//
+	// if ((secondPower != thirdPower)
+	// && (partialResult <= (limit / 5))) {
+	// for (int firstPower = 0; firstPower < numPrimesInArray
+	// && (qToPowerOne = fourKPlusOnePrimes
+	// .get(firstPower)) <= (limit / (partialResult)); firstPower++) {
+	// long fullResult = partialResult * qToPowerOne;
+	// if (firstPower != secondPower
+	// && firstPower != thirdPower
+	// && fullResult <= limit) {
+	//
+	// bases.add(fullResult);
+	// if (fullResult > maxResult) {
+	// maxResult = fullResult;
+	// maxResFactors[0] = fourKPlusOnePrimes
+	// .get(thirdPower);
+	// maxResFactors[1] = fourKPlusOnePrimes
+	// .get(secondPower);
+	// maxResFactors[2] = fourKPlusOnePrimes
+	// .get(firstPower);
+	// }
+	// }
+	// }
+	// }
+	// }
+	// }
+	//
+	// int multLimit = (int) (limit / Collections.min(bases)) + 5;
+	// boolean[] multiplierTrue = new boolean[multLimit];
+	// Arrays.fill(multiplierTrue, true);
+	//
+	// for (int kk = 0; kk < fourKPlusOnePrimes.size(); kk++) {
+	// int thisPrime = fourKPlusOnePrimes.get(kk).intValue();
+	// for (int ll = 1; ll * thisPrime < multLimit; ll++) {
+	// multiplierTrue[ll * thisPrime] = false;
+	// }
+	// }
+	//
+	// for (int mm = 1; mm < multiplierTrue.length; mm++) {
+	// if (multiplierTrue[mm]) {
+	// multipliers.add((long) mm);
+	// }
+	// }
+	//
+	// long requiredSum = 0;
+	// for (int ii = 0; ii < bases.size(); ii++) {
+	// int jj = -1;
+	// long thisBase = bases.get(ii);
+	// long thisMult;
+	// long soln;
+	// while ((thisMult = multipliers.get(++jj)) <= (limit / thisBase)) {
+	// soln = (thisMult * thisBase);
+	// requiredSum += soln;
+	// }
+	// }
+	//
+	// System.out.println(requiredSum);
+	//
+	// }
 
 	public static Integer[] sieve(int lowerLimit, int upperLimit) {
 
@@ -260,4 +150,5 @@ public class Euler233 {
 		}
 		return numbers.toArray(new Integer[0]);
 	}
+
 }
