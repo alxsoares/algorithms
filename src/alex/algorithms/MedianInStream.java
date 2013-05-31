@@ -76,7 +76,7 @@ public class MedianInStream {
 	public static void main(String[] args) {
 		MedianInStream mi = new MedianInStream();
 		for (int i = 0; i <= 100; i++) {
-			mi.addNewNumber(i);
+			mi.addNewNumber(100-i);
 		}
 		System.out.printf("%.4f\n", mi.getMedian());
 	}
