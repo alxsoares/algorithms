@@ -8,6 +8,8 @@ import java.util.Queue;
 import java.util.Random;
 import java.util.Stack;
 
+import alex.datastructures.TreeNode;
+
 public class TreeAlgorithms {
 	static final Random rand = new Random(System.currentTimeMillis());
 
@@ -630,6 +632,36 @@ public class TreeAlgorithms {
 				&& isBST(root.getRight(), root.getValue(), max);
 	}
 
+	public static boolean isBSTInOrder(Node<Integer> root, int prev[]) {
+		if (root == null)
+			return true;
+		return isBSTInOrder(root.getLeft(), prev)
+				&& root.getValue() >= prev[0] && isBSTInOrder(root.getRight(), new int[]{root.getValue()});
+	}
+
+	public static Node<Integer> closest(Node<Integer> root, int value) {
+		Node<Integer> closest = null;
+		int minDistance = Integer.MAX_VALUE;
+		Node<Integer> node = root;
+		while (node != null) {
+			int distance = Math.abs(node.getValue() - value);
+			if (distance < minDistance) {
+				minDistance = distance;
+				closest = node;
+			}
+			if (distance == 0) {
+				break;
+			}
+			if (node.getValue() < value) {
+				node = node.getRight();
+			} else if (node.getValue() > value) {
+				node = node.getLeft();
+			}
+		}
+
+		return closest;
+	}
+
 	/**
 	 * @param args
 	 */
@@ -678,7 +710,7 @@ public class TreeAlgorithms {
 
 		Node<Integer> root = null;
 		for (int i = 0; i < 20; i++) {
-			root = insertNodeBST(root, Math.abs(rand.nextInt()) % 2000);
+			root = insertNodeBST(root, Math.abs(rand.nextInt()) % 200);
 		}
 		// findKthSmaller(root, new int[] { 199 });
 		// find(root, 199);
@@ -696,7 +728,10 @@ public class TreeAlgorithms {
 		// zigzagTraversal(root);
 		printPaths(root, new LinkedList<Integer>());
 		findPath(root, 20000);
+		Node<Integer> closest = closest(root, 20);
+		System.out.printf("\n%d\n", closest.getValue());
 		// printInOrder(root);
+		System.out.println(isBSTInOrder(root, new int[]{Integer.MIN_VALUE}));
 
 	}
 
