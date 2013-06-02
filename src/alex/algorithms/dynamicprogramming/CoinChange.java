@@ -11,13 +11,14 @@ public class CoinChange {
 					count = Math.min(count, counts[i - coins[j]] + 1);
 				}
 			}
+			counts[i] = count;
 		}
 		return counts[total];
 	}
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		int coins[] = {1, 3, 9, 10};
+		System.out.println(minCoinChange(coins, 15));
 	}
 
 }
