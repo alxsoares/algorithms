@@ -196,22 +196,53 @@ public class StringUtils {
 		arr[j] = 0;
 		return new String(arr);
 	}
-	public static String simpleRemoveChars(String s){
+
+	public static String simpleRemoveChars(String s) {
 		char arr[] = s.toCharArray();
-		int j=0;
-		for(int i=0; i< arr.length;i++){
-			if(arr[i]=='b'){
+		int j = 0;
+		for (int i = 0; i < arr.length; i++) {
+			if (arr[i] == 'b') {
 				continue;
 			}
-			if( (i+1 < arr.length && arr[i]=='a' && arr[i+1]=='c')){
-				i+=2;
+			if ((i + 1 < arr.length && arr[i] == 'a' && arr[i + 1] == 'c')) {
+				i += 2;
 				continue;
 			}
-			arr[j++]= arr[i];
+			arr[j++] = arr[i];
 		}
-		arr[j]=0;
+		arr[j] = 0;
 		return new String(arr);
 	}
+
+	public static void reverseCharArray(char[] a, int begin, int end) {
+		while (begin < end) {
+			char aux = a[begin];
+			a[begin] = a[end];
+			a[end] = aux;
+			begin++;
+			end--;
+		}
+	}
+
+	public static String reverseWords(String txt) {
+		char t[] = txt.toCharArray();
+		reverseCharArray(t, 0, t.length - 1);
+		int end = 0;
+		int begin = 0;
+		while (begin < t.length) {
+			if (t[begin] == ' ') {
+				begin++;
+				end++;
+			} else if ( (end < t.length && t[end] == ' ') || end == t.length) {
+				reverseCharArray(t, begin, end-1);
+				begin = end;
+			} else {
+				end++;
+			}
+		}
+		return new String(t);
+	}
+
 	public static void main(final String[] args) {
 		// System.out.println(removeChars("aaabbbbAlex", "Alex"));
 		// System.out.println(reverseWords("AAAA BBB CCC   ".toCharArray()));
@@ -227,9 +258,11 @@ public class StringUtils {
 		longestUniqueSubsttr("abcdefghaxyzpbn".toCharArray());
 		System.out.println(removeChars("aacbaadefabacba"));
 		System.out.println(removeChars("ac"));
-		
+
 		System.out.println(simpleRemoveChars("aacbaadefabacba"));
 		System.out.println(simpleRemoveChars("ac"));
+		System.out.println(reverseWords("aaa bbb cc "));
+		System.out.println(reverseWords("aaa bbb cc ".toCharArray()));
 	}
 
 }
