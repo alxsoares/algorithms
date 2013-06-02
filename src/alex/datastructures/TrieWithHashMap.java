@@ -24,7 +24,7 @@ public class TrieWithHashMap {
 				crawl = newNode;
 			}
 		}
-		crawl.setbIsEnd(true);
+		crawl.setEnd(true);
 	}
 
 	public String getMatchingPrefix(String input) {
@@ -38,13 +38,13 @@ public class TrieWithHashMap {
 			if (children.containsKey(c)) {
 				res += c;
 				crawl = children.get(c);
-				if (crawl.isbIsEnd()) {
+				if (crawl.isEnd()) {
 					prevMatch = level + 1;
 				}
 			} else
 				break;
 		}
-		if (!crawl.isbIsEnd()) {
+		if (!crawl.isEnd()) {
 			return res.substring(0, prevMatch);
 		}
 		return res;
@@ -91,13 +91,21 @@ public class TrieWithHashMap {
 class TrieNodeH {
 	private char value;
 	private HashMap<Character, TrieNodeH> children;
-	private boolean bIsEnd;
-
+	private boolean isEnd;
+	
 	public TrieNodeH(char value) {
 		super();
 		this.value = value;
 		this.children = new HashMap<>();
-		this.bIsEnd = false;
+		this.isEnd = false;
+	}
+
+	public boolean isEnd() {
+		return isEnd;
+	}
+
+	public void setEnd(boolean isEnd) {
+		this.isEnd = isEnd;
 	}
 
 	public char getValue() {
@@ -116,12 +124,6 @@ class TrieNodeH {
 		this.children = children;
 	}
 
-	public boolean isbIsEnd() {
-		return bIsEnd;
-	}
 
-	public void setbIsEnd(boolean bIsEnd) {
-		this.bIsEnd = bIsEnd;
-	}
 
 }
