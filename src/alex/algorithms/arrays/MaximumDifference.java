@@ -27,15 +27,13 @@ public class MaximumDifference {
 		for (int i = array.length - 2; i >= 0; i--) {
 			RMAX[i] = Math.max(array[i], RMAX[i + 1]);
 		}
+
 		int maxDiff = Integer.MIN_VALUE;
-		int i = 0;
-		int j = 0;
-		while (i < array.length && j < array.length) {
-			if (LMIN[i] < RMAX[j]) {
-				maxDiff = Math.max(maxDiff, j - i);
-				j++;
-			} else {
-				i++;
+
+		for (int i = 0; i < array.length; i++) {
+			int diff = RMAX[i] - LMIN[i];
+			if (diff > maxDiff) {
+				maxDiff = diff;
 			}
 		}
 		return maxDiff;
@@ -57,24 +55,53 @@ public class MaximumDifference {
 
 	public static int maxDiffKadane(int[] array) {
 		int diff = array[1] - array[0];
-		int currentSum = diff;
-		int maxSum = currentSum;
+		int currentDiff = diff;
+		int maxDiff = currentDiff;
 		for (int i = 1; i < array.length - 1; i++) {
 			diff = array[i + 1] - array[i];
-			if (currentSum > 0) {
-				currentSum += diff;
+			if (currentDiff > 0) {
+				currentDiff += diff;
 			} else
-				currentSum = diff;
-			if (currentSum > maxSum)
-				maxSum = currentSum;
+				currentDiff = diff;
+			if (currentDiff > maxDiff)
+				maxDiff = currentDiff;
 		}
-		return maxSum;
+		return maxDiff;
+	}
+
+	public static int maxDiffKadane2(int array[]) {
+		if (array == null || array.length <= 1)
+			return -1;
+		if (array.length == 2) {
+			return array[1] - array[0];
+		}
+		int maxDiff = array[1] - array[0];
+		int currentDiff = maxDiff;
+		int begin =0;
+		int end=1;
+		for (int i = 2; i < array.length; i++) {
+			int diff = array[i] - array[i-1];
+			if(currentDiff > 0){
+				currentDiff+=diff;
+			}else{
+				currentDiff = diff;
+				begin =i-1;
+			}
+			if(currentDiff>maxDiff){
+				maxDiff = currentDiff;
+				end=i;
+			}
+		}
+		System.out.printf("%d %d\n", begin,end);
+		return maxDiff;
 	}
 
 	public static void main(String[] args) {
 		int array[] = { 80, 2, 6, 3, 100 };
 		System.out.printf("%d\n", maxDiff(array));
+		System.out.printf("%d\n", maxIndexDiff(array));
 		System.out.printf("%d\n", maxDiffKadane(array));
+		System.out.printf("%d\n", maxDiffKadane2(array));
 	}
 
 }

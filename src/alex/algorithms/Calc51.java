@@ -8,23 +8,33 @@ public class Calc51 {
 	// System.out.println(calc51(arr));
 	// int[] arr2 = { 1, 1, 2, 2, 2, 3, 3, 3, 3, 1, 1, 1, 1, 1, 1 };
 	// System.out.println(calc51(arr2));
+	public static void printMajor(int a[]) {
+		int majIndex = 0;
+		int count = 1;
+		for (int i = 1; i < a.length; i++) {
+			if (a[majIndex] == a[i]) {
+				count++;
+			} else {
+				count--;
+			}
+			if (count == 0) {
+				majIndex = i;
+			}
+		}
+		count = 0;
+		for (int i = 0; i < a.length; i++) {
+			if (a[majIndex] == a[i])
+				count++;
+		}
+		System.out.printf("%d %.4f\n", a[majIndex], (double) count / a.length);
+	}
 
 	public static void main(String[] args) {
-		int[] arr3 = { 8, 1, 8, 1, 8, 3, 8, 3, 8, 3, 8, 2, 8, 2, 8, 2, 8, 1, 8,
-				1, 8, 3, 8, 1, 8, 1, 8, 2, 8, 1, 8, 1, 8, 1, 8, 1, 1, 8, 2, 8,
-				2, 8};
-//		Arrays.sort(arr3);
-		partition(arr3, 0, arr3.length-1);
-		partition(arr3, 0, (arr3.length-1)/2);
-		partition(arr3, (arr3.length-1)/2+1,arr3.length-1);
-		System.out.println(mostCommon(arr3));
-		for (int i = 0; i < arr3.length; i++) {
-			System.out.printf("%d ", arr3[i]);
-		}
-		System.out.println();
+		int[] arr3 = {1,1,1,1,1,1,1,1,1,1,1,1,2,3,4,3,3,3,3,3,3};
+		printMajor(arr3);
 	}
-	
-	public static void partition(int dados[],int start, int end){
+
+	public static void partition(int dados[], int start, int end) {
 		int middle = (start + end) / 2;
 		int first = start;
 		int lower = start + 1;
@@ -44,10 +54,10 @@ public class Calc51 {
 			}
 		}
 		// puts pivot in the right position
-		swap(dados, first, upper);	
-		
-		
+		swap(dados, first, upper);
+
 	}
+
 	public static int mostCommon(int array[]) {
 		int best = 0;
 		int count = 0;
@@ -112,7 +122,8 @@ public class Calc51 {
 			return num[segundo];
 
 		return -1;
-	}/**
+	}
+	/**
 	 * @param args
 	 */
 

@@ -62,7 +62,7 @@ public class Math {
             variation = x0 - newX0;
             x0 = newX0;
         }
-        System.out.println("Variation = [" + variation + "]");
+       // System.out.println("Variation = [" + variation + "]");
         return x0;
     }
 
@@ -130,7 +130,28 @@ public class Math {
         System.out.printf("sqrt(%.4f) = %.4f\n", val, mid);
         return mid;
     }
-
+    public static double ln(double val){
+    	
+    	 double low = 0;
+         double mid;
+         double high = mid = val;
+         double oldmid = -1;
+         while (Math.abs(oldmid - mid) >= EPSLON) {
+             oldmid = mid;
+             mid = (high + low) / 2;
+             double midLn = pow(java.lang.Math.E, mid);
+             if (midLn > val) {
+                 high = mid;
+             } else {
+                 low = mid;
+             }
+         }
+         System.out.printf("ln(%.4f) = %.4f\n", val, mid);
+         return mid;
+    }
+    public static double log10(double val){
+    	return ln(val)/ln(10);
+    }
     public static double sqrtNewton(final double n) {
         double guess = (1 + n) / 2;
         while (Math.abs(n - guess * guess) >= 0.00001) {
@@ -234,7 +255,7 @@ public class Math {
         }
         return r;
     }
-
+    
     public static int numZeros(final int num) {
         int count = 0;
         if (num < 0) {
@@ -272,20 +293,7 @@ public class Math {
     }
 
     public static void main(final String[] args) {
-        // IntegerDivision(200, 7);
-        // System.out.println(sqrt(36.0));
-        // System.out.println(pow(2, 0.5));
-        // System.out.println(pow2(2, 3));
-        // primes(20000);
-        // System.out.println(trailingZeroes(200));
-        // System.out.println(numZeros(200));
-        // System.out.println(max(-300,-400));
-        // System.out.println(sum(0x00ff,0x00ff));
-        // System.out.printf("%f",exp(1000, 1));
-        System.out.printf("%d\n", nthPrime(10001));
-        System.out.printf("%.4f\n", sqrt2(16.23));
-        System.out.printf("%.4f\n", sqrtNewton(16));
-        System.out.printf("%d\n", integerDivisionQuotient(11, -2));
-        System.out.printf("%.4f\n", powRecursive(2, 1));
+         System.out.println(ln(java.lang.Math.exp(3)));
+         System.out.println(log10(1000));
     }
 }
