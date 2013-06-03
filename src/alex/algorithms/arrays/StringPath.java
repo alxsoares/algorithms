@@ -29,9 +29,8 @@ public class StringPath {
 				&& matrix[row][col] == str[pathLength] && !visited[row][col]) {
 			pathLength++;
 			visited[row][col] = true;
-			boolean hasPath = hasPath(matrix, str, pathLength, visited,
-					row + 1, col)
-					|| hasPath(matrix, str, pathLength, visited, row + 1, col)
+			boolean hasPath = 
+					   hasPath(matrix, str, pathLength, visited,row + 1, col)
 					|| hasPath(matrix, str, pathLength, visited, row, col + 1)
 					|| hasPath(matrix, str, pathLength, visited, row - 1, col)
 					|| hasPath(matrix, str, pathLength, visited, row, col - 1);
