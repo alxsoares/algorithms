@@ -1,5 +1,8 @@
 package alex.algorithms.graphs.trees.binary;
 
+import java.util.Random;
+import java.util.Stack;
+
 public class ConvertBSTtoDLL {
 	public static Node<Integer> convert(Node<Integer> root) {
 		Node<Integer> lastNode = convertNode(root, null);
@@ -27,6 +30,35 @@ public class ConvertBSTtoDLL {
 			lastNode = convertNode(root.getRight(), lastNode);
 		}
 		return lastNode;
+	}
+
+	public static Node<Integer> bstToDLL(Node<Integer> root) {
+		Stack<Node<Integer>> stack = new Stack<>();
+		Node<Integer> head = null;
+		Node<Integer> left = root;
+		while (left != null) {
+			stack.push(left);
+			left = left.getLeft();
+		}
+		Node<Integer> prev = null;
+		while (!stack.isEmpty()) {
+			Node<Integer> current = stack.pop();
+			if(head==null) head = current;
+			Node<Integer> right = current.getRight();
+			while (right != null) {
+				stack.push(right);
+				right = right.getLeft();
+			}
+			current.setLeft(prev);
+			if (prev != null) {
+				prev.setRight(current);
+			}
+			prev = current;
+		}
+		if(prev!= null){
+			prev.setRight(null);
+		}
+		return head;
 	}
 
 	public static Node<Integer> rotateToDLL(Node<Integer> root) {
@@ -63,7 +95,23 @@ public class ConvertBSTtoDLL {
 	}
 
 	public static void main(String[] args) {
-
+		Random rand = new Random();
+		Node<Integer> root = null;
+		for (int i = 0; i < 20; i++) {
+			root = TreeAlgorithms.insertNodeBST(root,
+					Math.abs(rand.nextInt()) % 200);
+		}
+//		Node<Integer> list = convert(root);
+//		while (list != null) {
+//			System.out.printf("%d ", list.getValue());
+//			list = list.getRight();
+//		}
+		System.out.println();
+		Node<Integer> head = bstToDLL(root);
+		while (head != null) {
+			System.out.printf("%d ", head.getValue());
+			head = head.getRight();
+		}
 	}
 
 }
