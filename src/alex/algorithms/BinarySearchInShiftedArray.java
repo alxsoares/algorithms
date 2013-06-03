@@ -68,7 +68,7 @@ public class BinarySearchInShiftedArray {
 					start = mid + 1;
 				}
 			} else if (a[mid] <= a[end]) {
-				if (a[mid] < key && key < a[end]) {
+				if (a[mid] < key && key <= a[end]) {
 					start = mid + 1;
 				} else {
 					end = mid - 1;
