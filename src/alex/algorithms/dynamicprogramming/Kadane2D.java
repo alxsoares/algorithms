@@ -42,8 +42,7 @@ public class Kadane2D {
         System.out.printf("(Bottom, Right) (%d, %d)\n", finalBottom, finalRight);
         System.out.printf("Max sum is: %d\n", max);
     }
-
-    public static void main(final String[] args) {
+    public static void main(String[] args) {
         //@formatter:off
         int M[][] = 
                {
@@ -54,5 +53,8 @@ public class Kadane2D {
                };
         //@formatter:on
         maxSubSum(M);
+		int[][] arr = { { 1, -2, -7, 0 }, { -6, 2, 9, 2 }, { -4, -2, -1, 4 },
+				{ -1, -8, 0, -4 } };
+		maxSubSum(arr);
     }
 }
