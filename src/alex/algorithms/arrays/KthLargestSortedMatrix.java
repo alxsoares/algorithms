@@ -9,10 +9,10 @@ public class KthLargestSortedMatrix {
 		//@formatter:off
 		int[][] matrix = 
 			{ 
-				{ 5, 7, 8, 9 }, 
-				{ 6, 9, 10, 13 }, 
-				{ 7, 11, 12, 15 },
-				{ 8, 13, 16, 17 } 
+				{ 5, 7, 8, 19 }, 
+				{ 6, 9, 10, 113 }, 
+				{ 7, 11, 12, 115 },
+				{ 8, 13, 16, 117 } 
 				};
 		//@formatter:on
 		int result = findKthLargest(matrix, 8);
@@ -46,14 +46,14 @@ public class KthLargestSortedMatrix {
 			newCol = col;
 		}
 		matrix[row][col] = matrix[newRow][newCol];
-//		
-//		for (int i = 0; i < matrix.length; i++) {
-//			for(int j=0; j<matrix[i].length;j++){
-//				System.out.printf("%d ", matrix[i][j]);
-//			}
-//			System.out.println();
-//		}
-//		System.out.println();
+		
+		for (int i = 0; i < matrix.length; i++) {
+			for(int j=0; j<matrix[i].length;j++){
+				System.out.printf("%d ", matrix[i][j]);
+			}
+			System.out.println();
+		}
+		System.out.println();
 		reArrange(matrix, newRow, newCol);
 	}
 
