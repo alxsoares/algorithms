@@ -37,14 +37,16 @@ public class PaindromePartitioning {
 				if (L == 2) {
 					pal[i][j] = (s.charAt(i) == s.charAt(j));
 				} else {
-					pal[i][j] = (s.charAt(i) == s.charAt(j)) && pal[i + 1][j - 1];
+					pal[i][j] = (s.charAt(i) == s.charAt(j))
+							&& pal[i + 1][j - 1];
 				}
 				if (pal[i][j]) {
 					cuts[i][j] = 0;
 				} else {
 					cuts[i][j] = Integer.MAX_VALUE;
 					for (int k = i; k <= j - 1; k++) {
-						cuts[i][j] = Math.min(cuts[i][j], cuts[i][k] + cuts[k + 1][j] + 1);
+						cuts[i][j] = Math.min(cuts[i][j], cuts[i][k]
+								+ cuts[k + 1][j] + 1);
 					}
 				}
 			}
@@ -53,12 +55,43 @@ public class PaindromePartitioning {
 		return cuts[0][n - 1];
 	}
 
+	public static int minCutsPalindrome(String s) {
+		int n = s.length();
+		int C[][] = new int[n][n];
+		boolean P[][] = new boolean[n][n];
+		for (int i = 0; i < n; i++) {
+			C[i][i] = 0;
+			P[i][i] = true;
+		}
+		for (int gap = 1; gap <= n; gap++) {
+			for (int i = 0, j = gap; j < n; i++, j++) {
+				if (s.charAt(i) == s.charAt(j)) {
+					if (gap == 1) {
+						P[i][j] = true;
+					} else {
+						P[i][j] = P[i + 1][j - 1];
+					}
+				}
+				if (P[i][j]) {
+					C[i][j] = 0;
+				} else {
+					C[i][j] = Integer.MAX_VALUE;
+					for (int k = i; k < j; k++) {
+						C[i][j] = Math.min(C[i][j], C[i][k] + C[k+1][j] + 1);
+					}
+				}
+			}
+		}
+		return C[0][n - 1];
+	}
+
 	public static void main(String[] args) {
 		String s = "ababbbabbababa";
 		System.out.println(minPalindromePartition(s));
-		
+
 		String ss = "xaabbaayyy";
 		System.out.println(minPalindromePartition(ss));
+		System.out.println(minCutsPalindrome(s));
 	}
 
 }
