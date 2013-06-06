@@ -37,7 +37,7 @@ public class CountInversions {
     			i++;
     		} else {
     			arr[i + j] = right[j];
-    			// right element is lesser than all the rest of array left
+    			// right element is smaller than all the rest of array left
     			count += left.length - i;
     			j++;
     		}
