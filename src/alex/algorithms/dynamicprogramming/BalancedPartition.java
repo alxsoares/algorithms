@@ -25,7 +25,7 @@ public class BalancedPartition {
         return Math.min(ans, sum - ans);
     }
 
-    public static void main(final String[] args) {
+    public static void main(String[] args) {
         int diff = balancedPartition(new int[] { 3, 34, 4, 12, 5, 2 });
         System.out.println(diff);
 
