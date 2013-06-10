@@ -49,4 +49,16 @@ public class Eratosthenes {
 		}
 		return numbers.toArray(new Integer[0]);
 	}
+	public static void main(String[] args) {
+		int n =50;
+		while(sieve(n).size()<50){
+			n++;
+		}
+		System.out.println(n);
+		Set<Integer> sieve = sieve(n);
+		for (Integer prime : sieve) {
+			System.out.printf("%d ", prime);
+		}
+		System.out.println();
+	}
 }
