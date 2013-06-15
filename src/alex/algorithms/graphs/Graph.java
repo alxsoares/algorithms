@@ -18,6 +18,10 @@ public class Graph {
 	void addEdge(int u, int v) {
 		adj.get(u).add(v);
 	}
+	void addEdgeUndirected(int u, int v) {
+		adj.get(u).add(v);
+		adj.get(v).add(u);
+	}
 
 	public Graph getTranspose() {
 		Graph g = new Graph(V);
