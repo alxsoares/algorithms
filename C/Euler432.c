@@ -1,0 +1,93 @@
+#include <stdio.h>
+#include <math.h>
+
+#define MM 199999999
+long long cache[MM];
+ 
+int fi(long n) {
+		if (n <= 0)
+			return -1;
+		int p = 1;
+		long end;
+		long i;
+		for (i = 2, end = sqrt(n); i <= end; i++) { // Trial
+															// division
+			if (n % i == 0) { // Found a factor
+				p *= i - 1;
+				n /= i;
+				while (n % i == 0) {
+					p *= i;
+					n /= i;
+				}
+				end = sqrt(n);
+			}
+		}
+		if (n != 1)
+			p *= n - 1;
+		return p;
+	}
+	long long fiEO(long m) {
+		if (m < MM && cache[(int) m] != 0)
+			return cache[(int) m];
+		if (m % 4 == 0) {
+			long result = 2 * fiEO(m / 2);
+			if (m < MM)
+				cache[(int) m] = result;
+			return result;
+		}
+		if (m % 2 == 0 && m % 4 != 0) {
+
+			long result = fiEO(m / 2);
+			if (m < MM)
+				cache[(int) m] = result;
+			return result;
+		}
+		long result = fi(m);
+		if (m < MM)
+			cache[(int) m] = result;
+		return result;
+	}
+ 
+long gcdLong(long u, long v) {
+		if (u == v)
+			return u;
+		if (u == 0)
+			return v;
+		if (v == 0)
+			return u;
+		if ((~u & 1) > 0) {// u é par
+			if ((v & 1) > 0) {// v impar
+				return gcdLong(u >> 1, v);// v impar e u par
+			}
+			return gcdLong(u >> 1, v >> 1) << 1;// ambos são pares
+		}
+		if ((~v & 1) > 0)
+			return gcdLong(u, v >> 1);// v par e u impar
+		if (u > v) {
+			return gcdLong((u - v) >> 1, v);
+		} else {
+			return gcdLong(u, (v - u) >> 1);
+		}
+	}
+long long fiM(long m, long n) {
+		long d = gcdLong(m, n);
+		return 92160 * fiEO(n) * d / fiEO(d);
+
+	}
+
+
+int main(){
+	 memset(cache,0,MM);
+	long long result = 0;
+		long mod = 1000000000;
+		long long i;
+		for (i = 1; i <= 100000000000L; i++) {
+			
+			if (i % 100000 == 0)
+				printf("%lld\n",i);
+			result = ((result%mod) + fiM(510510, i)%mod)%mod;
+		}
+		printf("%lld\n",result);
+	
+}
+
