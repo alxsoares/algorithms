@@ -88,7 +88,7 @@ public class Euler432 {
 			if (m < cache.length)
 				cache[(int) m] = result;
 			return result;
-		}
+		}		
 		long result = fi(m);
 		if (m < cache.length)
 			cache[(int) m] = result;
@@ -112,8 +112,9 @@ public class Euler432 {
 			throw new IllegalArgumentException(
 					"Totient of non-positive integer");
 		int p = 1;
-		for (long i = 2, end = sqrt(n); i <= end; i++) { // Trial
+		for (int j = 0, end = (int)sqrt(n);j<primes.length&& primes[j] <= end; j++) { // Trial
 															// division
+			int i = primes[j];
 			if (n % i == 0) { // Found a factor
 				p *= i - 1;
 				n /= i;
@@ -121,7 +122,7 @@ public class Euler432 {
 					p *= i;
 					n /= i;
 				}
-				end = sqrt(n);
+				end = (int)sqrt(n);
 			}
 		}
 		if (n != 1)
@@ -131,22 +132,22 @@ public class Euler432 {
 
 	public static void main(String[] args) {
 		Arrays.fill(cache, -1);
-		// listTotients();
+		 listTotients();
 		// System.out.println(fi(1000000000));400000000
 		long result = 0;
 		long mod = 1000000000;
 		long start = System.currentTimeMillis();
-		HashSet<Long> set = new HashSet<>();
-		for (long i = 1; i <= 1000000L; i++) {
-			if (i % 100000 == 0)
+//		HashSet<Long> set = new HashSet<>();
+		for (long i = 1; i <= 100000000000L; i++) {
+			if (i % 1000000 == 0)
 				System.out.println(i);
 			long fi = fi(510510, i);
-			if (set.contains(fi)) {
-				// if (i % 2 == 0 || i % 5 == 0)
-				System.out.println(fi + "->" + i);
-			} else {
-				set.add(fi);
-			}
+//			if (set.contains(fi)) {
+//				// if (i % 2 == 0 || i % 5 == 0)
+//				System.out.println(fi + "->" + i);
+//			} else {
+//				set.add(fi);
+//			}
 			result = ((result % mod) + fi % mod) % mod;
 		}
 		System.out.println(System.currentTimeMillis() - start);
@@ -165,7 +166,7 @@ public class Euler432 {
 		return true;
 	}
 
-	static Integer[] primes = Eratosthenes.sieve(2, 10000000);
+	static Integer[] primes = Eratosthenes.sieve(2, (int) Math.sqrt(10e11));
 
 	static long phi(long n) {
 		// Base case
