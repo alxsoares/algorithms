@@ -7,11 +7,11 @@ public class Euler114 {
 		int m = 50;
 		int n = 3;
 		memo = new long[m + 1];
-		long solutions = F(m, n);
+		long solutions = fillCount(m, n);
 		System.out.println(solutions);
 	}
 
-	private static long F(int m, int n) {
+	private static long fillCount(int m, int n) {
 
 		long solutions = 1;
 
@@ -23,7 +23,7 @@ public class Euler114 {
 
 		for (int startpos = 0; startpos <= m - n; startpos++) {
 			for (int blocklength = n; blocklength <= m - startpos; blocklength++) {
-				solutions += F(m - startpos - blocklength - 1, n);
+				solutions += fillCount(m - startpos - blocklength - 1, n);
 			}
 		}
 
