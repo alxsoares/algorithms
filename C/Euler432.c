@@ -2,6 +2,7 @@
 #include <math.h>
 
 #define MM 199999999
+
 long long cache[MM];
  
 int fi(long n) {
@@ -70,20 +71,37 @@ long gcdLong(long u, long v) {
 		}
 	}
 long long fiM(long m, long n) {
-		long d = gcdLong(m, n);
-		return 92160 * fiEO(n) * d / fiEO(d);
+		long d = 1;
+		if (n % 2 == 0 || n % 3 == 0 || n % 5 == 0 || n % 7 == 0 || n % 11 == 0
+				|| n % 13 == 0 || n % 17 == 0) {
+			d = gcdLong(m, n);
+			return 92160 * fiEO(n) * d / fiEO(d);
+		}
+		return 92160 * fiEO(n);
 
 	}
+ void listTotients() {
+		int i;int j;
+		for (i = 0; i < MM; i++)
+			cache[i] = i;
 
+		for (i = 2; i < MM; i++) {
+			if (cache[i] == i) { // i is prime
+				for (j = i; j < MM; j += i)
+					cache[j] = cache[j] / i * (i - 1);
+			}
+		}
+	}
 
 int main(){
 	 memset(cache,0,MM);
+	listTotients();
 	long long result = 0;
 		long mod = 1000000000;
 		long long i;
 		for (i = 1; i <= 100000000000L; i++) {
 			
-			if (i % 100000 == 0)
+			if (i % 1000000 == 0)
 				printf("%lld\n",i);
 			result = ((result%mod) + fiM(510510, i)%mod)%mod;
 		}
