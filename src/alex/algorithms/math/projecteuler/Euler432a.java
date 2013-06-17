@@ -253,8 +253,8 @@ public class Euler432a {
 		// System.out.println(IsProbablePrime(101));
 		// System.out.println(IsProbablePrime(1001));
 		// System.out.println(phi(510510));
-
-		System.out.println(phiTot(510510));
+		System.out.println(Math.sqrt(10e11));
+//		System.out.println(phiTot(510510));
 		// long sum=0;
 		// for(int i=1;i<=1000000;i++){
 		// System.out.println(i);

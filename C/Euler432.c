@@ -1,17 +1,30 @@
 #include <stdio.h>
 #include <math.h>
-
+#define MAXSIEVE 5000000
 #define MM 199999999
 
 long long cache[MM];
+char isPrime[MAXSIEVE+2];
+void sieve() {
+ int i,j,k=MAXSIEVE/2;
+ for(i=2;i<=k;i++) if(!isPrime[i]) {
+  for(j=i+i;j<=MAXSIEVE;j+=i) {
+   isPrime[j] = 1;
+  }
+ }
  
+}
+
 int fi(long n) {
 		if (n <= 0)
 			return -1;
 		int p = 1;
-		long end;
+		int end=sqrt(n);
 		long i;
-		for (i = 2, end = sqrt(n); i <= end; i++) { // Trial
+		int j;
+		for ( j = 0;j< MAXSIEVE && j <= end; j++) { // Trial
+			if(isPrime[j]!=1) continue;												// division
+			int i = j; // Trial
 															// division
 			if (n % i == 0) { // Found a factor
 				p *= i - 1;
@@ -27,6 +40,8 @@ int fi(long n) {
 			p *= n - 1;
 		return p;
 	}
+
+	
 	long long fiEO(long m) {
 		if (m < MM && cache[(int) m] != 0)
 			return cache[(int) m];
@@ -96,6 +111,8 @@ long long fiM(long m, long n) {
 int main(){
 	 memset(cache,0,MM);
 	listTotients();
+	sieve();
+	
 	long long result = 0;
 		long mod = 1000000000;
 		long long i;
