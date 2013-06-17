@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include <math.h>
+#include <stdlib.h>
 #define MAXSIEVE 316228
-#define MM 199999999
+#define MM 299999999
 
-long long cache[MM];
+long long *cache ;
 char isPrime[MAXSIEVE+2];
 int primes[27293];
 void sieve() {
@@ -120,6 +121,7 @@ long long fiM(long m, long n) {
 	}
 
 int main(){
+	cache = (long long *) calloc(MM, sizeof(long long));
 	 memset(cache,0,MM);
 	listTotients();
 	sieve();
@@ -133,6 +135,7 @@ int main(){
 				fprintf(ofp,"%lld\n",i);
 			result = ((result%mod) + fiM(510510, i)%mod)%mod;
 		}
+		free(cache);
 		fprintf(ofp,"%lld\n",result);
 		fclose(ofp);
 	
