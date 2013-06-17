@@ -1,18 +1,29 @@
 #include <stdio.h>
 #include <math.h>
-#define MAXSIEVE 5000000
+#define MAXSIEVE 316228
 #define MM 199999999
 
 long long cache[MM];
 char isPrime[MAXSIEVE+2];
+int primes[27293];
 void sieve() {
- int i,j,k=MAXSIEVE/2;
- for(i=2;i<=k;i++) if(!isPrime[i]) {
+ int i,j;
+ int count=0;
+ for(i=2;i<=MAXSIEVE;i++) if(!isPrime[i]) {
+  count++;
   for(j=i+i;j<=MAXSIEVE;j+=i) {
    isPrime[j] = 1;
   }
  }
- 
+ printf("%d\n",count);
+ j=0;
+ for(i=2;i<=MAXSIEVE;i++){
+   if(isPrime[i]!=1){
+	//printf("%d\n",j);
+	primes[j++] = i;
+   }
+ }
+ printf("Terminou %d\n",1);
 }
 
 int fi(long n) {
@@ -22,9 +33,9 @@ int fi(long n) {
 		int end=sqrt(n);
 		long i;
 		int j;
-		for ( j = 0;j< MAXSIEVE && j <= end; j++) { // Trial
-			if(isPrime[j]!=1) continue;												// division
-			int i = j; // Trial
+		for ( j = 0;j< 27293 && primes[j] <= end; j++) { // Trial
+															// division
+			int i = primes[j]; // Trial
 															// division
 			if (n % i == 0) { // Found a factor
 				p *= i - 1;
@@ -112,17 +123,18 @@ int main(){
 	 memset(cache,0,MM);
 	listTotients();
 	sieve();
-	
+	FILE *ofp = fopen("euler.out", "w");
 	long long result = 0;
 		long mod = 1000000000;
 		long long i;
-		for (i = 1; i <= 100000000000L; i++) {
+		for (i = 1; i <= 1000000L; i++) {
 			
 			if (i % 1000000 == 0)
-				printf("%lld\n",i);
+				fprintf(ofp,"%lld\n",i);
 			result = ((result%mod) + fiM(510510, i)%mod)%mod;
 		}
-		printf("%lld\n",result);
+		fprintf(ofp,"%lld\n",result);
+		fclose(ofp);
 	
 }
 
