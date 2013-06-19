@@ -59,20 +59,7 @@ public class Euler432 {
 	}
 
 	static Set<Integer> sieve = Eratosthenes.sieve((int) Math.sqrt(10e11));
-	//TODO:finish this improvement
-	public static void listTotients(int k) {
-		for (int i = 0; i < cache.length; i++) {
-				cache[i] = i + k;
-		}
-
-		for (int i = 2; i < cache.length; i++) {
-			if (cache[i] == i+k-1) { // i is prime
-				for (int j = i; j < cache.length; j += i)
-					cache[j] = cache[j] / (i+k) * (i+k - 1);
-			}
-		}
-	}
-
+	
 	static long fiEO(long m) {
 		if (m < cache.length && cache[(int) m] != -1)
 			return cache[(int) m];
@@ -107,7 +94,7 @@ public class Euler432 {
 		return y;
 	}
 
-	public static int fi(long n) {
+	public static long fi(long n) {
 		if (n <= 0)
 			throw new IllegalArgumentException(
 					"Totient of non-positive integer");
@@ -123,6 +110,9 @@ public class Euler432 {
 					n /= i;
 				}
 				end = (int)sqrt(n);
+				if(cache[end]!=-1){
+					return p*cache[end];
+				}
 			}
 		}
 		if (n != 1)

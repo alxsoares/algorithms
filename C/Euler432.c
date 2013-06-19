@@ -2,7 +2,7 @@
 #include <math.h>
 #include <stdlib.h>
 #define MAXSIEVE 316228
-#define MM 299999999
+#define MM 199999999
 
 long long *cache ;
 char isPrime[MAXSIEVE+2];
@@ -30,6 +30,9 @@ void sieve() {
 int fi(long n) {
 		if (n <= 0)
 			return -1;
+		if(end <MM && cache[n]!=0){
+					return cache[n];
+				}		
 		int p = 1;
 		int end=sqrt(n);
 		long i;
@@ -46,6 +49,9 @@ int fi(long n) {
 					n /= i;
 				}
 				end = sqrt(n);
+				if(end <MM && cache[end]!=0){
+					return p*cache[end];
+				}
 			}
 		}
 		if (n != 1)
@@ -129,14 +135,14 @@ int main(){
 	long long result = 0;
 		long mod = 1000000000;
 		long long i;
-		for (i = 1; i <= 1000000L; i++) {
+		for (i = 1; i <= 100000000000L; i++) {
 			
 			if (i % 1000000 == 0)
-				fprintf(ofp,"%lld\n",i);
+				printf("%lld\n",i);
 			result = ((result%mod) + fiM(510510, i)%mod)%mod;
 		}
 		free(cache);
-		fprintf(ofp,"%lld\n",result);
+		printf("%lld\n",result);
 		fclose(ofp);
 	
 }
