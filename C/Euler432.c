@@ -27,7 +27,7 @@ void sieve() {
  printf("Terminou %d\n",1);
 }
 
-int fi(long n) {
+long fi(long n) {
 		if (n <= 0)
 			return -1;
 		int p = 1;
@@ -44,6 +44,9 @@ int fi(long n) {
 				while (n % i == 0) {
 					p *= i;
 					n /= i;
+				}
+				if(n < MM && cache[n]!=0){
+				   return p*cache[n]; 
 				}
 				end = sqrt(n);
 			}
@@ -129,14 +132,14 @@ int main(){
 	long long result = 0;
 		long mod = 1000000000;
 		long long i;
-		for (i = 1; i <= 1000000L; i++) {
+		for (i = 1; i <= 100000000000L; i++) {
 			
 			if (i % 1000000 == 0)
-				fprintf(ofp,"%lld\n",i);
+				printf("%lld\n",i);
 			result = ((result%mod) + fiM(510510, i)%mod)%mod;
 		}
 		free(cache);
-		fprintf(ofp,"%lld\n",result);
+		printf("%lld\n",result);
 		fclose(ofp);
 	
 }
