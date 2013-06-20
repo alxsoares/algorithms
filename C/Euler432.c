@@ -30,7 +30,7 @@ void sieve() {
 long fi(long n) {
 		if (n <= 0)
 			return -1;
-		if(end <MM && cache[n]!=0){
+		if(n <MM && cache[n]!=0){
 					return cache[n];
 				}		
 		int p = 1;
@@ -116,6 +116,97 @@ long long fiM(long m, long n) {
 		return 92160 * fiEO(n);
 
 	}
+ static long fi2(long m, long n) {
+
+        long d = 1;
+        char two = 0, three = 0, five = 0, seven = 0, eleven = 0, thirteen = 0, seventeen = 0;
+        while (n % 2 == 0) {
+            n = n / 2;
+            d *= 2;
+            two = 1;
+        }
+        while (n % 3 == 0) {
+            n = n / 3;
+            d *= 3;
+            three = 1;
+        }
+        while (n % 5 == 0) {
+            n = n / 5;
+            d *= 5;
+            five = 1;
+        }
+        while (n % 7 == 0) {
+            n = n / 7;
+            d *= 7;
+            seven = 1;
+        }
+        while (n % 11 == 0) {
+            n = n / 11;
+            d *= 11;
+            eleven = 1;
+        }
+        while (n % 13 == 0) {
+            n = n / 13;
+            d *= 13;
+            thirteen = 1;
+        }
+        while (n % 17 == 0) {
+            n = n / 17;
+            d *= 17;
+            seventeen = 1;
+        }
+
+        long num = 1;
+        long den = 1;
+        if (two) {
+            m = m / 2;
+            d = d * 2;
+            num *= 1;
+            den *= 2;
+        }
+        if (three) {
+            m = m / 3;
+            d = d * 3;
+            num *= 2;
+            den *= 3;
+        }
+        if (five) {
+            m = m / 5;
+            d = d * 5;
+            num *= 4;
+            den *= 5;
+        }
+        if (seven) {
+            m = m / 7;
+            d = d * 7;
+            num *= 6;
+            den *= 7;
+        }
+        if (eleven) {
+            m = m / 11;
+            d = d * 11;
+            num *= 10;
+            den *= 11;
+        }
+        if (thirteen) {
+            m = m / 13;
+            d = d * 13;
+            num *= 12;
+            den *= 13;
+        }
+        if (seventeen) {
+            m = m / 17;
+            d = d * 17;
+            num *= 16;
+            den *= 17;
+        }
+        // if (n % 2 == 0 || n % 3 == 0 || n % 5 == 0 || n % 7 == 0 || n % 11 ==
+        // 0 || n % 13 == 0 || n % 17 == 0) {
+        // d = gcd(m, n);
+        // return 92160 * fiEO(n) * d / fiEO(d);
+        // }
+        return (fiEO(m) * fiEO(n) * d * num) / den;
+    }
  void listTotients() {
 		int i;int j;
 		for (i = 0; i < MM; i++)

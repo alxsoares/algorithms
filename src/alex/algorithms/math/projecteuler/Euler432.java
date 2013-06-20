@@ -46,17 +46,17 @@ public class Euler432 {
 
         long d = 1;
         boolean two = false, three = false, five = false, seven = false, eleven = false, thirteen = false, seventeen = false;
-        if (n % 2 == 0) {
+        while (n % 2 == 0) {
             n = n / 2;
             d *= 2;
             two = true;
         }
-        if (n % 3 == 0) {
+        while (n % 3 == 0) {
             n = n / 3;
             d *= 3;
             three = true;
         }
-        if (n % 5 == 0) {
+        while (n % 5 == 0) {
             n = n / 5;
             d *= 5;
             five = true;
@@ -66,57 +66,72 @@ public class Euler432 {
             d *= 7;
             seven = true;
         }
-        if (n % 11 == 0) {
+        while (n % 11 == 0) {
             n = n / 11;
             d *= 11;
             eleven = true;
         }
-        if (n % 13 == 0) {
+        while (n % 13 == 0) {
             n = n / 13;
             d *= 13;
             thirteen = true;
         }
-        if (n % 17 == 0) {
+        while (n % 17 == 0) {
             n = n / 17;
             d *= 17;
             seventeen = true;
         }
-        long d_1 = d;
-        d = 1;
+
+        long num = 1;
+        long den = 1;
         if (two) {
             m = m / 2;
             d = d * 2;
+            num *= 1;
+            den *= 2;
         }
         if (three) {
             m = m / 3;
             d = d * 3;
+            num *= 2;
+            den *= 3;
         }
         if (five) {
             m = m / 5;
             d = d * 5;
+            num *= 4;
+            den *= 5;
         }
         if (seven) {
             m = m / 7;
             d = d * 7;
+            num *= 6;
+            den *= 7;
         }
         if (eleven) {
             m = m / 11;
             d = d * 11;
+            num *= 10;
+            den *= 11;
         }
         if (thirteen) {
             m = m / 13;
             d = d * 13;
+            num *= 12;
+            den *= 13;
         }
         if (seventeen) {
             m = m / 17;
             d = d * 17;
+            num *= 16;
+            den *= 17;
         }
         // if (n % 2 == 0 || n % 3 == 0 || n % 5 == 0 || n % 7 == 0 || n % 11 ==
         // 0 || n % 13 == 0 || n % 17 == 0) {
         // d = gcd(m, n);
         // return 92160 * fiEO(n) * d / fiEO(d);
         // }
-        return (fiEO(m) * fiEO(n) * d_1 * fiEO(d));
+        return (fiEO(m) * fiEO(n) * d * num) / den;
     }
 
     // 821125120
@@ -216,7 +231,7 @@ public class Euler432 {
         long mod = 1000000000;
         long start = System.currentTimeMillis();
         // HashSet<Long> set = new HashSet<>();
-        for (long i = 1; i <= 1000000L; i++) {
+        for (long i = 1; i <= 100000000000L; i++) {
             if (i % 1000000 == 0)
                 System.out.println(i);
             long fi = fi2(510510, i);
