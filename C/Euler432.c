@@ -2,7 +2,7 @@
 #include <math.h>
 #include <stdlib.h>
 #define MAXSIEVE 316228
-#define MM 199999999
+#define MM 299999999
 
 long long *cache ;
 char isPrime[MAXSIEVE+2];
