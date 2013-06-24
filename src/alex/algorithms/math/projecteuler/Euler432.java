@@ -136,7 +136,7 @@ public class Euler432 {
 
     // 821125120
     // 510510=2*3*5*7*11*13*17
-    static long cache[] = new long[99999999];
+    static long cache[] = new long[499999999];
 
     public static void listTotients() {
         for (int i = 0; i < cache.length; i++)
@@ -200,7 +200,7 @@ public class Euler432 {
         return y;
     }
 
-    public static int fi(long n) {
+    public static long fi(long n) {
         if (n <= 0)
             throw new IllegalArgumentException("Totient of non-positive integer");
         int p = 1;
@@ -215,6 +215,9 @@ public class Euler432 {
                     n /= i;
                 }
                 end = (int) sqrt(n);
+                if(n < cache.length){
+                	return p*cache[(int)n];
+                }
             }
         }
         if (n != 1)
@@ -262,6 +265,9 @@ public class Euler432 {
     static Integer[] primes = Eratosthenes.sieve(2, (int) Math.sqrt(10e11));
 
     static long phi(final long n) {
+    	if(n < cache.length){
+    		return cache[(int) n];
+    	}
         // Base case
         if (n < 2)
             return fi(n);
