@@ -48,9 +48,16 @@ public class BinomialCoefficient {
 	}
 
 	public static void main(String[] args) {
-		System.out.printf("%d\n", binomialCoefficient(100, 11));
-		System.out.printf("%d\n", binomialCoefficientOptimised(100, 11));
-		System.out.printf("%d\n", binomialCoefficientOptimisedHuge(1000000000, 10000000-10));
+//		System.out.printf("%d\n", binomialCoefficient(100, 11));
+//		System.out.printf("%d\n", binomialCoefficientOptimised(100, 11));
+//		System.out.printf("%d\n", binomialCoefficientOptimisedHuge(1000000000, 10000000-10));
+		long sum = 0;
+		for(int i=12;i<=25;i++){
+			sum+=binomialCoefficient(25, i);
+		}
+		sum+=4*binomialCoefficient(15, 11);
+		sum+=4*binomialCoefficient(20, 11);
+		System.out.println(sum);
 	}
 
 }
