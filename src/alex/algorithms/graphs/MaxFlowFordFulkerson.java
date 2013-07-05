@@ -40,16 +40,17 @@ public class MaxFlowFordFulkerson {
 		// Create a residual graph and fill the residual graph with
 		// given capacities in the original graph as residual capacities
 		// in residual graph
-		int rGraph[][] = new int[g.length][g.length]; // Residual graph where
+		int V = g.length;
+		int rGraph[][] = new int[V][V]; // Residual graph where
 														// rGraph[i][j]
 														// indicates
 		// residual capacity of edge from i to j (if there
 		// is an edge. If rGraph[i][j] is 0, then there is not)
-		for (u = 0; u < g.length; u++)
-			for (v = 0; v < g.length; v++)
+		for (u = 0; u < V; u++)
+			for (v = 0; v < V; v++)
 				rGraph[u][v] = g[u][v];
 
-		int parent[] = new int[g.length]; // This array is filled by BFS and to
+		int parent[] = new int[V]; // This array is filled by BFS and to
 											// store path
 
 		int maxFlow = 0; // There is no flow initially

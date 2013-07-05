@@ -34,4 +34,9 @@ public class Graph {
 		return g;
 	}
 
+	public void addEdge(int u, int v2, Integer integer) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
