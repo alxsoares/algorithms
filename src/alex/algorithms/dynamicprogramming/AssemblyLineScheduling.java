@@ -1,7 +1,7 @@
 package alex.algorithms.dynamicprogramming;
 
 public class AssemblyLineScheduling {
-	
+	 
 	public static int carAssembly(int a[][], int t[][], int e[], int x[]) {
 		int NUM_STATION = a[0].length;
 		int T1[] = new int[NUM_STATION];
