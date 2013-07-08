@@ -125,7 +125,7 @@ public class Euler432 {
 
     // 821125120
     // 510510=2*3*5*7*11*13*17
-    static int cache[] = new int[999999999];
+    static int cache[] = new int[Integer.MAX_VALUE/2];
 
     public static void listTotients() {
         for (int i = 0; i < cache.length; i++)
@@ -228,10 +228,10 @@ public class Euler432 {
         // // MOdificacao
         List<Future<Integer>> list = new ArrayList<Future<Integer>>();
         int processors = Runtime.getRuntime().availableProcessors();
-        ExecutorService executor = Executors.newFixedThreadPool(100);
+        ExecutorService executor = Executors.newFixedThreadPool(200);
         int i = 0;
         long len = 100000000000L;
-        long blockSize = (len / 100);
+        long blockSize = (len / 200);
         while (true) {
             try {
                 long s = (i * blockSize) + 1;
@@ -243,6 +243,7 @@ public class Euler432 {
                 i++;
             } catch (Throwable t) {
                 System.out.println(t.getMessage());
+                return;
             }
         }
         int r = 0;
@@ -251,7 +252,7 @@ public class Euler432 {
         // }
         for (Future<Integer> future : list) {
             try {
-                r = (r % mod + future.get() % mod) % mod;
+                r = ((r % mod) + (future.get()) % mod) % mod;
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {
@@ -275,7 +276,7 @@ public class Euler432 {
         return true;
     }
 
-    static Integer[] primes = Eratosthenes.sieve(2, (int) Math.sqrt(10e11));
+    static Integer[] primes = Eratosthenes.sieve(2, Integer.MAX_VALUE/2);
 
     static long phi(final long n) {
         if (n < cache.length) {
