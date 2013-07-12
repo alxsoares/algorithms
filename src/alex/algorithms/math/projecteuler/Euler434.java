@@ -23,17 +23,16 @@ public class Euler434 {
         if (memo[m][n] != null) {
             return memo[m][n];
         }
-        return memo[m][n] = (configs(m, n) - unconnected(m, n) + MOD) % MOD;
+        return memo[m][n] = (configs(m, n) - disconnected(m, n) + MOD) % MOD;
     }
 
-    static private long unconnected(final int m, final int n) {
+    static private long disconnected(final int m, final int n) {
         long sum = 0L;
         for (int a = 1; a <= m; a++) {
             for (int b = 0; b <= n; b++) {
                 if (a == m && b == n)
                     continue;
-                sum = (sum + comb(m - 1, a - 1) * comb(n, b) % MOD * connected(a, b) % MOD * configs(m - a, n - b)
-                        % MOD)
+                sum = (sum + C(m - 1, a - 1) * C(n, b) % MOD * connected(a, b) % MOD * configs(m - a, n - b) % MOD)
                         % MOD;
             }
         }
@@ -58,13 +57,13 @@ public class Euler434 {
 
     static private Long[][] combCache = new Long[101][101];
 
-    static private long comb(final int n, final int k) {
+    static private long C(final int n, final int k) {
         if (k == 0 || k == n) {
             return 1L;
         }
         if (combCache[n][k] != null) {
             return combCache[n][k];
         }
-        return combCache[n][k] = (comb(n - 1, k - 1) + comb(n - 1, k)) % MOD;
+        return combCache[n][k] = (C(n - 1, k - 1) + C(n - 1, k)) % MOD;
     }
 }
