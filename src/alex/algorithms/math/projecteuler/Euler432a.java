@@ -1,92 +1,9 @@
 package alex.algorithms.math.projecteuler;
 
+import java.math.BigInteger;
+
 public class Euler432a {
-
-	public static boolean IsProbablePrime(long n, int[] ar) {
-
-		for (int i = 0; i < ar.length; i++) {
-			if (Witness(ar[i], n))
-				return false;
-		}
-		return true;
-	}
-
-	static boolean Witness(int a, long n) {
-		int t = 0;
-		long u = n - 1;
-		while ((u & 1) == 0) {
-			t++;
-			u >>= 1;
-		}
-
-		long xi1 = modpow(a, u, n);
-		long xi2;
-
-		for (int i = 0; i < t; i++) {
-			xi2 = xi1 * xi1 % n;
-			if ((xi2 == 1) && (xi1 != 1) && (xi1 != (n - 1)))
-				return true;
-			xi1 = xi2;
-		}
-		if (xi1 != 1)
-			return true;
-		return false;
-	}
-
-	static long modpow(long b, long e, long m) {
-		long r = 1;
-		while (e > 0) {
-			if ((e & 1) != 0)
-				r = r * b % m;
-			{
-				b = b * b % m;
-				e >>= 1;
-			}
-		}
-		return r;
-	}
-
-	private static final long LimitA = 1373653;
-	private static final long LimitB = 9080191;
-	private static final long LimitC = 4759123141L;
-	private static final long LimitD = 2152302898747L;
-	private static final long LimitE = 3474749660383L;
-
-	public static boolean IsProbablePrime(long n) {
-		if (n < LimitA)
-			return IsProbablePrime(n, new int[] { 2, 3 });
-		if (n < LimitB)
-			return IsProbablePrime(n, new int[] { 31, 73 });
-		if (n < LimitC)
-			return IsProbablePrime(n, new int[] { 2, 7, 61 });
-		if (n < LimitD)
-			return IsProbablePrime(n, new int[] { 2, 3, 5, 7, 11 });
-		if (n < LimitE)
-			return IsProbablePrime(n, new int[] { 2, 3, 5, 7, 11, 13 });
-
-		return IsProbablePrime(n, new int[] { 2, 3, 5, 7, 11, 13, 17 });
-
-	}
-
-	static Integer[] primes = Eratosthenes.sieve(2, (int) Math.sqrt(10e11));
-
-	public static long phi(long n) {
-		if (IsProbablePrime(n)) {
-			return (n - 1);
-		}
-		long phiNom = 1;
-		long phiDenom = 1;
-		for (int i = 0; i < primes.length; i++) {
-			int p = primes[i];
-			if (p > n)
-				break;
-			if (n % p == 0) {
-				phiNom *= (p - 1);
-				phiDenom *= p;
-			}
-		}
-		return (n * phiNom) / phiDenom;
-	}
+	
 
 	public static long gcd(final long u, final long v) {
 		if (u == v)
@@ -109,44 +26,54 @@ public class Euler432a {
 			return gcd(u, (v - u) >> 1);
 		}
 	}
+	public static BigInteger bitwiseGcd(BigInteger u, BigInteger v) {
+		if (u.equals(BigInteger.ZERO))
+			return v;
+		if (v.equals(BigInteger.ZERO))
+			return u;
 
-	public static long phi(int m, int n) {
-		if (n == 1)
-			return 92160;
-		if (IsProbablePrime(n)) {
-			return 92160 * (n - 1);
-		}
-		long d = gcd(m, n);
-		return 92160 * phi(n) * d / phi(d);
-	}
+		int uBit = u.getLowestSetBit();
+		int vBit = v.getLowestSetBit();
+		int k = (uBit <= vBit ? uBit : vBit);
 
-	public static void factor(int n) {
-		int ncopy = n;
-		for (int i = 2; i * i <= ncopy; i++) {
-			if (n % i == 0) {
-				int exp = 0;
-				while (n % i == 0) {
-					exp++;
-					n = n / i;
-				}
-				System.out.printf("%d %d\n", i, exp);
+		while (u.signum() > 0) {
+			u = u.shiftRight(u.getLowestSetBit());
+			v = v.shiftRight(v.getLowestSetBit());
+			if (u.subtract(v).signum() >= 0) {
+				u = (u.subtract(v)).shiftRight(1);
+			} else {
+				v = (v.subtract(u)).shiftRight(1);
 			}
 		}
-	}
 
-	static long fi(long m, long n) {
-		long d = 1;
-		if (n % 2 == 0 || n % 3 == 0 || n % 5 == 0 || n % 7 == 0 || n % 11 == 0
-				|| n % 13 == 0 || n % 17 == 0) {
-			d = gcd(m, n);
-			return 92160 * fiEO(n) * d / fiEO(d);
+		return v.shiftLeft(k);
+	}
+	public static long gcdAlex(long u, long  v) {
+		if (u == v)
+			return u;
+		if (u == 0 || v == 0)
+			return java.lang.Math.max(u, v);
+		if (u % 2 == 0) {
+			if (v % 2 == 0) {
+				return gcdAlex(u >> 1, v >> 1) << 1;
+			}
+			return gcdAlex(u >> 1, v);
 		}
-		return 92160 * fiEO(n);
-
+		if (v % 2 == 0) {
+			return gcdAlex(u, v >> 1);
+		}
+		if (u > v)
+			return gcdAlex((u - v) >> 1, v);
+		return gcdAlex(u, (v - u) >> 1);
 	}
-
-	// 510510=2*3*5*7*11*13*17
-	static long cache[] = new long[9999999];
+	public static long lcm(final long a, final long b) {
+		return a * b / gcdAlex(a, b);
+	}
+	
+	public static BigInteger lcm(BigInteger a, BigInteger b) {
+		return a .multiply(b).divide(bitwiseGcd(a, b));
+	}
+	static int cache[] = new int[9999];
 
 	public static void listTotients() {
 		for (int i = 0; i < cache.length; i++)
@@ -159,119 +86,29 @@ public class Euler432a {
 			}
 		}
 	}
-
-	static long fiEO(long m) {
-		if (m < cache.length && cache[(int) m] != 0)
-			return cache[(int) m];
-		if (m % 4 == 0) {
-			long result = 2 * fiEO(m / 2);
-			if (m < cache.length)
-				cache[(int) m] = result;
-			return result;
+	
+	public static long SN(long n){
+		if(n < cache.length){
+			return cache[(int) n];
 		}
-		if (m % 2 == 0 && m % 4 != 0) {
-
-			long result = fiEO(m / 2);
-			if (m < cache.length)
-				cache[(int) m] = result;
-			return result;
-		}
-		long result = phiTot(m);
-		if (m < cache.length)
-			cache[(int) m] = result;
-		return result;
-	}
-
-	public static long totient(long n) {
-		if (n == 1)
-			return 1;
-		long tot = n;
-		for (int i = 0; i < primes.length; i++) {
-			int p = primes[i];
-			if (p > n)
-				break;
-			if (n % p == 0) {
-				tot = tot * (p - 1) / p;
-			}
-
-		}
-		if (tot == n) {
-			tot = n - 1;
-		}
-		return tot;
-	}
-
-	public static int mobius(long n) {
-		if (n == 1)
-			return 1;
-		int distinct = 0;
-		for (int i = 0; i < primes.length; i++) {
-			int p = primes[i];
-			if (p > n)
-				break;
-			int exp = 0;
-			long nn = n;
-			if (nn % p == 0)
-				distinct++;
-			while (nn % p == 0) {
-				exp++;
-				if (exp > 1)
-					return 0;
-				nn = nn / p;
-			}
-		}
-		if (distinct % 2 == 0)
-			return 1;
-		return -1;
-	}
-	public static long phiSum(long n){
+		long SG = (n*(n+3))/2;
 		long sum=0;
-		for(long i=0;i*i<=n;i++){
-			if(n%i==0){
-				sum+=totient(i)*(n/i)*(1+(n/i));
-				long d = n/i;
-				sum+=totient(d)*(n/d)*(1+(n/d));
-			}
+		for(int i=2;i<=n;i++){
+			sum+=SN((long) Math.floor(((double)n)/i));
 		}
-		return sum;
-	}
-	public static long phiTot(long n){
-		
-		double mi=0;
-		for(long i=1;i*i<=n;i++){
-			if(n%i==0){
-				mi +=(double)mobius(i)/i;
-				mi+=(double) mobius(n/i)/(n/i);
-			}
-		}
-		return (long) (mi*n);
+		return SG - sum;
 	}
 	public static void main(String[] args) {
-		// System.out.println(IsProbablePrime(17));
-		// System.out.println(IsProbablePrime(19));
-		// System.out.println(IsProbablePrime(16));
-		// System.out.println(IsProbablePrime(101));
-		// System.out.println(IsProbablePrime(1001));
-		// System.out.println(phi(510510));
-		System.out.println(Math.sqrt(10e11));
-//		System.out.println(phiTot(510510));
-		// long sum=0;
-		// for(int i=1;i<=1000000;i++){
-		// System.out.println(i);
-		// sum+=phi(510510, i);
-		// }
-		// System.out.printf("%d\n", sum);
-		long result = 0;
-		long mod = 1000000000;
-		long start = System.currentTimeMillis();
-		// listTotients();
-		for (long i = 1; i <= 1000000L; i++) {
-			if (i % 100000 == 0)
-				System.out.println(i);
-			result = ((result % mod) + fi(510510, i) % mod) % mod;
-		}
-		System.out.println(System.currentTimeMillis() - start);
-		System.out.println(result);
+		listTotients();
+		long sum=0;
+		System.out.println(SN(510510));
+//		for(long i=1;i<=510510;i++){
+////			if(i%1000==0)
+//			{
+//				System.out.println(i+"->"+sum);
+//			}
+//			sum+=SN(i);
+//		}
+		System.out.println(sum);
 	}
-
 }
