@@ -7,7 +7,7 @@ public class LineIntersection {
 
 	// Given three colinear Pontos p, q, r, the function checks if
 	// Ponto q lies on line segment 'pr'
-	boolean onSegment(Ponto p, Ponto q, Ponto r) {
+	static boolean onSegment(Ponto p, Ponto q, Ponto r) {
 		if (q.x <= max(p.x, r.x) && q.x >= min(p.x, r.x)
 				&& q.y <= max(r.y, r.y) && q.y >= min(r.y, r.y))
 			return true;
@@ -18,7 +18,7 @@ public class LineIntersection {
 	// 0 --> p, q and r are colinear
 	// 1 --> Clockwise
 	// 2 --> Counterclockwise
-	int orientation(Ponto p, Ponto q, Ponto r) {
+	static int orientation(Ponto p, Ponto q, Ponto r) {
 		int val = (q.y - p.y) * (r.x - q.x) - (q.x - p.x) * (r.y - q.y);
 
 		if (val == 0)
@@ -29,7 +29,7 @@ public class LineIntersection {
 
 	// The main function that returns true if line segment 'p1q1'
 	// and 'p2q2' intersect.
-	boolean doIntersect(Ponto p1, Ponto q1, Ponto p2, Ponto q2) {
+	static boolean doIntersect(Ponto p1, Ponto q1, Ponto p2, Ponto q2) {
 		// Find the four orientations needed for general and
 		// special cases
 		int o1 = orientation(p1, q1, p2);
@@ -59,6 +59,42 @@ public class LineIntersection {
 			return true;
 
 		return false; // Doesn't fall in any of the above cases
+	}
+
+	// Returns true if the point p lies inside the polygon[] with n vertices
+	static boolean isInside(Ponto polygon[],  Ponto p) {
+		if(polygon== null) return false;
+		int n = polygon.length;
+		// There must be at least 3 vertices in polygon[]
+		if (n < 3)
+			return false;
+
+		// Create a point for line segment from p to infinite
+		Ponto extreme = new Ponto(Integer.MAX_VALUE, p.y);
+
+		// Count intersections of the above line with sides of polygon
+		int count = 0;
+		for (int i = 0; i < n - 1; i++) {
+			// If p is same as one of the vertices
+			if (p.x == polygon[i].x && p.y == polygon[i].y)
+				return true;
+
+			// Otherwise check for intersection
+			if (doIntersect(polygon[i], polygon[i + 1], p, extreme))
+				count++;
+		}
+
+		// If p is same as last vertex
+		if (p.x == polygon[n - 1].x && p.y == polygon[n - 1].y)
+			return true;
+
+		// Last side (from last to first point) is missed in the
+		// above loop, consider it now
+		if (doIntersect(polygon[n - 1], polygon[0], p, extreme))
+			count++;
+
+		// Return true if count is odd, false otherwise
+		return ((count & 1) > 0); // Same as (count%2 == 1)
 	}
 
 }
