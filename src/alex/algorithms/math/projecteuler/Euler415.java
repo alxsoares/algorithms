@@ -4,54 +4,41 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Euler415 {
-	private static final long MOD = power(10, 8);
+	private static final long MOD = (long) 10e8;
 	private static final long MOD2 = 2 * MOD;
 	private static final long MOD6 = 6 * MOD;
-	private static final long n = power(10, 11);
+	private static final long n = (long) 10e11;
 	private static final long N = n + 1;
-	private static Map<Long, Long> aCache = new HashMap<Long, Long>();
-	private static Map<Long, Long> bCache = new HashMap<Long, Long>();
-	private static Map<Long, Long> cCache = new HashMap<Long, Long>();
+	private static Map<Long, Long> aMEMO = new HashMap<Long, Long>();
+	private static Map<Long, Long> bMEMO = new HashMap<Long, Long>();
+	private static Map<Long, Long> cMEMO = new HashMap<Long, Long>();
 
-	public static long powerMod(long p, long n, long mod) {
+	public static long modPow(long p, long n, long mod) {
 		long result = 1;
 		while (n != 0) {
 			if ((n & 1) != 0)
-				result = result * p % mod;
-			p = p * p % mod;
+				result = (result * p) % mod;
+			p = (p * p) % mod;
 			n >>= 1;
 		}
 		return result;
 	}
 
-	public static long power(long p, long n) {
-		if (n < 0)
-			throw new RuntimeException();
-		long result = 1;
-		while (n != 0) {
-			if ((n & 1) != 0)
-				result *= p;
-			p *= p;
-			n >>= 1;
-		}
-		return result;
-	}
-
-	private static long a(long n) // using mobius inversion
-	{
-		Long result = aCache.get(n);
+	
+	private static long a(long n) {
+		Long result = aMEMO.get(n);
 		if (result != null)
 			return result;
 		long sum = A(n);
 		for (long dmax = n; dmax > 1;) {
 			long r = n / dmax;
-			long dmin = n / (r + 1); // exclusive
+			long dmin = n / (r + 1);
 			if (dmin < 1)
 				dmin = 1;
 			sum = (sum - (dmax - dmin) % MOD * a(r) % MOD + MOD) % MOD;
 			dmax = dmin;
 		}
-		aCache.put(n, sum);
+		aMEMO.put(n, sum);
 		return sum;
 	}
 
@@ -63,9 +50,9 @@ public class Euler415 {
 			if (gmin < 0)
 				gmin = 0;
 			long m = gmax % MOD;
-			long c2 = powerMod(2, gmax, MOD) - m - 1;
+			long c2 = modPow(2, gmax, MOD) - m - 1;
 			m = gmin % MOD;
-			long c1 = powerMod(2, gmin, MOD) - m - 1;
+			long c1 = modPow(2, gmin, MOD) - m - 1;
 			sum = (sum + (c2 - c1 + 2 * MOD) % MOD * (ng % MOD) % MOD
 					* (ng % MOD) * 2)
 					% MOD;
@@ -75,13 +62,13 @@ public class Euler415 {
 	}
 
 	private static long b(long n) {
-		Long result = bCache.get(n);
+		Long result = bMEMO.get(n);
 		if (result != null)
 			return result;
 		long sum = B(n);
 		for (long dmax = n; dmax > 1;) {
 			long r = n / dmax;
-			long dmin = n / (r + 1); // exclusive
+			long dmin = n / (r + 1);
 			if (dmin < 1)
 				dmin = 1;
 			long c2 = dmax % MOD2 * ((dmax + 1) % MOD2) / 2 % MOD;
@@ -89,7 +76,7 @@ public class Euler415 {
 			sum = (sum - (c2 - c1 + 2 * MOD) % MOD * b(r) % MOD + MOD) % MOD;
 			dmax = dmin;
 		}
-		bCache.put(n, sum);
+		bMEMO.put(n, sum);
 		return sum;
 	}
 
@@ -101,10 +88,10 @@ public class Euler415 {
 			if (gmin < 0)
 				gmin = 0;
 			long m = gmax % MOD2;
-			long c2 = (powerMod(2, gmax + 1, MOD2) - m - 2 + 2 * MOD2) % MOD2
+			long c2 = (modPow(2, gmax + 1, MOD2) - m - 2 + 2 * MOD2) % MOD2
 					* (m - 1 + MOD2) / 2 % MOD;
 			m = gmin % MOD2;
-			long c1 = (powerMod(2, gmin + 1, MOD2) - m - 2 + 2 * MOD2) % MOD2
+			long c1 = (modPow(2, gmin + 1, MOD2) - m - 2 + 2 * MOD2) % MOD2
 					* (m - 1 + MOD2) / 2 % MOD;
 			sum = (sum + (c2 - c1 + 2 * MOD) % MOD * (ng % MOD) % MOD
 					* (ng % MOD) % MOD * ((ng + 1) % MOD) * 2)
@@ -116,13 +103,13 @@ public class Euler415 {
 	}
 
 	private static long c(long n) {
-		Long result = cCache.get(n);
+		Long result = cMEMO.get(n);
 		if (result != null)
 			return result;
 		long sum = C(n);
 		for (long dmax = n; dmax > 1;) {
 			long r = n / dmax;
-			long dmin = n / (r + 1); // exclusive
+			long dmin = n / (r + 1);
 			if (dmin < 1)
 				dmin = 1;
 			long c2 = dmax % MOD6 * ((dmax + 1) % MOD6) % MOD6
@@ -132,7 +119,7 @@ public class Euler415 {
 			sum = (sum - (c2 - c1 + 2 * MOD) % MOD * c(r) % MOD + MOD) % MOD;
 			dmax = dmin;
 		}
-		cCache.put(n, sum);
+		cMEMO.put(n, sum);
 		return sum;
 	}
 
@@ -144,13 +131,13 @@ public class Euler415 {
 			if (gmin < 0)
 				gmin = 0;
 			long m = gmax % MOD;
-			long c2 = (((m - 2 + MOD) * m + 3) % MOD * powerMod(2, gmax, MOD)
+			long c2 = (((m - 2 + MOD) * m + 3) % MOD * modPow(2, gmax, MOD)
 					% MOD
 					- ((((2 * m) % MOD6 + 3) * m % MOD6 + 1) * m % MOD6 + 18)
 					/ 6 % MOD + MOD)
 					% MOD;
 			m = gmin % MOD;
-			long c1 = (((m - 2 + MOD) * m + 3) % MOD * powerMod(2, gmin, MOD)
+			long c1 = (((m - 2 + MOD) * m + 3) % MOD * modPow(2, gmin, MOD)
 					% MOD
 					- ((((2 * m) % MOD6 + 3) * m % MOD6 + 1) * m % MOD6 + 18)
 					/ 6 % MOD + MOD)
@@ -164,18 +151,14 @@ public class Euler415 {
 	}
 
 	public static void main(String[] args) {
-		long x0 = powerMod(2, N % MOD * (N % MOD) + MOD, MOD); // all point
-																// sets, 2^n
-																// periodic
-																// 4*5^7 if n >
-																// 8
-		long x1 = (1 + N % MOD * (N % MOD)) % MOD; // 0 and 1 point sets
-		long x2 = (powerMod(2, N, MOD) - 1 - N % MOD - N % MOD2 * (n % MOD2)
+		long x0 = modPow(2, N % MOD * (N % MOD) + MOD, MOD);
+		long x1 = (1 + N % MOD * (N % MOD)) % MOD; //
+		long x2 = (modPow(2, N, MOD) - 1 - N % MOD - N % MOD2 * (n % MOD2)
 				/ 2 % MOD + 3 * MOD)
-				% MOD * (2 * N % MOD) % MOD; // 3+ colinear horizontal/vertical
-		long a = a(N); // Part #1 of diagonal
-		long b = b(N); // Part #2 of diagonal
-		long c = c(N); // Part #3 of diagonal
+				% MOD * (2 * N % MOD) % MOD;
+		long a = a(N);
+		long b = b(N);
+		long c = c(N);
 		long sum = (x0 - x1 - x2 - a * (N % MOD) % MOD * (N % MOD) % MOD - b
 				* (N % MOD) % MOD - c + 5 * MOD)
 				% MOD;
