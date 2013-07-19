@@ -3,7 +3,7 @@ package alex.algorithms.geom;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 
-public class LineIntersection {
+public class GeometryAlgorithms {
 
 	// Given three colinear Pontos p, q, r, the function checks if
 	// Ponto q lies on line segment 'pr'
@@ -62,8 +62,9 @@ public class LineIntersection {
 	}
 
 	// Returns true if the point p lies inside the polygon[] with n vertices
-	static boolean isInside(Ponto polygon[],  Ponto p) {
-		if(polygon== null) return false;
+	static boolean isInside(Ponto polygon[], Ponto p) {
+		if (polygon == null)
+			return false;
 		int n = polygon.length;
 		// There must be at least 3 vertices in polygon[]
 		if (n < 3)
@@ -95,6 +96,45 @@ public class LineIntersection {
 
 		// Return true if count is odd, false otherwise
 		return ((count & 1) > 0); // Same as (count%2 == 1)
+	}
+
+	// Prints convex hull of a set of points.
+	void convexHull(Ponto points[]) {
+		if (points == null || points.length < 3)
+			return;
+		int n = points.length;
+		// Initialize Result
+		int next[] = new int[n];
+		for (int i = 0; i < n; i++)
+			next[i] = -1;
+
+		// Find the leftmost point
+		int l = 0;
+		for (int i = 1; i < n; i++)
+			if (points[i].x < points[l].x)
+				l = i;
+
+		// Start from leftmost point, keep moving counterclockwise
+		// until reach the start point again
+		int p = l, q;
+		do {
+			// Search for a point 'q' such that orientation(p, i, q) is
+			// counterclockwise for all points 'i'
+			q = (p + 1) % n;
+			for (int i = 0; i < n; i++)
+				if (orientation(points[p], points[i], points[q]) == 2)
+					q = i;
+
+			next[p] = q; // Add q to result as a next point of p
+			p = q; // Set p as q for next iteration
+		} while (p != l);
+
+		// Print Result
+		for (int i = 0; i < n; i++) {
+			if (next[i] != -1)
+				System.out
+						.println("(" + points[i].x + ", " + points[i].y + ")");
+		}
 	}
 
 }
