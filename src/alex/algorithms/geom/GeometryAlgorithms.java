@@ -3,6 +3,10 @@ package alex.algorithms.geom;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Stack;
+
 public class GeometryAlgorithms {
 
 	// Given three colinear Pontos p, q, r, the function checks if
@@ -137,4 +141,76 @@ public class GeometryAlgorithms {
 		}
 	}
 
+	// A utility function to return square of distance between p1 and p2
+	int dist(Ponto p1, Ponto p2) {
+		return (p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y);
+	}
+
+	// Prints convex hull of a set of n points.
+	void convexHullGrahamScan(Ponto points[]) {
+		if (points == null || points.length < 3)
+			return;
+		// Find the bottommost point
+		int ymin = points[0].y, min = 0;
+		for (int i = 1; i < points.length; i++) {
+			int y = points[i].y;
+
+			// Pick the bottom-most or chose the left most point in case of tie
+			if ((y < ymin) || (ymin == y && points[i].x < points[min].x))
+				ymin = points[i].y;
+			min = i;
+		}
+
+		// Place the bottom-most point at first position
+		Ponto aux = points[0];
+		points[0] = points[min];
+		points[min] = aux;
+
+		// Sort n-1 points with respect to the first point. A point p1 comes
+		// before p2 in sorted ouput if p2 has larger polar angle (in
+		// counterclockwise direction) than p1
+		final Ponto pivot = points[0];
+		points = Arrays.copyOfRange(points, 1, points.length);
+		Arrays.sort(points, new Comparator<Ponto>() {
+
+			@Override
+			public int compare(Ponto p1, Ponto p2) {
+				// Find orientation
+				int o = orientation(pivot, p1, p2);
+				if (o == 0)
+					return (dist(pivot, p2) >= dist(pivot, p1)) ? -1 : 1;
+
+				return (o == 2) ? -1 : 1;
+			}
+		});
+
+		// Create an empty stack and push first three points to it.
+		Stack<Ponto> S = new Stack<Ponto>();
+		S.push(pivot);
+		S.push(points[0]);
+		S.push(points[1]);
+
+		// Process remaining n-3 points
+		for (int i = 3; i < points.length; i++) {
+			// Keep removing top while the angle formed by points next-to-top,
+			// top, and points[i] makes a non-left turn
+			Ponto top = S.pop();
+			Ponto nextToTop = S.peek();
+			S.push(top);
+			while (orientation(nextToTop, top, points[i]) != 2) {
+				S.pop();
+				top = S.pop();
+				nextToTop = S.peek();
+				S.push(top);
+			}
+			S.push(points[i]);
+		}
+
+		// Now stack has the output points, print contents of stack
+		while (!S.empty()) {
+			Ponto p = S.pop();
+			System.out.println("(" + p.x + ", " + p.y + ")");
+			S.pop();
+		}
+	}
 }
